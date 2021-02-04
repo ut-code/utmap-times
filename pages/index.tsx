@@ -1,15 +1,35 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { gql } from "@apollo/client";
+import { InferGetStaticPropsType } from "next";
+import Layout from "../components/Layout";
+import apolloClient from "../utils/apollo";
+import { IndexQuery } from "../__generated__/IndexQuery";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+export default function IndexPage(
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) {
+  return (
+    <Layout title="ホーム">
+      <h1>UTMap Times</h1>
+      <ul className="text-4xl">
+        {props.allCircles.map((circle) => (
+          <li key={circle.name}>{circle.name}</li>
+        ))}
+      </ul>
+    </Layout>
+  );
+}
 
-export default IndexPage
+export async function getStaticProps() {
+  const queryResult = await apolloClient.query<IndexQuery>({
+    query: gql`
+      query IndexQuery {
+        allCircles {
+          name
+        }
+      }
+    `,
+  });
+  return {
+    props: queryResult.data,
+  };
+}
