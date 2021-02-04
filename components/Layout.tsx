@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import Head from "next/head";
 import Header from "./Header";
+import Footer from "./Footer";
 
 export default function Layout(
   props: PropsWithChildren<{ title?: string | null }>
@@ -14,6 +15,7 @@ export default function Layout(
       </Head>
       <Header />
       {props.children}
+      <Footer />
     </>
   );
 }
