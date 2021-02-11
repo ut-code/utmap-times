@@ -62,7 +62,7 @@ export default function IndexPage(
       <div className="h-80 bg-pink-300" />
       <div className="h-96 relative">
         <div className="h-96 w-5/6 bg-purple-200" />
-        <div className="h-96 w-5/6 bg-gray-100 absolute right-0 top-72 z-10 py-20 flex">
+        {/* <div className="h-96 w-5/6 bg-gray-100 absolute right-0 top-72 z-10 py-20 flex">
           <div className="h-56 w-2/5 pl-28 py-4 bg-red-300">
             <h2 className="text-5xl font-bold">Circle</h2>
             <p className="py-5 text-yellow-500">サークル選択のサポート</p>
@@ -82,7 +82,22 @@ export default function IndexPage(
             テキストです。東大のサークルについてご紹介いたします。
             東大のサークルについてご紹介いたします。これはダミーテキストです。
           </p>
+        </div> */}
+      </div>
+      <div className="py-24 h-96 flex">
+        <div className="w-1/3 pl-28">
+          <h2 className="text-4xl font-bold">News</h2>
+          <p className="py-5 text-yellow-500">お知らせ</p>
         </div>
+        <ul className="w-2/3">
+          {props.allNewsArticles.map((newsArticle) => (
+            <li className="h-16 py-5" key={newsArticle.id}>
+              <Link href={`/news-article/${newsArticle.slug}`}>
+                {newsArticle.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </Layout>
   );
@@ -106,6 +121,12 @@ export async function getStaticProps() {
               name
             }
           }
+        }
+        allNewsArticles {
+          id
+          title
+          slug
+          content
         }
       }
     `,
