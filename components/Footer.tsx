@@ -16,18 +16,22 @@ export default function Footer() {
         </button>
       </div>
       <div className="pt-5 text-center">
-        <button
-          type="button"
-          className="h-full px-8 py-3 text-white bg-gray-500 hover:bg-gray-300"
-        >
-          Join us
-        </button>
-        <button
-          type="button"
-          className="h-full px-5 py-3 text-white bg-gray-500 hover:bg-gray-300"
-        >
-          Contact
-        </button>
+        <span className="px-1">
+          <button
+            type="button"
+            className="h-full px-7 py-3 text-white bg-gray-500 hover:bg-gray-300"
+          >
+            Join us
+          </button>
+        </span>
+        <span className="px-1">
+          <button
+            type="button"
+            className="h-full px-7 py-3 text-white bg-gray-500 hover:bg-gray-300"
+          >
+            Contact
+          </button>
+        </span>
       </div>
       <div className="pt-22 text-center">
         <button
