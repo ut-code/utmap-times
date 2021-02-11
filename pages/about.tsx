@@ -18,7 +18,7 @@ export default function AboutPage() {
 export async function getStaticProps() {
   const queryResult = await apolloClient.query<IndexQuery>({
     query: gql`
-      query IndexQuery {
+      query AboutIndexQuery {
         allBanners {
           title
           link
