@@ -36,7 +36,7 @@ export default function ClubIndexPage(
         <h1 className="text-4xl p-32">サークル</h1>
       </Hero>
       <section className="bg-gray-200">
-        <div className="container mx-auto py-16 px-24">
+        <div className="container mx-auto py-16 px-8 md:px-24">
           <form
             onSubmit={(e) => {
               const newQuery: Query = { q: search };
@@ -61,8 +61,8 @@ export default function ClubIndexPage(
               </button>
             </div>
           </form>
-          <div className="grid grid-cols-2">
-            <div className="pr-8 border-r border-gray-500">
+          <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2">
+            <div className="md:pr-8 md:border-r md:border-gray-500">
               <h3 className="text-2xl mb-6">カテゴリで検索</h3>
               <ul className="space-y-2">
                 {props.clubCategories.map((category) => {
@@ -95,7 +95,7 @@ export default function ClubIndexPage(
                 })}
               </ul>
             </div>
-            <div className="pl-8">
+            <div className="md:pl-8">
               <h3 className="text-2xl">タグで検索</h3>
               {props.clubTagCategories.map((tagCategory) => (
                 <div key={tagCategory.id} className="my-4">
@@ -154,7 +154,7 @@ export default function ClubIndexPage(
             サークルが見つかりませんでした。キーワードを変えてお試しください。
           </p>
         )}
-        <ul className="grid grid-cols-3">
+        <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
           {props.clubs.map((club) => (
             <li key={club.id}>
               <Link href={`/clubs/${club.slug}`}>
