@@ -48,6 +48,7 @@ export async function getStaticProps({
           image {
             url
           }
+          description
         }
       }
     `,
