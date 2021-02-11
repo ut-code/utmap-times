@@ -19,11 +19,11 @@ export async function getStaticProps() {
   const queryResult = await apolloClient.query<IndexQuery>({
     query: gql`
       query IndexQuery {
-        allBanner {
+        allBanners {
           title
-          image 
           link
-            }
+          image {
+            url
           }
         }
       }
