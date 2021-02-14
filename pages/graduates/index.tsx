@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
+import Link from "next/link";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
-import { GraduateArticleQuery } from "../../__generated__/GraduateArticleQuery";
+import { GraduateArticleIndexQuery } from "../../__generated__/GraduateArticleIndexQuery";
 
-export default function GraduateArticlePage(
+export default function GraduateArticleIndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
@@ -14,14 +15,17 @@ export default function GraduateArticlePage(
         <h1 className="text-4xl p-32">{props.allGraduateArticles[0].title}</h1>
       </Hero>
       <div className="p-32">{props.allGraduateArticles[0].content}</div>
+      <Link href={`/graduates/${props.allGraduateArticles[0].slug}`}>
+        <div>詳細ページへの移動</div>
+      </Link>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const queryResult = await apolloClient.query<GraduateArticleQuery>({
+  const queryResult = await apolloClient.query<GraduateArticleIndexQuery>({
     query: gql`
-      query GraduateArticleQuery {
+      query GraduateArticleIndexQuery {
         allGraduateArticles {
           id
           title
