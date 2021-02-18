@@ -19,19 +19,20 @@ export default function IndexPage(
         </div>
         <p>東大生のキャリア設計プラットフォーム</p>
       </Hero>
-      <h1>UTMap Times</h1>
-      <ul className="text-4xl">
-        {props.allHighlightedClubs.map((highlightedClub) => (
-          <li key={highlightedClub.id}>
-            <Link href={`/clubs/${highlightedClub.club?.slug}`}>
-              {highlightedClub.club?.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="w-full flex relative">
-        <div className="w-2/3 z-10">
-          <div className="px-40 pt-32 pb-28">
+      <div className="relative">
+        <div
+          aria-hidden
+          className="absolute top-0 left-0 w-full h-full overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-3/4 h-full bg-purple-50 bg-opacity-40" />
+          <Logo
+            disableText
+            className="hidden lg:block absolute -bottom-0 right-0 w-auto h-full opacity-10"
+          />
+          <Logo className="hidden lg:block absolute bottom-0 right-0 w-96 h-96 bg-white" />
+        </div>
+        <div className="relative container mx-auto z-10">
+          <div className="px-8 py-32 lg:w-2/3">
             <h2 className="text-5xl font-bold">About</h2>
             <p className="py-5 text-yellow-500">UTmap とは</p>
             <p className="py-14 text-4xl text-blue-800 font-bold leading-relaxed">
@@ -54,12 +55,16 @@ export default function IndexPage(
             </button>
           </div>
         </div>
-        <div className="w-1/3 relative">
-          <Logo className="absolute bottom-0 left-0 w-full h-2/3 bg-gray-200 z-30" />
-        </div>
-        <div className="absolute top-0 right-0 w-3/4 h-full bg-purple-50" />
       </div>
-      <div className="h-80 bg-pink-300" />
+      <ul className="text-4xl">
+        {props.allHighlightedClubs.map((highlightedClub) => (
+          <li key={highlightedClub.id}>
+            <Link href={`/clubs/${highlightedClub.club?.slug}`}>
+              {highlightedClub.club?.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
       <div className="h-96 relative">
         <div className="h-96 w-5/6 bg-purple-200" />
         {/* <div className="h-96 w-5/6 bg-gray-100 absolute right-0 top-72 z-10 py-20 flex">
