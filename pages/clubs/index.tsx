@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiOutlineDown, AiOutlineSearch } from "react-icons/ai";
 import * as s from "superstruct";
+import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
@@ -157,31 +158,16 @@ export default function ClubIndexPage(
         <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
           {props.clubs.map((club) => (
             <li key={club.id}>
-              <Link href={`/clubs/${club.slug}`}>
-                <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-100">
-                  <div className="relative mb-8">
-                    <img
-                      src={club.image[0]?.url}
-                      alt={club.name ?? ""}
-                      className="w-full h-64 object-cover"
-                    />
-                    <div className="absolute -bottom-4 bg-yellow-700 py-2 px-6 text-white">
-                      {club.category?.name}
-                    </div>
-                  </div>
-                  <p className="text-2xl">{club.name}</p>
-                  <ul>
-                    {club.tags.map((tag) => (
-                      <li
-                        key={tag.id}
-                        className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                      >
-                        {`#${tag.name}`}
-                      </li>
-                    ))}
-                  </ul>
-                </a>
-              </Link>
+              <ArticleLink
+                title={club.name ?? ""}
+                category={club.category?.name ?? ""}
+                url={`/clubs/${club.slug}`}
+                imageUrl={club.image[0]?.url}
+                tags={club.tags.map((tag) => ({
+                  id: tag.id,
+                  name: tag.name ?? "",
+                }))}
+              />
             </li>
           ))}
         </ul>
