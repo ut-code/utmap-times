@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
+import ArticleLink from "../components/ArticleLink";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
@@ -60,15 +61,33 @@ export default function IndexPage(
           </div>
         </div>
       </div>
-      <ul className="text-4xl">
-        {props.allHighlightedClubs.map((highlightedClub) => (
-          <li key={highlightedClub.id}>
-            <Link href={`/clubs/${highlightedClub.club?.slug}`}>
-              {highlightedClub.club?.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <section className="container mx-auto my-12 px-8">
+        <header className="flex items-end mx-8 py-2 border-b border-yellow-400">
+          <h2 className="mr-2 text-3xl font-bold">PICKUP</h2>
+          <p className="text-yellow-400">注目のサークル</p>
+        </header>
+        <ul className="md:grid md:grid-cols-2 my-6">
+          {props.allHighlightedClubs.map((highlightedClub) => (
+            <li key={highlightedClub.id}>
+              <ArticleLink
+                title={highlightedClub.club?.name ?? ""}
+                url={`/clubs/${highlightedClub.club?.slug}`}
+                imageUrl={highlightedClub.club?.image[0]?.url ?? ""}
+                category={highlightedClub.club?.category?.name ?? ""}
+                tags={highlightedClub.club?.tags.map((tag) => ({
+                  id: tag.id,
+                  name: tag.name ?? "",
+                }))}
+              />
+            </li>
+          ))}
+        </ul>
+        <Link href="/clubs">
+          <a className="block px-12 py-4 w-full text-center text-white bg-blue-900 hover:bg-blue-500">
+            もっと見る
+          </a>
+        </Link>
+      </section>
       <div className="h-96 relative">
         <div className="h-96 w-5/6 bg-purple-200" />
         {/* <div className="h-96 w-5/6 bg-gray-100 absolute right-0 top-72 z-10 py-20 flex">
@@ -120,8 +139,12 @@ export async function getStaticProps() {
           id
           club {
             name
+            image {
+              url(imgixParams: { maxW: 300 })
+            }
             slug
             tags {
+              id
               slug
               name
             }
