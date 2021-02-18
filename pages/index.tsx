@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
+import FeatureLink from "../components/FeatureLink";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
@@ -32,7 +33,7 @@ export default function IndexPage(
           />
           <Logo className="hidden lg:block absolute bottom-0 right-0 w-96 h-96 bg-white" />
         </div>
-        <div className="relative container mx-auto z-10">
+        <div className="relative container max-w-screen-lg mx-auto z-10">
           <div className="px-8 py-32 lg:w-2/3">
             <h2 className="text-5xl font-bold">About</h2>
             <p className="py-5 text-yellow-500">UTmap とは</p>
@@ -61,10 +62,10 @@ export default function IndexPage(
           </div>
         </div>
       </div>
-      <section className="container mx-auto my-12 px-8">
-        <header className="flex items-end mx-8 py-2 border-b border-yellow-400">
+      <section className="container max-w-screen-lg mx-auto my-12">
+        <header className="flex items-end mx-8 py-2 border-b border-yellow-500">
           <h2 className="mr-2 text-3xl font-bold">PICKUP</h2>
-          <p className="text-yellow-400">注目のサークル</p>
+          <p className="text-yellow-500">注目のサークル</p>
         </header>
         <ul className="md:grid md:grid-cols-2 my-6">
           {props.allHighlightedClubs.map((highlightedClub) => (
@@ -83,10 +84,65 @@ export default function IndexPage(
           ))}
         </ul>
         <Link href="/clubs">
-          <a className="block px-12 py-4 w-full text-center text-white bg-blue-900 hover:bg-blue-500">
+          <a className="block mx-8 px-12 py-4 text-center text-white bg-blue-900 hover:bg-blue-500">
             もっと見る
           </a>
         </Link>
+      </section>
+      <section className="grid lg:grid-cols-3 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
+        <FeatureLink
+          title="学部紹介"
+          imageUrl="https://picsum.photos/800/600?r=0"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="単位計算"
+          imageUrl="https://picsum.photos/800/600?r=1"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="卒業生インタビュー"
+          imageUrl="https://picsum.photos/800/600?r=2"
+          linkTo="/"
+        />
+      </section>
+      <section className="grid lg:grid-cols-3 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
+        <FeatureLink
+          title="キャリア戦略"
+          imageUrl="https://picsum.photos/800/600?r=3"
+          linkTo="/"
+          className="lg:col-span-3"
+        />
+        <FeatureLink
+          title="キャリア特集"
+          imageUrl="https://picsum.photos/800/600?r=4"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="業界分析"
+          imageUrl="https://picsum.photos/800/600?r=5"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="企業分析"
+          imageUrl="https://picsum.photos/800/600?r=6"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="職歴分析"
+          imageUrl="https://picsum.photos/800/600?r=7"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="OB/OG分析"
+          imageUrl="https://picsum.photos/800/600?r=8"
+          linkTo="/"
+        />
+        <FeatureLink
+          title="就活用語"
+          imageUrl="https://picsum.photos/800/600?r=9"
+          linkTo="/"
+        />
       </section>
       <div className="h-96 relative">
         <div className="h-96 w-5/6 bg-purple-200" />
