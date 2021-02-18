@@ -35,18 +35,22 @@ export default function IndexPage(
           <div className="px-8 py-32 lg:w-2/3">
             <h2 className="text-5xl font-bold">About</h2>
             <p className="py-5 text-yellow-500">UTmap とは</p>
-            <p className="py-14 text-4xl text-blue-800 font-bold leading-relaxed">
+            <p className="py-14 text-3xl text-blue-800 font-bold leading-relaxed md:text-4xl">
               東大生のキャリア設計
               <br />
               プラットフォーム
             </p>
-            <p className="pb-14">
-              東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を授けたい。
-              <br />
-              UTmap(ユー・ティー・マップ)は、東大生による東大生のためのキャリアプラットフォームとして、東大生のキャリアに大きな影響をもたらす「サークル」「進振り」「就活」という3つの意思決定をサポートします。
-              <br />
-              東大発ソーシャルスタートアップの「Pyxida(ピクシーダ)」が、総力を挙げて取材・編集したコンテンツをご活用ください。
-            </p>
+            <div className="mb-16 space-y-4">
+              <p>
+                東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を授けたい。
+              </p>
+              <p>
+                UTmap(ユー・ティー・マップ)は、東大生による東大生のためのキャリアプラットフォームとして、東大生のキャリアに大きな影響をもたらす「サークル」「進振り」「就活」という3つの意思決定をサポートします。
+              </p>
+              <p>
+                東大発ソーシャルスタートアップの「Pyxida(ピクシーダ)」が、総力を挙げて取材・編集したコンテンツをご活用ください。
+              </p>
+            </div>
             <button
               type="button"
               className="h-12 w-64 text-white bg-blue-900 hover:bg-blue-500"
