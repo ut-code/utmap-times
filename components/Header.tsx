@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import Link from "next/link";
-import { AiOutlineSearch } from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineSearch, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Logo from "./Logo";
 
 const menu = [
@@ -11,33 +13,72 @@ const menu = [
 ];
 
 export default function Header() {
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+
   return (
-    <header className="relative bg-white h-16">
-      <Logo className="absolute top-0 left-0 w-32 h-32 bg-gray-200 z-30" />
-      <ul className="flex justify-center h-full bg-white">
-        {menu.map((menuItem) => (
-          <li key={menuItem.label} className="h-full">
-            <Link href={menuItem.linkTo}>
-              <a className="flex h-full items-center px-4 hover:bg-gray-200">
-                {menuItem.label}
-              </a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="flex absolute top-0 right-0 h-full">
+    <header className="relative z-30 lg:h-16 lg:bg-white">
+      <Link href="/">
+        <a rel="トップページ">
+          <Logo className="absolute top-0 left-0 w-32 h-32 bg-white" />
+        </a>
+      </Link>
+      <button
+        type="button"
+        className="absolute top-0 right-0 p-6 hover:bg-white hover:bg-opacity-20 lg:hidden"
+        onClick={() => {
+          setIsMobileMenuVisible(true);
+        }}
+      >
+        <AiOutlineMenu className="text-white w-10 h-10" />
+      </button>
+      <div
+        aria-hidden
+        className={clsx(
+          "fixed top-0 left-0 w-full h-full hidden bg-black bg-opacity-40",
+          { "md:block": isMobileMenuVisible }
+        )}
+      />
+      <div
+        className={clsx(
+          "fixed top-0 right-0 w-64 bg-white h-full lg:static lg:w-auto",
+          { hidden: !isMobileMenuVisible },
+          "lg:block"
+        )}
+      >
         <button
           type="button"
-          className="h-full px-4 bg-gray-200 hover:bg-gray-100"
+          className="block ml-auto p-6 hover:bg-gray-200 lg:hidden"
+          onClick={() => {
+            setIsMobileMenuVisible(false);
+          }}
         >
-          マイページ
+          <AiOutlineClose className="w-10 h-10" />
         </button>
-        <button
-          type="button"
-          className="w-16 h-full bg-blue-900 hover:bg-blue-700 text-white"
-        >
-          <AiOutlineSearch className="inline-block w-4 h-4" />
-        </button>
+        <ul className="lg:flex lg:justify-center lg:h-full lg:bg-white">
+          {menu.map((menuItem) => (
+            <li key={menuItem.label} className="h-full">
+              <Link href={menuItem.linkTo}>
+                <a className="block px-6 py-4 hover:bg-gray-200 lg:flex lg:h-full items-center">
+                  {menuItem.label}
+                </a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="border-t border-gray-500 lg:flex lg:absolute lg:top-0 lg:right-0 lg:border-none lg:h-full">
+          <button
+            type="button"
+            className="block w-full px-6 py-4 text-left lg:h-full lg:w-auto lg:py-0 lg:px-4 lg:bg-gray-200 lg:hover:bg-gray-100"
+          >
+            マイページ
+          </button>
+          <button
+            type="button"
+            className="hidden lg:block bg-blue-900 hover:bg-blue-700 text-white w-16 h-full"
+          >
+            <AiOutlineSearch className="inline-block w-4 h-4" />
+          </button>
+        </div>
       </div>
     </header>
   );
