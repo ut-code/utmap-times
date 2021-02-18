@@ -31,7 +31,7 @@ export default function GraduatArticleIndexPage(
   const [search, setSearch] = useState(query.q ?? "");
 
   return (
-    <Layout title="サークル">
+    <Layout title="OBOG検索">
       <Hero image="https://picsum.photos/800/600">
         <h1 className="text-4xl p-32">OBOG検索</h1>
       </Hero>
