@@ -5,8 +5,8 @@ import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="relative h-400 bg-black">
-      <Logo className="relative top-3 left-0 w-32 h-32 bg-gray-200 z-30 mx-auto" />
+    <footer className="py-8 h-400 bg-black">
+      <Logo white className="w-32 h-32 mx-auto" />
       <div className="pt-7 text-center">
         <button
           type="button"
