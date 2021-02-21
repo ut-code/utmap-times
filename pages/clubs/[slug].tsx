@@ -19,12 +19,14 @@ export default function ClubsPage(
       </Hero>
       <div>{props.club.category?.name}</div>
       <div>{props.club.name}</div>
+      <div>ああ</div>
       <h1>基本情報</h1>
       <div>団体名{props.club.name}</div>
       <div>普段の活動予定{props.club.usualActivity}</div>
       <div>月ごとの特別な活動予定{props.club.eventSchedule}</div>
       <div>新歓日程{props.club.welcomeEvent}</div>
       <div>入会選考の有無{props.club.requiresExamination}</div>
+      <h2>詳細情報</h2>
       <div>代表者{props.club.leader}</div>
       <div>設立年{props.club.establishedYear}</div>
       <div>男女比{props.club.genderRatio}</div>
