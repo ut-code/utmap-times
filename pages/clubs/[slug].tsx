@@ -56,23 +56,64 @@ export default function ClubsPage(
           </button>
         </div>
         <img src={props.club.image[0].url} alt="画像" />
-        <div>ああ</div>
-        <h1>基本情報</h1>
+        <div className="pt-24">
+          <h1 className="bg-gray-200 py-3 px-6">基本情報</h1>
+        </div>
         <div>団体名{props.club.name}</div>
-        <div>普段の活動予定{props.club.usualActivity}</div>
-        <div>月ごとの特別な活動予定{props.club.eventSchedule}</div>
+        <div className="border-b-2">
+          普段の活動予定{props.club.usualActivity}
+        </div>
+        <div className="border-b-2">
+          月ごとの特別な活動予定{props.club.eventSchedule}
+        </div>
         <div>新歓日程{props.club.welcomeEvent}</div>
-        <div>入会選考の有無{props.club.requiresExamination}</div>
-        <h2>詳細情報</h2>
-        <div>代表者{props.club.leader}</div>
-        <div>設立年{props.club.establishedYear}</div>
-        <div>男女比{props.club.genderRatio}</div>
-        <div>大学{props.club.membersUniversityComposition}</div>
-        <div>東大生の割合{props.club.utStudentRatio}</div>
-        <div>初年度費用{props.club.participationCost}</div>
-        <div>年会費{props.club.annualCost}</div>
-        <div>連絡先{props.club.contact}</div>
-        <div>備考{props.club.remarks}</div>
+        <div className="border-b-2">
+          入会選考の有無{props.club.requiresExamination}
+        </div>
+        <div className="pt-24">
+          <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">代表者</span>
+          <span className="absolute pr-28">{props.club.leader}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">設立年</span>
+          <span className="absolute pr-28">{props.club.establishedYear}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">男女比</span>
+          <span className="absolute pr-28">{props.club.genderRatio}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">大学</span>
+          <span className="absolute pr-28">
+            {props.club.membersUniversityComposition}
+          </span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">東大生の割合</span>
+          <span className="absolute pr-28">{props.club.utStudentRatio}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">入会費</span>
+          <span className="absolute pr-28">{props.club.participationCost}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">年会費</span>
+          <span className="absolute pr-28">{props.club.annualCost}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">連絡先</span>
+          <span className="absolute pr-28">{props.club.contact}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">備考</span>
+          <span className="absolute pr-28">{props.club.remarks}</span>
+        </div>
+        <div className="pt-24">
+          <h1 className="bg-gray-200 py-3 px-6">SNS</h1>
+        </div>
         <div>line{props.club.line}</div>
         <div>twitter{props.club.twitter}</div>
         <div>instagram{props.club.instagram}</div>
@@ -100,6 +141,10 @@ export default function ClubsPage(
             <p className="inline-block pl-1 text-white">リンクをコピー</p>
           </button>
         </div>
+      </div>
+      <div className="text-center h-96 py-12 bg-gray-100">
+        <p className="text-4xl font-bold">SCHEDULE</p>
+        <p className="text-yellow-500">新歓情報</p>
       </div>
       <div className="text-center h-96 py-12">
         <p className="text-4xl font-bold">RELATED</p>
