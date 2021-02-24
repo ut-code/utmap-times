@@ -60,7 +60,7 @@ export default function ClubsPage(
           <h1 className="bg-gray-200 py-3 px-6">基本情報</h1>
         </div>
         <div>団体名</div>
-        <h1>{props.club.name}</h1>
+        <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
         <div className="container mx-auto px-1 md:px-24 bg-yellow-200">
           <div>説明{props.club.description}</div>
         </div>
@@ -78,11 +78,11 @@ export default function ClubsPage(
             {props.club.requiresExamination}
           </span>
         </div>
-        <div className="container mx-auto px-1 md:px-24 bg-yellow-300">
+        <div className="container mx-auto px-1 md:px-24 bg-yellow-500 border-t-8 border-white">
           <div text-center>新歓日程</div>
         </div>
-        <div>
-          <div className="bg-yellow-100">{props.club.welcomeEvent}</div>
+        <div className="container mx-auto px-1 md:px-24 bg-yellow-200 border-solid border-2 border-yellow-500">
+          <div>{props.club.welcomeEvent}</div>
         </div>
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
