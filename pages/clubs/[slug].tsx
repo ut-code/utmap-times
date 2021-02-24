@@ -59,23 +59,37 @@ export default function ClubsPage(
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">基本情報</h1>
         </div>
-        <div>団体名{props.club.name}</div>
-        <div className="border-b-2">
-          普段の活動予定{props.club.usualActivity}
+        <div>団体名</div>
+        <h1>{props.club.name}</h1>
+        <div className="container mx-auto px-1 md:px-24 bg-yellow-200">
+          <div>説明{props.club.description}</div>
         </div>
-        <div className="border-b-2">
-          月ごとの特別な活動予定{props.club.eventSchedule}
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">普段の活動予定</span>
+          <span className="absolute pr-28">{props.club.usualActivity}</span>
         </div>
-        <div>新歓日程{props.club.welcomeEvent}</div>
-        <div className="border-b-2">
-          入会選考の有無{props.club.requiresExamination}
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">月ごとの特別な予定</span>
+          <span className="absolute pr-28">{props.club.eventSchedule}</span>
+        </div>
+        <div className="py-4 border-b-2">
+          <span className="font-bold pr-5">入会選考の有無</span>
+          <span className="absolute pr-28">
+            {props.club.requiresExamination}
+          </span>
+        </div>
+        <div className="container mx-auto px-1 md:px-24 bg-yellow-300">
+          <div text-center>新歓日程</div>
+        </div>
+        <div>
+          <div className="bg-yellow-100">{props.club.welcomeEvent}</div>
         </div>
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">代表者</span>
-          <span className="absolute pr-28">{props.club.leader}</span>
+          <span className="relative pr-28">{props.club.leader}</span>
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">設立年</span>
@@ -93,7 +107,7 @@ export default function ClubsPage(
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">東大生の割合</span>
-          <span className="absolute pr-28">{props.club.utStudentRatio}</span>
+          <span className="relative pr-50">{props.club.utStudentRatio}</span>
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">入会費</span>
@@ -119,6 +133,14 @@ export default function ClubsPage(
         <div>instagram{props.club.instagram}</div>
         <div>facebook{props.club.facebook}</div>
         <div>website{props.club.website}</div>
+        <div className="text-center h-96 py-12 bg-gray-100">
+          <p className="text-4xl font-bold">Q＆A</p>
+          <p className="text-yellow-500">質問コーナー</p>
+        </div>
+        <div className="text-center h-96 py-12">
+          <p className="text-4xl font-bold">INTERVIEW</p>
+          <p className="text-yellow-500">インタビューコーナー</p>
+        </div>
         <div className="pt-8 pb-32 flex">
           <button
             type="button"
