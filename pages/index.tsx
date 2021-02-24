@@ -144,30 +144,6 @@ export default function IndexPage(
           linkTo="/"
         />
       </section>
-      <div className="h-96 relative">
-        <div className="h-96 w-5/6 bg-purple-200" />
-        {/* <div className="h-96 w-5/6 bg-gray-100 absolute right-0 top-72 z-10 py-20 flex">
-          <div className="h-56 w-2/5 pl-28 py-4 bg-red-300">
-            <h2 className="text-5xl font-bold">Circle</h2>
-            <p className="py-5 text-yellow-500">サークル選択のサポート</p>
-            <button
-              type="button"
-              className="h-12 w-64 text-white bg-blue-900 hover:bg-blue-500 mt-6"
-            >
-              もっと見る
-            </button>
-          </div>
-          <p className="h-56 w-3/5 pl-24 pr-36 bg-yellow-300">
-            東大のサークルについてご紹介いたします。これはダミーテキストです。
-            ダミーテキストです。東大のサークルについてご紹介いたします。東大の
-            サークルについてご紹介いたします。これはダミーテキストです。
-            ダミーテキストです。東大のサークルについてご紹介いたします。東大の
-            サークルについてご紹介いたします。これはダミーテキストです。ダミー
-            テキストです。東大のサークルについてご紹介いたします。
-            東大のサークルについてご紹介いたします。これはダミーテキストです。
-          </p>
-        </div> */}
-      </div>
       <div className="py-24 h-96 flex">
         <div className="w-1/3 pl-28">
           <h2 className="text-4xl font-bold">News</h2>
@@ -176,9 +152,7 @@ export default function IndexPage(
         <ul className="w-2/3">
           {props.allNewsArticles.map((newsArticle) => (
             <li className="h-16 py-5" key={newsArticle.id}>
-              <Link href={`/news-article/${newsArticle.slug}`}>
-                {newsArticle.title}
-              </Link>
+              <Link href={`/news/${newsArticle.id}`}>{newsArticle.title}</Link>
             </li>
           ))}
         </ul>
