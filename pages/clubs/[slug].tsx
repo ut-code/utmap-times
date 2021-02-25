@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { FaTwitter, FaLine } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
+import { IoMdPerson, IoMdPeople } from "react-icons/io";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import Layout from "../../components/Layout";
@@ -181,8 +182,18 @@ export default function ClubsPage(
             <li>
               {props.club.qA?.map((questionAndAnswerPair) => (
                 <li key={questionAndAnswerPair?.id}>
-                  <p>{questionAndAnswerPair?.question}</p>
-                  <p>{questionAndAnswerPair?.answer}</p>
+                  <div className="text-left">
+                    <IoMdPerson className="inline-block text-black" />
+                    <p className="inline-block bg-white py-1 px-6 mb-6">
+                      {questionAndAnswerPair?.question}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="inline-block bg-yellow-500 py-1 px-6 mb-6 text-white">
+                      {questionAndAnswerPair?.answer}
+                    </p>
+                    <IoMdPeople className="inline-block text-black" />
+                  </div>
                 </li>
               ))}
             </li>
