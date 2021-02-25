@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { FaTwitter, FaFacebookF } from "react-icons/fa";
+import { FaTwitter, FaLine } from "react-icons/fa";
+import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import Layout from "../../components/Layout";
@@ -46,7 +47,7 @@ export default function ClubsPage(
             type="button"
             className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
           >
-            <FaFacebookF className="inline-block text-white" />
+            <AiOutlineFacebook className="inline-block text-white" />
             <p className="inline-block pl-1 text-white">シェア</p>
           </button>
           <button
@@ -130,11 +131,49 @@ export default function ClubsPage(
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">SNS</h1>
         </div>
-        <div>line{props.club.line}</div>
-        <div>twitter{props.club.twitter}</div>
-        <div>instagram{props.club.instagram}</div>
-        <div>facebook{props.club.facebook}</div>
-        <div>website{props.club.website}</div>
+        <div className="py-5">
+          {props.club.line && (
+            <button
+              type="button"
+              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+            >
+              <FaLine className="inline-block text-white" />
+            </button>
+          )}
+          {props.club.twitter && (
+            <button
+              type="button"
+              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+            >
+              <FaTwitter className="inline-block text-white" />
+            </button>
+          )}
+          {props.club.instagram && (
+            <button
+              type="button"
+              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+            >
+              <AiOutlineInstagram className="inline-block text-white" />
+            </button>
+          )}
+          {props.club.facebook && (
+            <button
+              type="button"
+              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+            >
+              <AiOutlineFacebook className="inline-block text-white" />
+            </button>
+          )}
+          {props.club.website && (
+            <button
+              type="button"
+              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+            >
+              <FaTwitter className="inline-block text-white" />
+            </button>
+          )}
+        </div>
+
         <div className="text-center h-96 py-12 bg-gray-100">
           <p className="text-4xl font-bold">Q＆A</p>
           <p className="text-yellow-500">質問コーナー</p>
@@ -155,7 +194,7 @@ export default function ClubsPage(
             type="button"
             className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
           >
-            <FaFacebookF className="inline-block text-white" />
+            <AiOutlineFacebook className="inline-block text-white" />
             <p className="inline-block pl-1 text-white">シェア</p>
           </button>
           <button
