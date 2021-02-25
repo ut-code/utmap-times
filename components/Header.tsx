@@ -6,10 +6,10 @@ import Logo from "./Logo";
 
 const menu = [
   { label: "サークル", linkTo: "/clubs" },
-  { label: "学部", linkTo: "/" },
+  // { label: "学部", linkTo: "/" },
   { label: "就職/キャリア", linkTo: "/graduates" },
-  { label: "インターンシップ", linkTo: "/" },
-  { label: "イベント", linkTo: "/" },
+  // { label: "インターンシップ", linkTo: "/" },
+  // { label: "イベント", linkTo: "/" },
 ];
 
 export default function Header() {
