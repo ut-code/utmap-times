@@ -34,7 +34,10 @@ export default function ClubIndexPage(
   return (
     <Layout title="サークル">
       <Hero image="https://picsum.photos/800/600">
-        <h1 className="text-4xl p-32">サークル</h1>
+        <div className="p-32">
+          <h1 className="text-4xl">Circle</h1>
+          <h2>サークル選択のサポート</h2>
+        </div>
       </Hero>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
@@ -172,6 +175,22 @@ export default function ClubIndexPage(
           ))}
         </ul>
       </section>
+      <div className="text-center py-5">
+        <button
+          type="button"
+          className="h-12 w-64 text-white bg-blue-900 hover:bg-blue-500"
+        >
+          もっと見る
+        </button>
+      </div>
+      <div className="text-center h-96 py-12 bg-gray-100">
+        <p className="text-4xl font-bold">SCHEDULE</p>
+        <p className="text-yellow-500">新歓情報</p>
+      </div>
+      <div className="text-center h-96 py-12">
+        <p className="text-4xl font-bold">HISTORY</p>
+        <p className="text-yellow-500">閲覧履歴</p>
+      </div>
     </Layout>
   );
 }
