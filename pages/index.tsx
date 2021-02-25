@@ -4,6 +4,7 @@ import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
 import FeatureLink from "../components/FeatureLink";
 import Hero from "../components/Hero";
+import HomePageTitleText from "../components/HomePageTitleText";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
 import apolloClient from "../utils/apollo";
@@ -14,12 +15,14 @@ export default function IndexPage(
 ) {
   return (
     <Layout title="ホーム">
-      <Hero image="https://picsum.photos/800/600" className="p-14 pt-36">
-        <div className="text-5xl mb-6 leading-tight">
-          <p>Design Your Future,</p>
-          <p>Design Our Future.</p>
+      <Hero
+        image="https://picsum.photos/800/600"
+        className="flex items-center min-h-screen p-4 md:p-20"
+      >
+        <div className="py-32">
+          <HomePageTitleText className="w-full mb-12 max-w-2xl" />
+          <p>東大生のキャリア設計プラットフォーム</p>
         </div>
-        <p>東大生のキャリア設計プラットフォーム</p>
       </Hero>
       <div className="relative">
         <div
@@ -89,58 +92,10 @@ export default function IndexPage(
           </a>
         </Link>
       </section>
-      <section className="grid lg:grid-cols-3 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
-        <FeatureLink
-          title="学部紹介"
-          imageUrl="https://picsum.photos/800/600?r=0"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="単位計算"
-          imageUrl="https://picsum.photos/800/600?r=1"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="卒業生インタビュー"
-          imageUrl="https://picsum.photos/800/600?r=2"
-          linkTo="/"
-        />
-      </section>
-      <section className="grid lg:grid-cols-3 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
-        <FeatureLink
-          title="キャリア戦略"
-          imageUrl="https://picsum.photos/800/600?r=3"
-          linkTo="/"
-          className="lg:col-span-3"
-        />
-        <FeatureLink
-          title="キャリア特集"
-          imageUrl="https://picsum.photos/800/600?r=4"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="業界分析"
-          imageUrl="https://picsum.photos/800/600?r=5"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="企業分析"
-          imageUrl="https://picsum.photos/800/600?r=6"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="職歴分析"
-          imageUrl="https://picsum.photos/800/600?r=7"
-          linkTo="/"
-        />
+      <section className="grid lg:grid-cols-1 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
         <FeatureLink
           title="OB/OG分析"
           imageUrl="https://picsum.photos/800/600?r=8"
-          linkTo="/"
-        />
-        <FeatureLink
-          title="就活用語"
-          imageUrl="https://picsum.photos/800/600?r=9"
           linkTo="/"
         />
       </section>

@@ -18,7 +18,7 @@ export default function Hero(
         aria-hidden
         className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
       />
-      <div className="relative z-10">{props.children}</div>
+      <div className="relative z-10 w-full">{props.children}</div>
     </HeroContainer>
   );
 }
