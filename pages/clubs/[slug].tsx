@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
+import RichTextRenderer from "../../components/RichTextRenderer";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import {
@@ -62,7 +63,8 @@ export default function ClubsPage(
         <div>団体名</div>
         <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
         <div className="container mx-auto px-1 md:px-24 bg-yellow-200">
-          <div>説明{props.club.description}</div>
+          <div>説明</div>
+          <RichTextRenderer html={props.club.description ?? ""} />
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">普段の活動予定</span>
@@ -79,7 +81,7 @@ export default function ClubsPage(
           </span>
         </div>
         <div className="container mx-auto px-1 md:px-24 bg-yellow-500 border-t-8 border-white">
-          <div text-center>新歓日程</div>
+          <div>新歓日程</div>
         </div>
         <div className="container mx-auto px-1 md:px-24 bg-yellow-200 border-solid border-2 border-yellow-500">
           <div>{props.club.welcomeEvent}</div>
