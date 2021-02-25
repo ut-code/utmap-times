@@ -26,7 +26,7 @@ export default function ArticleLink(props: {
             className="w-full h-64 object-cover"
           />
           {props.category && (
-            <div className="absolute -bottom-4 bg-yellow-700 py-2 px-6 text-white">
+            <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
               {props.category}
             </div>
           )}

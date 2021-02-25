@@ -1,4 +1,6 @@
 import { gql } from "@apollo/client";
+import clsx from "clsx";
+import dayjs from "dayjs";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
@@ -29,7 +31,7 @@ export default function IndexPage(
           aria-hidden
           className="absolute top-0 left-0 w-full h-full overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-3/4 h-full bg-purple-50 bg-opacity-40" />
+          <div className="absolute top-0 right-0 w-3/4 h-full bg-primary-50 bg-opacity-5 " />
           <Logo
             disableText
             className="hidden lg:block absolute -bottom-0 right-0 w-auto h-full opacity-10"
@@ -39,8 +41,8 @@ export default function IndexPage(
         <div className="relative container max-w-screen-lg mx-auto z-10">
           <div className="px-8 py-32 lg:w-2/3">
             <h2 className="text-5xl font-bold">About</h2>
-            <p className="py-5 text-yellow-500">UTmap とは</p>
-            <p className="py-14 text-3xl text-blue-800 font-bold leading-relaxed md:text-4xl">
+            <p className="py-5 text-secondary-main">UTmap とは</p>
+            <p className="py-14 text-3xl text-primary-main font-bold leading-relaxed md:text-4xl">
               東大生のキャリア設計
               <br />
               プラットフォーム
@@ -58,7 +60,7 @@ export default function IndexPage(
             </div>
             <button
               type="button"
-              className="h-12 w-64 text-white bg-blue-900 hover:bg-blue-500"
+              className="h-12 w-64 text-white bg-primary-main hover:bg-primary-400"
             >
               もっと見る
             </button>
@@ -66,9 +68,9 @@ export default function IndexPage(
         </div>
       </div>
       <section className="container max-w-screen-lg mx-auto my-12">
-        <header className="flex items-end mx-8 py-2 border-b border-yellow-500">
+        <header className="flex items-end mx-8 py-2 border-b border-secondary-main">
           <h2 className="mr-2 text-3xl font-bold">PICKUP</h2>
-          <p className="text-yellow-500">注目のサークル</p>
+          <p className="text-secondary-main">注目のサークル</p>
         </header>
         <ul className="md:grid md:grid-cols-2 my-6">
           {props.allHighlightedClubs.map((highlightedClub) => (
@@ -87,7 +89,7 @@ export default function IndexPage(
           ))}
         </ul>
         <Link href="/clubs">
-          <a className="block mx-8 px-12 py-4 text-center text-white bg-blue-900 hover:bg-blue-500">
+          <a className="block mx-8 px-12 py-4 text-center text-white bg-primary-main hover:bg-primary-400">
             もっと見る
           </a>
         </Link>
@@ -99,19 +101,31 @@ export default function IndexPage(
           linkTo="/"
         />
       </section>
-      <div className="py-24 h-96 flex">
-        <div className="w-1/3 pl-28">
-          <h2 className="text-4xl font-bold">News</h2>
-          <p className="py-5 text-yellow-500">お知らせ</p>
+      <section className="container max-w-screen-lg mx-auto my-12 px-8 md:grid md:grid-cols-3">
+        <div>
+          <h2 className="my-5 text-4xl font-bold">News</h2>
+          <p className="my-5 text-secondary-main">お知らせ</p>
         </div>
-        <ul className="w-2/3">
-          {props.allNewsArticles.map((newsArticle) => (
-            <li className="h-16 py-5" key={newsArticle.id}>
-              <Link href={`/news/${newsArticle.id}`}>{newsArticle.title}</Link>
+        <ul className="md:col-span-2">
+          {props.allNewsArticles.map((newsArticle, index) => (
+            <li
+              className={clsx("border-gray-300", {
+                "border-t": index > 0,
+              })}
+              key={newsArticle.id}
+            >
+              <Link href={`/news/${newsArticle.id}`}>
+                <a className="block py-4 hover:bg-gray-50 md:flex md:px-2">
+                  <time className="block w-36 mb-2 md:m-0 md:flex-shrink-0">
+                    {dayjs(newsArticle.updatedAt).format("YYYY-MM-DD")}
+                  </time>
+                  <p className="md:flex-grow">{newsArticle.title}</p>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
-      </div>
+      </section>
     </Layout>
   );
 }
@@ -141,6 +155,7 @@ export async function getStaticProps() {
         }
         allNewsArticles {
           id
+          updatedAt
           title
           slug
           content
