@@ -132,50 +132,50 @@ export default function ClubsPage(
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">SNS</h1>
         </div>
-        <div className="py-5">
+        <div className="py-5 text-center">
           {props.club.line && (
             <button
               type="button"
-              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+              className="py-1 mr-2 bg-green-400 hover:bg-green-900"
             >
-              <FaLine className="inline-block text-white" />
+              <FaLine className="w-16 h-16 inline-block text-white" />
             </button>
           )}
           {props.club.twitter && (
             <button
               type="button"
-              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+              className="py-1 mr-2 bg-blue-400 hover:bg-blue-600"
             >
-              <FaTwitter className="inline-block text-white" />
+              <FaTwitter className="w-16 h-16 inline-block text-white" />
             </button>
           )}
           {props.club.instagram && (
             <button
               type="button"
-              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+              className="py-1 mr-2 bg-pink-500 hover:bg-pink-600"
             >
-              <AiOutlineInstagram className="inline-block text-white" />
+              <AiOutlineInstagram className="w-16 h-16 inline-block text-white" />
             </button>
           )}
           {props.club.facebook && (
             <button
               type="button"
-              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+              className="py-1 mr-2 bg-blue-500 hover:bg-blue-700"
             >
-              <AiOutlineFacebook className="inline-block text-white" />
+              <AiOutlineFacebook className="w-16 h-16 inline-block text-white" />
             </button>
           )}
           {props.club.website && (
             <button
               type="button"
-              className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+              className="py-1 mr-2 bg-blue-800 hover:bg-blue-900"
             >
-              <FaTwitter className="inline-block text-white" />
+              <FaTwitter className="w-16 h-16 inline-block text-white" />
             </button>
           )}
         </div>
 
-        <div className="text-center h-96 py-12 bg-gray-100">
+        <div className="text-center h-auto py-12 bg-gray-100">
           <p className="text-4xl font-bold">Q＆A</p>
           <p className="text-yellow-500">質問コーナー</p>
           <ul>
@@ -183,16 +183,16 @@ export default function ClubsPage(
               {props.club.qA?.map((questionAndAnswerPair) => (
                 <li key={questionAndAnswerPair?.id}>
                   <div className="text-left">
-                    <IoMdPerson className="inline-block text-black" />
+                    <IoMdPerson className="w-20 h-20 inline-block text-black" />
                     <p className="inline-block bg-white py-1 px-6 mb-6">
                       {questionAndAnswerPair?.question}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="inline-block bg-yellow-500 py-1 px-6 mb-6 text-white">
+                    <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
                       {questionAndAnswerPair?.answer}
                     </p>
-                    <IoMdPeople className="inline-block text-black" />
+                    <IoMdPeople className="inline-block text-black w-20 h-20" />
                   </div>
                 </li>
               ))}
@@ -201,7 +201,7 @@ export default function ClubsPage(
         </div>
         <div className="text-center h-96 py-12">
           <p className="text-4xl font-bold">INTERVIEW</p>
-          <p className="text-yellow-500">インタビューコーナー</p>
+          <p className="text-secondary-main">インタビューコーナー</p>
         </div>
         <div className="pt-8 pb-32 flex">
           <button
@@ -228,11 +228,11 @@ export default function ClubsPage(
       </div>
       <div className="text-center h-96 py-12 bg-gray-100">
         <p className="text-4xl font-bold">SCHEDULE</p>
-        <p className="text-yellow-500">新歓情報</p>
+        <p className="text-secondary-main">新歓情報</p>
       </div>
       <div className="text-center h-96 py-12">
         <p className="text-4xl font-bold">RELATED</p>
-        <p className="text-yellow-500">関連記事</p>
+        <p className="text-secondary-main">関連記事</p>
       </div>
     </Layout>
   );
