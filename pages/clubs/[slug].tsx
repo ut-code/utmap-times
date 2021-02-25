@@ -20,7 +20,7 @@ export default function ClubsPage(
     <Layout title={props.club.name}>
       <Hero image="https://picsum.photos/800/600">
         <div className="container mx-auto px-8 md:px-24 py-48">
-          <p className="inline-block bg-yellow-700 py-1 px-6 mb-6 text-white">
+          <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.club.category?.name}
           </p>
           <h1 className="text-3xl">{props.club.name}</h1>
@@ -28,7 +28,7 @@ export default function ClubsPage(
       </Hero>
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
-          <p className="bg-yellow-700 py-1 px-6 text-white">
+          <p className="bg-secondary-main py-1 px-6 text-white">
             {props.club.category?.name}
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function ClubsPage(
         </div>
         <div>団体名</div>
         <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
-        <div className="container mx-auto px-1 md:px-24 bg-yellow-200">
+        <div className="container mx-auto px-1 md:px-24 bg-secondary-100">
           <div>説明</div>
           <RichTextRenderer html={props.club.description ?? ""} />
         </div>
@@ -82,10 +82,10 @@ export default function ClubsPage(
             {props.club.requiresExamination}
           </span>
         </div>
-        <div className="container mx-auto px-1 md:px-24 bg-yellow-500 border-t-8 border-white">
+        <div className="container mx-auto px-1 md:px-24 bg-secondary-main border-t-8 border-white text-white">
           <div>新歓日程</div>
         </div>
-        <div className="container mx-auto px-1 md:px-24 bg-yellow-200 border-solid border-2 border-yellow-500">
+        <div className="container mx-auto px-1 md:px-24 bg-secondary-100 border-solid border-2 border-secondary-main">
           <div>{props.club.welcomeEvent}</div>
         </div>
         <div className="pt-24">
@@ -136,7 +136,7 @@ export default function ClubsPage(
           {props.club.line && (
             <button
               type="button"
-              className="py-1 mr-2 bg-green-400 hover:bg-green-900"
+              className="p-3 mr-2 bg-green-400 hover:bg-green-900 rounded-full"
             >
               <FaLine className="w-16 h-16 inline-block text-white" />
             </button>
@@ -144,7 +144,7 @@ export default function ClubsPage(
           {props.club.twitter && (
             <button
               type="button"
-              className="py-1 mr-2 bg-blue-400 hover:bg-blue-600"
+              className="p-3 mr-2 bg-blue-400 hover:bg-blue-600 rounded-full"
             >
               <FaTwitter className="w-16 h-16 inline-block text-white" />
             </button>
@@ -152,7 +152,7 @@ export default function ClubsPage(
           {props.club.instagram && (
             <button
               type="button"
-              className="py-1 mr-2 bg-pink-500 hover:bg-pink-600"
+              className="p-3 mr-2 bg-pink-500 hover:bg-pink-600 rounded-full"
             >
               <AiOutlineInstagram className="w-16 h-16 inline-block text-white" />
             </button>
@@ -160,7 +160,7 @@ export default function ClubsPage(
           {props.club.facebook && (
             <button
               type="button"
-              className="py-1 mr-2 bg-blue-500 hover:bg-blue-700"
+              className="p-3 mr-2 bg-blue-500 hover:bg-blue-700 rounded-full"
             >
               <AiOutlineFacebook className="w-16 h-16 inline-block text-white" />
             </button>
@@ -168,7 +168,7 @@ export default function ClubsPage(
           {props.club.website && (
             <button
               type="button"
-              className="py-1 mr-2 bg-blue-800 hover:bg-blue-900"
+              className="p-3 mr-2 bg-blue-800 hover:bg-blue-900 rounded-full"
             >
               <FaTwitter className="w-16 h-16 inline-block text-white" />
             </button>
@@ -177,7 +177,7 @@ export default function ClubsPage(
 
         <div className="text-center h-auto py-12 bg-gray-100">
           <p className="text-4xl font-bold">Q＆A</p>
-          <p className="text-yellow-500">質問コーナー</p>
+          <p className="text-secondary-main">質問コーナー</p>
           <ul>
             <li>
               {props.club.qA?.map((questionAndAnswerPair) => (
