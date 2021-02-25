@@ -177,6 +177,16 @@ export default function ClubsPage(
         <div className="text-center h-96 py-12 bg-gray-100">
           <p className="text-4xl font-bold">Q＆A</p>
           <p className="text-yellow-500">質問コーナー</p>
+          <ul>
+            <li>
+              {props.club.qA?.map((questionAndAnswerPair) => (
+                <li key={questionAndAnswerPair?.id}>
+                  <p>{questionAndAnswerPair?.question}</p>
+                  <p>{questionAndAnswerPair?.answer}</p>
+                </li>
+              ))}
+            </li>
+          </ul>
         </div>
         <div className="text-center h-96 py-12">
           <p className="text-4xl font-bold">INTERVIEW</p>
@@ -266,6 +276,8 @@ export async function getStaticProps({
           activityWithCorona
           qA {
             id
+            question
+            answer
           }
           image {
             url
