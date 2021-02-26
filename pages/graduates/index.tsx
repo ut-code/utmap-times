@@ -169,6 +169,7 @@ export default function GraduatArticleIndexPage(
                       {graduateArticle.category?.name}
                     </div>
                   </div>
+                  <p>{graduateArticle.date}</p>
                   <p className="text-2xl">{graduateArticle.title}</p>
                   <ul>
                     {graduateArticle.tags.map((tag) => (
@@ -185,6 +186,101 @@ export default function GraduatArticleIndexPage(
             </li>
           ))}
         </ul>
+      </section>
+      <section className="bg-gray-100">
+        <div className="container mx-auto py-12 xl:px-24">
+          <p className="text-center text-4xl font-bold">RANKING</p>
+          <p className="pb-8 text-center text-yellow-500">ランキング</p>
+          <div className="md:grid md:grid-cols-2">
+            <div key={props.topRatedGraduateArticles[0].graduateArticle?.id}>
+              <Link
+                href={`/graduates/${props.topRatedGraduateArticles[0].graduateArticle?.slug}`}
+              >
+                <a className="block w-full h-full py-2 px-8 cursor-pointer hover:bg-gray-200">
+                  <div className="relative mb-8">
+                    <img
+                      src={
+                        props.topRatedGraduateArticles[0].graduateArticle
+                          ?.image[0]?.url
+                      }
+                      alt={
+                        props.topRatedGraduateArticles[0].graduateArticle
+                          ?.title ?? ""
+                      }
+                      className="w-full h-64 object-cover"
+                    />
+                    <p className="absolute -top-0 px-6 py-4 bg-blue-900 text-white font-sans font-bold">
+                      1
+                    </p>
+                    <div className="absolute -bottom-4 py-2 px-6 bg-yellow-700 text-white">
+                      {
+                        props.topRatedGraduateArticles[0].graduateArticle
+                          ?.category?.name
+                      }
+                    </div>
+                  </div>
+                  <p className="pb-4 text-sm">
+                    {props.topRatedGraduateArticles[0].graduateArticle?.date}
+                  </p>
+                  <p className="pb-4 text-2xl">
+                    {props.topRatedGraduateArticles[0].graduateArticle?.title}
+                  </p>
+                  <ul>
+                    {props.topRatedGraduateArticles[0].graduateArticle?.tags.map(
+                      (tag) => (
+                        <li
+                          key={tag.id}
+                          className="inline-block mr-2 my-2 p-1 border bg-white"
+                        >{`#${tag.name}`}</li>
+                      )
+                    )}
+                  </ul>
+                </a>
+              </Link>
+            </div>
+            <div>
+              <ul>
+                {props.topRatedGraduateArticles.slice(1).map((rated, index) => (
+                  <li key={rated.graduateArticle?.id}>
+                    <Link href={`graduates/${rated.graduateArticle?.slug}`}>
+                      <a className="flex px-4 py-2 cursor-pointer hover:bg-gray-200 relative">
+                        <img
+                          src={rated.graduateArticle?.image[0].url}
+                          alt={rated.graduateArticle?.title ?? ""}
+                          className="w-32 h-full inline-block mr-6"
+                        />
+                        <p className="absolute px-3 py-1 bg-blue-900 text-sm text-white font-sans">
+                          {index + 2}
+                        </p>
+                        <div>
+                          <div className="flex pb-4">
+                            <p className="py-1 pr-4 text-sm">
+                              {rated.graduateArticle?.date}
+                            </p>
+                            <p className="bg-yellow-700 py-1 px-2 text-white text-sm">
+                              {rated.graduateArticle?.category?.name}
+                            </p>
+                          </div>
+                          <div>{rated.graduateArticle?.title}</div>
+                          <ul>
+                            {rated.graduateArticle?.tags.map((tag) => (
+                              <li
+                                key={tag.id}
+                                className="inline-block mr-2 mt-2 p-1 border bg-white text-xs"
+                              >
+                                {`#${tag.name}`}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
     </Layout>
   );
@@ -212,6 +308,26 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           allGraduateArticleTagCategories {
             id
             name
+          }
+          allTopRatedGraduateArticles {
+            graduateArticle {
+              id
+              slug
+              title
+              date
+              content
+              image {
+                url(imgixParams: { maxW: 300 })
+              }
+              category {
+                name
+              }
+              tags {
+                id
+                slug
+                name
+              }
+            }
           }
         }
       `,
@@ -260,6 +376,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           id
           slug
           title
+          date
           image {
             url(imgixParams: { maxW: 300 })
           }
@@ -285,6 +402,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       graduateArticleTagCategories:
         metaQueryResult.data.allGraduateArticleTagCategories,
       selectedTags,
+      topRatedGraduateArticles:
+        metaQueryResult.data.allTopRatedGraduateArticles,
     },
   };
 }

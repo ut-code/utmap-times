@@ -28,7 +28,7 @@ export default function GraduateArticlePage(
           <p className="bg-yellow-700 py-1 px-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
-          <p className="px-5 py-2">2020/12/26</p>
+          <p className="px-5 py-2">{props.graduateArticle.date}</p>
         </div>
         <h2 className="py-8 text-3xl font-bold">
           {props.graduateArticle.title}
@@ -111,6 +111,7 @@ export async function getStaticProps({
       query GetGraduateArticleBySlugQuery($slug: String!) {
         graduateArticle(filter: { slug: { eq: $slug } }) {
           title
+          date
           content
           category {
             id
