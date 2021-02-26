@@ -169,8 +169,10 @@ export default function GraduatArticleIndexPage(
                       {graduateArticle.category?.name}
                     </div>
                   </div>
-                  <p>{graduateArticle.date}</p>
-                  <p className="text-2xl">{graduateArticle.title}</p>
+                  <p className="pb-4 text-sm">
+                    {graduateArticle.date.replace(/-/g, "/")}
+                  </p>
+                  <p className="pb-2 text-xl">{graduateArticle.title}</p>
                   <ul>
                     {graduateArticle.tags.map((tag) => (
                       <li
@@ -220,7 +222,10 @@ export default function GraduatArticleIndexPage(
                     </div>
                   </div>
                   <p className="pb-4 text-sm">
-                    {props.topRatedGraduateArticles[0].graduateArticle?.date}
+                    {props.topRatedGraduateArticles[0].graduateArticle?.date.replace(
+                      /-/g,
+                      "/"
+                    )}
                   </p>
                   <p className="pb-4 text-2xl">
                     {props.topRatedGraduateArticles[0].graduateArticle?.title}
@@ -255,7 +260,7 @@ export default function GraduatArticleIndexPage(
                         <div>
                           <div className="flex pb-4">
                             <p className="py-1 pr-4 text-sm">
-                              {rated.graduateArticle?.date}
+                              {rated.graduateArticle?.date.replace(/-/g, "/")}
                             </p>
                             <p className="bg-yellow-700 py-1 px-2 text-white text-sm">
                               {rated.graduateArticle?.category?.name}
