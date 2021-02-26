@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -22,9 +23,11 @@ export default function FeatureLink(props: {
           props.className
         )}
       >
-        <img
+        <Image
           alt={props.title}
-          className="absolute top-0 left-0 w-full h-full object-cover transition-transform"
+          className="absolute top-0 left-0 w-full h-full transition-transform"
+          layout="fill"
+          objectFit="cover"
           src={props.imageUrl}
         />
         <div

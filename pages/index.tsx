@@ -6,6 +6,7 @@ import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
 import FeatureLink from "../components/FeatureLink";
 import Hero from "../components/Hero";
+import HomePageSectionHeader from "../components/HomePageSectionHeader";
 import HomePageTitleText from "../components/HomePageTitleText";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
@@ -18,7 +19,8 @@ export default function IndexPage(
   return (
     <Layout title="ホーム">
       <Hero
-        image="https://picsum.photos/800/600"
+        image="/images/top-hero.jpg"
+        useNextImageOptimization
         className="flex items-center min-h-screen p-4 md:p-20"
       >
         <div className="py-32">
@@ -67,6 +69,25 @@ export default function IndexPage(
           </div>
         </div>
       </div>
+      <HomePageSectionHeader
+        image="/images/top-clubs.jpg"
+        title="Circle"
+        subtitle="サークル選択のサポート"
+        linkTo="/graduates"
+        description={
+          <>
+            <p>
+              東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。
+            </p>
+            <p>
+              ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。
+            </p>
+            <p>
+              東大のサークルについてご紹介いたします。これはダミーテキストです。
+            </p>
+          </>
+        }
+      />
       <section className="container max-w-screen-lg mx-auto my-12">
         <header className="flex items-end mx-8 py-2 border-b border-secondary-main">
           <h2 className="mr-2 text-3xl font-bold">PICKUP</h2>
@@ -94,11 +115,30 @@ export default function IndexPage(
           </a>
         </Link>
       </section>
+      <HomePageSectionHeader
+        image="/images/top-careers.jpg"
+        title="Careers"
+        subtitle="就職・キャリア選択のサポート"
+        linkTo="/graduates"
+        description={
+          <>
+            <p>
+              東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。
+            </p>
+            <p>
+              ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。
+            </p>
+            <p>
+              東大のサークルについてご紹介いたします。これはダミーテキストです。
+            </p>
+          </>
+        }
+      />
       <section className="grid lg:grid-cols-1 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
         <FeatureLink
           title="OB/OG分析"
-          imageUrl="https://picsum.photos/800/600?r=8"
-          linkTo="/"
+          imageUrl="/images/top-button-graduates.jpg"
+          linkTo="/graduates"
         />
       </section>
       <section className="container max-w-screen-lg mx-auto my-12 px-8 md:grid md:grid-cols-3">

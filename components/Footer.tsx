@@ -15,7 +15,7 @@ export default function Footer() {
           { title: "Join us", linkTo: "/" },
           { title: "Contact", linkTo: "/" },
         ].map((buttonInfo) => (
-          <Link href={buttonInfo.linkTo}>
+          <Link key={buttonInfo.title} href={buttonInfo.linkTo}>
             <a
               className={clsx(
                 "block py-4 text-center bg-gray-800 hover:bg-gray-600",
