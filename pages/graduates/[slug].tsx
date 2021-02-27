@@ -88,7 +88,7 @@ export default function GraduateArticlePage(
           </button>
         </div>
       </div>
-      <div className="bg-gray-200">
+      <div className="bg-gray-100">
         <div className="container mx-auto py-20">
           <p className="text-4xl font-bold text-center">RELATED</p>
           <p className="text-secondary-main text-center">関連記事</p>
@@ -96,7 +96,7 @@ export default function GraduateArticlePage(
             {props.graduateArticle.relatedArticles.map((related) => (
               <li key={related.id}>
                 <Link href={`${related.slug}`}>
-                  <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-100">
+                  <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-200">
                     <div className="relative mb-8">
                       <img
                         src={related.image[0].url}
@@ -115,7 +115,7 @@ export default function GraduateArticlePage(
                       {related.tags.map((tag) => (
                         <li
                           key={tag.id}
-                          className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                          className="inline-block mr-2 my-2 p-1 border bg-gray-100 text-sm"
                         >
                           {`#${tag.name}`}
                         </li>
