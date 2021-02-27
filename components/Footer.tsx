@@ -36,7 +36,6 @@ export default function Footer() {
         ].map((snsInfo) => (
           <a
             key={snsInfo.linkTo}
-            type="button"
             className="block w-9 h-full hover:bg-blue-700 text-white"
             href={snsInfo.linkTo}
           >
