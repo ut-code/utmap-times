@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import dayjs from "dayjs";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
@@ -22,7 +23,7 @@ export default function NewsArticlePage(
       </Hero>
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-28 border-b-2">
-          <p>2020/12/26</p>
+          <time>{dayjs(props.newsArticle.updatedAt).format("YYYY/MM/DD")}</time>
           <h1 className="py-8 text-3xl font-bold">{props.newsArticle.title}</h1>
         </div>
         <div className="pt-8 pb-12 flex">
@@ -96,6 +97,7 @@ export async function getStaticProps({
           title
           content
           slug
+          updatedAt
         }
       }
     `,

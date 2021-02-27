@@ -17,7 +17,7 @@ export default function GraduateArticlePage(
     <Layout title={props.graduateArticle.title}>
       <Hero image="https://picsum.photos/800/600">
         <div className="container mx-auto px-8 md:px-24 py-48">
-          <p className="inline-block bg-yellow-700 py-1 px-6 mb-6 text-white">
+          <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
           <h1 className="text-3xl">{props.graduateArticle.title}</h1>
@@ -25,10 +25,12 @@ export default function GraduateArticlePage(
       </Hero>
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
-          <p className="bg-yellow-700 py-1 px-6 text-white">
+          <p className="bg-secondary-main py-1 px-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
-          <p className="px-5 py-2">{props.graduateArticle.date}</p>
+          <p className="px-5 py-1">
+            {props.graduateArticle.date.replace(/-/g, "/")}
+          </p>
         </div>
         <h2 className="py-8 text-3xl font-bold">
           {props.graduateArticle.title}
