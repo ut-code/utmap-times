@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import Link from "next/link";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
@@ -17,7 +18,7 @@ export default function GraduateArticlePage(
     <Layout title={props.graduateArticle.title}>
       <Hero image="https://picsum.photos/800/600">
         <div className="container mx-auto px-8 md:px-24 py-48">
-          <p className="inline-block bg-yellow-700 py-1 px-6 mb-6 text-white">
+          <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
           <h1 className="text-3xl">{props.graduateArticle.title}</h1>
@@ -25,10 +26,12 @@ export default function GraduateArticlePage(
       </Hero>
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
-          <p className="bg-yellow-700 py-1 px-6 text-white">
+          <p className="bg-secondary-main py-1 px-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
-          <p className="px-5 py-2">{props.graduateArticle.date}</p>
+          <p className="px-5 py-1">
+            {props.graduateArticle.date.replace(/-/g, "/")}
+          </p>
         </div>
         <h2 className="py-8 text-3xl font-bold">
           {props.graduateArticle.title}
@@ -85,13 +88,45 @@ export default function GraduateArticlePage(
           </button>
         </div>
       </div>
-      <div className="text-center h-96 py-12 bg-gray-100">
-        <p className="text-4xl font-bold">RECOMMEND</p>
-        <p className="text-yellow-500">おすすめ記事</p>
-      </div>
-      <div className="text-center h-96 py-12">
-        <p className="text-4xl font-bold">RELATED</p>
-        <p className="text-yellow-500">関連記事</p>
+      <div className="bg-gray-100">
+        <div className="container mx-auto py-20">
+          <p className="text-4xl font-bold text-center">RELATED</p>
+          <p className="text-secondary-main text-center">関連記事</p>
+          <ul className="pt-8 md:grid md:grid-cols-2 xl:grid-cols-3">
+            {props.graduateArticle.relatedArticles.map((related) => (
+              <li key={related.id}>
+                <Link href={`${related.slug}`}>
+                  <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-200">
+                    <div className="relative mb-8">
+                      <img
+                        src={related.image[0].url}
+                        alt={related.title ?? ""}
+                        className="w-full h-64 object-cover"
+                      />
+                      <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
+                        {related.category?.name}
+                      </div>
+                    </div>
+                    <p className="pb-4 text-sm">
+                      {related.date.replace(/-/g, "/")}
+                    </p>
+                    <p className="pb-2 text-xl">{related.title}</p>
+                    <ul>
+                      {related.tags.map((tag) => (
+                        <li
+                          key={tag.id}
+                          className="inline-block mr-2 my-2 p-1 border bg-gray-100 text-sm"
+                        >
+                          {`#${tag.name}`}
+                        </li>
+                      ))}
+                    </ul>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Layout>
   );
@@ -125,6 +160,26 @@ export async function getStaticProps({
           }
           image {
             url
+          }
+          relatedArticles {
+            id
+            title
+            slug
+            date
+            content
+            category {
+              id
+              name
+              slug
+            }
+            tags {
+              id
+              name
+              slug
+            }
+            image {
+              url
+            }
           }
         }
       }

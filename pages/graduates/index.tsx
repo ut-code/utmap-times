@@ -55,7 +55,7 @@ export default function GraduatArticleIndexPage(
               />
               <button
                 type="submit"
-                className="w-16 text-center bg-blue-800 text-white"
+                className="w-16 text-center bg-primary-400 text-white"
               >
                 <AiOutlineSearch className="inline text-xl" />
               </button>
@@ -165,7 +165,7 @@ export default function GraduatArticleIndexPage(
                       alt={graduateArticle.title ?? ""}
                       className="w-full h-64 object-cover"
                     />
-                    <div className="absolute -bottom-4 bg-yellow-700 py-2 px-6 text-white">
+                    <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
                       {graduateArticle.category?.name}
                     </div>
                   </div>
@@ -190,9 +190,9 @@ export default function GraduatArticleIndexPage(
         </ul>
       </section>
       <section className="bg-gray-100">
-        <div className="container mx-auto py-12 xl:px-24">
+        <div className="container mx-auto py-20 xl:px-24">
           <p className="text-center text-4xl font-bold">RANKING</p>
-          <p className="pb-8 text-center text-yellow-500">ランキング</p>
+          <p className="pb-8 text-center text-secondary-main">ランキング</p>
           <div className="md:grid md:grid-cols-2">
             <div key={props.topRatedGraduateArticles[0].graduateArticle?.id}>
               <Link
@@ -211,10 +211,10 @@ export default function GraduatArticleIndexPage(
                       }
                       className="w-full h-64 object-cover"
                     />
-                    <p className="absolute -top-0 px-6 py-4 bg-blue-900 text-white font-sans font-bold">
+                    <p className="absolute -top-0 px-6 py-4 bg-primary-400 text-white font-sans font-bold">
                       1
                     </p>
-                    <div className="absolute -bottom-4 py-2 px-6 bg-yellow-700 text-white">
+                    <div className="absolute -bottom-4 py-2 px-6 bg-secondary-main text-white">
                       {
                         props.topRatedGraduateArticles[0].graduateArticle
                           ?.category?.name
@@ -254,7 +254,7 @@ export default function GraduatArticleIndexPage(
                           alt={rated.graduateArticle?.title ?? ""}
                           className="w-32 h-full inline-block mr-6"
                         />
-                        <p className="absolute px-3 py-1 bg-blue-900 text-sm text-white font-sans">
+                        <p className="absolute px-3 py-1 bg-primary-400 text-sm text-white font-sans">
                           {index + 2}
                         </p>
                         <div>
@@ -262,7 +262,7 @@ export default function GraduatArticleIndexPage(
                             <p className="py-1 pr-4 text-sm">
                               {rated.graduateArticle?.date.replace(/-/g, "/")}
                             </p>
-                            <p className="bg-yellow-700 py-1 px-2 text-white text-sm">
+                            <p className="bg-secondary-main py-1 px-2 text-white text-sm">
                               {rated.graduateArticle?.category?.name}
                             </p>
                           </div>
