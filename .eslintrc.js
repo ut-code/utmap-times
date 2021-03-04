@@ -2,6 +2,8 @@
 module.exports = {
   extends: ["airbnb-typescript-prettier"],
   rules: {
+    // DatoCMSが要求
+    "no-underscore-dangle": "off",
     // JSXを記述する際に冗長になる
     "@typescript-eslint/explicit-module-boundary-types": "off",
     // TypeScriptとの相性が悪い

@@ -8,6 +8,7 @@ import { AiOutlineDown, AiOutlineSearch } from "react-icons/ai";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
+import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { ClubIndexMetaQuery } from "../../__generated__/ClubIndexMetaQuery";
@@ -39,6 +40,43 @@ export default function ClubIndexPage(
           <h2>サークル選択のサポート</h2>
         </div>
       </Hero>
+      <section className="container mx-auto px-8 py-24 lg:py-32">
+        <header className="text-center mb-12">
+          <h2 className="text-4xl font-bold">PICKUP</h2>
+          <p className="text-secondary-main">注目のサークル</p>
+        </header>
+        <Link href={`/clubs/${props.randomClub.id}`}>
+          <a className="block relative hover:bg-gray-100 p-8">
+            <ImageOrLogo
+              alt={props.randomClub.name ?? ""}
+              src={props.randomClub.images[0]?.url}
+              className="w-full h-96"
+            />
+            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
+              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
+                {props.randomClub.category?.name}
+              </div>
+              <p className="my-6 text-3xl lg:text-4xl">
+                {props.randomClub.name}
+              </p>
+              <ul>
+                {props.randomClub.tags.map((tag) => (
+                  <li
+                    key={tag.id}
+                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                  >
+                    {`#${tag.name}`}
+                  </li>
+                ))}
+              </ul>
+              <div
+                aria-hidden
+                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
+              />
+            </div>
+          </a>
+        </Link>
+      </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <form
@@ -153,13 +191,13 @@ export default function ClubIndexPage(
         </div>
       </section>
       <section className="container mx-auto my-12">
-        {!props.clubs.length && (
+        {!props.foundClubs.length && (
           <p>
             サークルが見つかりませんでした。キーワードを変えてお試しください。
           </p>
         )}
         <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
-          {props.clubs.map((club) => (
+          {props.foundClubs.map((club) => (
             <li key={club.id}>
               <ArticleLink
                 title={club.name ?? ""}
@@ -217,6 +255,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           id
           name
         }
+        _allClubsMeta {
+          count
+        }
       }
     `,
   });
@@ -252,15 +293,35 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     : {};
   const variables: ClubIndexQueryVariables = {
     filter: { ...nameFilter, ...categoryFilter, ...tagFilter },
+    randomClubIndex: Math.floor(
+      Math.random() * metaQueryResult.data._allClubsMeta.count
+    ),
   };
   const queryResult = await apolloClient.query<
     ClubIndexQuery,
     ClubIndexQueryVariables
   >({
     query: gql`
-      query ClubIndexQuery($filter: ClubModelFilter) {
-        allClubs(filter: $filter) {
+      query ClubIndexQuery(
+        $filter: ClubModelFilter
+        $randomClubIndex: IntType!
+      ) {
+        randomClub: allClubs(skip: $randomClubIndex) {
           id
+          name
+          images {
+            url(imgixParams: { maxW: 600 })
+          }
+          category {
+            name
+          }
+          tags {
+            id
+            slug
+            name
+          }
+        }
+        foundClubs: allClubs(filter: $filter) {
           id
           name
           images {
@@ -279,9 +340,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `,
     variables,
   });
+  const randomClub = queryResult.data.randomClub[0];
+  if (!randomClub) throw new Error("No clubs found.");
   return {
     props: {
-      clubs: queryResult.data.allClubs,
+      foundClubs: queryResult.data.foundClubs,
+      randomClub,
       clubCategories: metaQueryResult.data.allClubCategories,
       clubTags: metaQueryResult.data.allClubTags,
       clubTagCategories: metaQueryResult.data.allClubTagCategories,
