@@ -8,14 +8,15 @@ const OneSideMarginContainer = styled.div`
 `;
 
 export default function HomePageSectionHeader(props: {
+  id: string;
   title: string;
   subtitle: string;
   linkTo: string;
   image: string;
-  description: JSX.Element;
+  descriptionParagraphs: string[];
 }) {
   return (
-    <div className="my-24">
+    <div id={props.id} className="my-24">
       <OneSideMarginContainer className="relative h-64 md:h-96">
         <Image src={props.image} layout="fill" objectFit="cover" />
       </OneSideMarginContainer>
@@ -35,7 +36,13 @@ export default function HomePageSectionHeader(props: {
                 </a>
               </Link>
             </div>
-            <div className="leading-relaxed">{props.description}</div>
+            <div className="leading-relaxed">
+              {props.descriptionParagraphs.map((paragraph) => (
+                <p key={paragraph} className="my-2">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </OneSideMarginContainer>

@@ -7,6 +7,7 @@ import ArticleLink from "../components/ArticleLink";
 import FeatureLink from "../components/FeatureLink";
 import Hero from "../components/Hero";
 import HomePageSectionHeader from "../components/HomePageSectionHeader";
+import HomePageSectionScrollButton from "../components/HomePageSectionScrollButton";
 import HomePageTitleText from "../components/HomePageTitleText";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
@@ -51,13 +52,13 @@ export default function IndexPage(
             </p>
             <div className="mb-16 space-y-4">
               <p>
-                東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を授けたい。
+                東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を描きたい。
               </p>
               <p>
-                UTmap(ユー・ティー・マップ)は、東大生による東大生のためのキャリアプラットフォームとして、東大生のキャリアに大きな影響をもたらす「サークル」「進振り」「就活」という3つの意思決定をサポートします。
+                UTmap（ユー・ティー・マップ）は、東大生による東大生のためのキャリアプラットフォームとして、東大生のキャリアに大きな影響をもたらす「サークル」「進学選択」「就活」という３つの意思決定をサポートします。
               </p>
               <p>
-                東大発ソーシャルスタートアップの「Pyxida(ピクシーダ)」が、総力を挙げて取材・編集したコンテンツをご活用ください。
+                UTmapが総力を挙げて取材・編集したコンテンツをご活用ください。
               </p>
             </div>
             <button
@@ -69,24 +70,31 @@ export default function IndexPage(
           </div>
         </div>
       </div>
+      <section className="flex flex-col container max-w-screen-lg mx-auto my-12 px-8 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+        <HomePageSectionScrollButton
+          title="Circle"
+          subtitle="サークル"
+          linkTo="#clubs"
+        />
+        {/* <HomePageSectionScrollButton title="Circle" subtitle="進学" /> */}
+        <HomePageSectionScrollButton
+          title="Career"
+          subtitle="就職/キャリア"
+          linkTo="#careers"
+        />
+      </section>
       <HomePageSectionHeader
+        id="clubs"
         image="/images/top-clubs.jpg"
         title="Circle"
         subtitle="サークル選択のサポート"
         linkTo="/graduates"
-        description={
-          <>
-            <p>
-              東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。
-            </p>
-            <p>
-              ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。
-            </p>
-            <p>
-              東大のサークルについてご紹介いたします。これはダミーテキストです。
-            </p>
-          </>
-        }
+        descriptionParagraphs={[
+          "東大生の1つ目の選択。 大学生活の多くの出会いはここから始まる。",
+          "気の置けない友人と出会うのも、刺激的な友人と出会うのも、切磋琢磨できる友人と出会うのも。",
+          "心躍る東大生活。",
+          "東大生になった私たちが次に情熱を注ぐものを見つけよう。",
+        ]}
       />
       <section className="container max-w-screen-lg mx-auto my-12">
         <header className="flex items-end mx-8 py-2 border-b border-secondary-main">
@@ -115,24 +123,33 @@ export default function IndexPage(
           </a>
         </Link>
       </section>
+      {/* <HomePageSectionHeader
+        id="course"
+        image="/images/top-course.jpg"
+        title="Course"
+        subtitle="進学選択のサポート"
+        linkTo="/graduates"
+        descriptionParagraphs={[
+          "東大生の2つ目の選択。",
+          "無限の可能性を秘める私たち東大生。",
+          "私たちが本当にやりたいことは何だろう？",
+          "私たちの選択のその先には何が広がっているのだろう？",
+          "未来の私たちを探しに行こう。",
+        ]}
+      /> */}
       <HomePageSectionHeader
+        id="careers"
         image="/images/top-careers.jpg"
         title="Careers"
         subtitle="就職・キャリア選択のサポート"
         linkTo="/graduates"
-        description={
-          <>
-            <p>
-              東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。
-            </p>
-            <p>
-              ダミーテキストです。東大のサークルについてご紹介いたします。東大のサークルについてご紹介いたします。これはダミーテキストです。ダミーテキストです。東大のサークルについてご紹介いたします。
-            </p>
-            <p>
-              東大のサークルについてご紹介いたします。これはダミーテキストです。
-            </p>
-          </>
-        }
+        descriptionParagraphs={[
+          "東大生の3つ目の選択。",
+          "就職？院進？起業？",
+          "私たちが輝けるキャリアは何だろう？",
+          "これから社会の一員になる私たち。",
+          "最初の一歩を踏み出そう。",
+        ]}
       />
       <section className="grid lg:grid-cols-1 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
         <FeatureLink
