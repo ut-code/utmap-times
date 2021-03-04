@@ -98,8 +98,8 @@ export default function IndexPage(
             <li key={highlightedClub.id}>
               <ArticleLink
                 title={highlightedClub.club?.name ?? ""}
-                url={`/clubs/${highlightedClub.club?.slug}`}
-                imageUrl={highlightedClub.club?.image[0]?.url ?? ""}
+                url={`/clubs/${highlightedClub.club?.id}`}
+                imageUrl={highlightedClub.club?.images[0]?.url ?? ""}
                 category={highlightedClub.club?.category?.name ?? ""}
                 tags={highlightedClub.club?.tags.map((tag) => ({
                   id: tag.id,

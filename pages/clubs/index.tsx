@@ -164,8 +164,8 @@ export default function ClubIndexPage(
               <ArticleLink
                 title={club.name ?? ""}
                 category={club.category?.name ?? ""}
-                url={`/clubs/${club.slug}`}
-                imageUrl={club.image[0]?.url}
+                url={`/clubs/${club.id}`}
+                imageUrl={club.images[0]?.url}
                 tags={club.tags.map((tag) => ({
                   id: tag.id,
                   name: tag.name ?? "",
