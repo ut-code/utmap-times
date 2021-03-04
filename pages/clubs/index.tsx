@@ -261,9 +261,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       query ClubIndexQuery($filter: ClubModelFilter) {
         allClubs(filter: $filter) {
           id
-          slug
+          id
           name
-          image {
+          images {
             url(imgixParams: { maxW: 300 })
           }
           category {

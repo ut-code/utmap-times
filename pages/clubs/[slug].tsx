@@ -249,8 +249,8 @@ export async function getStaticProps({
     GetClubBySlugQueryVariables
   >({
     query: gql`
-      query GetClubBySlugQuery($slug: String!) {
-        club(filter: { slug: { eq: $slug } }) {
+      query GetClubBySlugQuery($id: ItemId!) {
+        club(filter: { id: { eq: $id } }) {
           name
           leader
           establishedYear
@@ -290,7 +290,7 @@ export async function getStaticProps({
             question
             answer
           }
-          image {
+          images {
             url
           }
           description
@@ -310,7 +310,7 @@ export async function getStaticPaths() {
     query: gql`
       query GetClubPathsQuery {
         allClubs {
-          slug
+          id
         }
       }
     `,

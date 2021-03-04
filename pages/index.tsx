@@ -178,10 +178,10 @@ export async function getStaticProps() {
           id
           club {
             name
-            image {
+            images {
               url(imgixParams: { maxW: 300 })
             }
-            slug
+            id
             tags {
               id
               slug
