@@ -200,12 +200,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const metaQueryResult = await apolloClient.query<ClubIndexMetaQuery>({
     query: gql`
       query ClubIndexMetaQuery {
-        allClubCategories {
+        allClubCategories(first: 100) {
           id
           name
           slug
         }
-        allClubTags {
+        allClubTags(first: 100) {
           id
           name
           slug
@@ -213,7 +213,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             id
           }
         }
-        allClubTagCategories {
+        allClubTagCategories(first: 100) {
           id
           name
         }
