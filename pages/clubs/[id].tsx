@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { FaTwitter, FaLine } from "react-icons/fa";
+import { FaTwitter, FaLine, FaLink } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import { IoMdPerson, IoMdPeople } from "react-icons/io";
 import Hero from "../../components/Hero";
@@ -70,15 +70,14 @@ export default function ClubsPage(
         </div>
         <div>団体名</div>
         <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
-        <div className="container mx-auto px-1 md:px-24 bg-secondary-100">
-          <div>説明</div>
+        <div className="container mx-auto px-1 md:px-24 bg-secondary-50">
           <RichTextRenderer html={props.club.description ?? ""} />
         </div>
         <div className="py-4 border-b-2">
           <span className="font-bold pr-5">普段の活動予定</span>
-          <span className="absolute pr-28">{props.club.usualActivity}</span>
+          <span className="pr-28">{props.club.usualActivity}</span>
         </div>
-        <div className="py-4 border-b-2">
+        <div className="p-7 border-b-2">
           <span className="font-bold pr-5">月ごとの特別な予定</span>
           <span className="absolute pr-28">{props.club.eventSchedule}</span>
         </div>
@@ -89,52 +88,52 @@ export default function ClubsPage(
           </span>
         </div>
         <div className="container mx-auto px-1 md:px-24 bg-secondary-main border-t-8 border-white text-white">
-          <div>新歓日程</div>
+          <div className="text-center">新歓日程</div>
         </div>
-        <div className="container mx-auto px-1 md:px-24 bg-secondary-100 border-solid border-2 border-secondary-main">
+        <div className="container mx-auto px-1 md:px-24 bg-secondary-50 border-solid border-2 border-secondary-main">
           <div>{props.club.welcomeEvent}</div>
         </div>
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
         </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">代表者</span>
-          <span className="relative pr-28">{props.club.leader}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">設立年</span>
-          <span className="absolute pr-28">{props.club.establishedYear}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">男女比</span>
-          <span className="absolute pr-28">{props.club.genderRatio}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">大学</span>
-          <span className="absolute pr-28">
-            {props.club.membersUniversityComposition}
-          </span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">東大生の割合</span>
-          <span className="relative pr-50">{props.club.utStudentRatio}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">入会費</span>
-          <span className="absolute pr-28">{props.club.participationCost}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">年会費</span>
-          <span className="absolute pr-28">{props.club.annualCost}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">連絡先</span>
-          <span className="absolute pr-28">{props.club.contact}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">備考</span>
-          <span className="absolute pr-28">{props.club.remarks}</span>
-        </div>
+        <table className="my-3 w-full">
+          <tr className="border-b-2">
+            <td className="font-bold">代表者</td>
+            <td>{props.club.leader}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">設立年</td>
+            <td>{props.club.establishedYear}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">男女比</td>
+            <td>{props.club.genderRatio}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">大学</td>
+            <td>{props.club.membersUniversityComposition}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">東大生の割合</td>
+            <td>{props.club.utStudentRatio}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">入会費</td>
+            <td>{props.club.participationCost}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">年会費</td>
+            <td>{props.club.annualCost}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">連絡先</td>
+            <td>{props.club.contact}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold pr-5">備考</td>
+            <td>{props.club.remarks}</td>
+          </tr>
+        </table>
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">SNS</h1>
         </div>
@@ -176,39 +175,41 @@ export default function ClubsPage(
               type="button"
               className="p-3 mr-2 bg-blue-800 hover:bg-blue-900 rounded-full"
             >
-              <FaTwitter className="w-16 h-16 inline-block text-white" />
+              <FaLink className="w-16 h-16 inline-block text-white" />
             </button>
           )}
         </div>
+      </div>
 
-        <div className="text-center h-auto py-12 bg-gray-100">
-          <p className="text-4xl font-bold">Q＆A</p>
-          <p className="text-secondary-main">質問コーナー</p>
-          <ul>
-            <li>
-              {props.club.qA?.map((questionAndAnswerPair) => (
-                <li key={questionAndAnswerPair?.id}>
-                  <div className="text-left">
-                    <IoMdPerson className="w-20 h-20 inline-block text-black" />
-                    <p className="inline-block bg-white py-1 px-6 mb-6">
-                      {questionAndAnswerPair?.question}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
-                      {questionAndAnswerPair?.answer}
-                    </p>
-                    <IoMdPeople className="inline-block text-black w-20 h-20" />
-                  </div>
-                </li>
-              ))}
-            </li>
-          </ul>
-        </div>
-        <div className="text-center h-96 py-12">
-          <p className="text-4xl font-bold">INTERVIEW</p>
-          <p className="text-secondary-main">インタビューコーナー</p>
-        </div>
+      <div className="text-center h-auto py-12 bg-gray-100">
+        <p className="text-4xl font-bold">Q＆A</p>
+        <p className="text-secondary-main">質問コーナー</p>
+        <ul>
+          <li>
+            {props.club.qA?.map((questionAndAnswerPair) => (
+              <li key={questionAndAnswerPair?.id}>
+                <div className="text-left">
+                  <IoMdPerson className="w-20 h-20 inline-block text-black" />
+                  <p className="inline-block bg-white py-1 px-6 mb-6">
+                    {questionAndAnswerPair?.question}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
+                    {questionAndAnswerPair?.answer}
+                  </p>
+                  <IoMdPeople className="inline-block text-black w-20 h-20" />
+                </div>
+              </li>
+            ))}
+          </li>
+        </ul>
+      </div>
+      <div className="text-center h-96 py-12">
+        <p className="text-4xl font-bold">INTERVIEW</p>
+        <p className="text-secondary-main">インタビューコーナー</p>
+      </div>
+      <div className="container mx-auto px-8 md:px-24 py-48">
         <div className="pt-8 pb-32 flex">
           <button
             type="button"
@@ -232,6 +233,7 @@ export default function ClubsPage(
           </button>
         </div>
       </div>
+
       <div className="text-center h-96 py-12 bg-gray-100">
         <p className="text-4xl font-bold">SCHEDULE</p>
         <p className="text-secondary-main">新歓情報</p>
