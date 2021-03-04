@@ -58,7 +58,13 @@ export default function ClubsPage(
             <p className="inline-block pl-1 text-white">リンクをコピー</p>
           </button>
         </div>
-        <img src={props.club.image[0].url} alt="画像" />
+
+        <img
+          className="mx-auto"
+          src={props.club.images[0]?.url ?? "/images/no-image.svg"}
+          alt="画像"
+        />
+
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">基本情報</h1>
         </div>
@@ -240,17 +246,17 @@ export default function ClubsPage(
 
 export async function getStaticProps({
   params,
-}: GetStaticPropsContext<{ slug: string }>) {
-  const slug = params?.slug;
-  if (!slug) return { notFound: true } as never;
+}: GetStaticPropsContext<{ id: string }>) {
+  const id = params?.id;
+  if (!id) return { notFound: true } as never;
 
   const queryResult = await apolloClient.query<
     GetClubBySlugQuery,
     GetClubBySlugQueryVariables
   >({
     query: gql`
-      query GetClubBySlugQuery($slug: String!) {
-        club(filter: { slug: { eq: $slug } }) {
+      query GetClubBySlugQuery($id: ItemId!) {
+        club(filter: { id: { eq: $id } }) {
           name
           leader
           establishedYear
@@ -290,14 +296,14 @@ export async function getStaticProps({
             question
             answer
           }
-          image {
+          images {
             url
           }
           description
         }
       }
     `,
-    variables: { slug },
+    variables: { id },
   });
 
   const { club } = queryResult.data;
@@ -310,14 +316,14 @@ export async function getStaticPaths() {
     query: gql`
       query GetClubPathsQuery {
         allClubs {
-          slug
+          id
         }
       }
     `,
   });
   return {
     paths: queryResult.data.allClubs.map((club) => ({
-      params: { slug: club.slug },
+      params: { id: club.id },
     })),
     fallback: false,
   };
