@@ -70,67 +70,67 @@ export default function ClubsPage(
         </div>
         <div>団体名</div>
         <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
-        <div className="container mx-auto px-1 md:px-24 bg-secondary-50">
+        <div className="container mx-auto px-1 md:px-24 p-5 bg-yellow-50">
           <RichTextRenderer html={props.club.description ?? ""} />
         </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">普段の活動予定</span>
-          <span className="pr-28">{props.club.usualActivity}</span>
-        </div>
-        <div className="p-7 border-b-2">
-          <span className="font-bold pr-5">月ごとの特別な予定</span>
-          <span className="absolute pr-28">{props.club.eventSchedule}</span>
-        </div>
-        <div className="py-4 border-b-2">
-          <span className="font-bold pr-5">入会選考の有無</span>
-          <span className="absolute pr-28">
-            {props.club.requiresExamination}
-          </span>
-        </div>
-        <div className="container mx-auto px-1 md:px-24 bg-secondary-main border-t-8 border-white text-white">
+        <table className="my-3 w-full" cellPadding="10">
+          <tr className="border-b-2">
+            <td className="font-bold w-1/4">普段の活動予定</td>
+            <td className="w-3/4">{props.club.usualActivity}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold">月ごとの特別な予定</td>
+            <td>{props.club.eventSchedule}</td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold">入会選考の有無</td>
+            <td>{props.club.requiresExamination}</td>
+          </tr>
+        </table>
+        <div className="container mx-auto px-1 md:px-24 p-3 bg-secondary-main border-t-8 border-white text-white">
           <div className="text-center">新歓日程</div>
         </div>
-        <div className="container mx-auto px-1 md:px-24 bg-secondary-50 border-solid border-2 border-secondary-main">
+        <div className="container mx-auto px-1 md:px-24 p-5 bg-yellow-50 border-solid border-2 border-secondary-main">
           <div>{props.club.welcomeEvent}</div>
         </div>
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
         </div>
-        <table className="my-3 w-full">
+        <table className="my-3 w-full" cellPadding="10">
           <tr className="border-b-2">
-            <td className="font-bold">代表者</td>
-            <td>{props.club.leader}</td>
+            <td className="font-bold w-1/4">代表者</td>
+            <td className="w-3/4">{props.club.leader}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">設立年</td>
+            <td className="font-bold">設立年</td>
             <td>{props.club.establishedYear}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">男女比</td>
+            <td className="font-bold">男女比</td>
             <td>{props.club.genderRatio}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">大学</td>
+            <td className="font-bold">大学</td>
             <td>{props.club.membersUniversityComposition}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">東大生の割合</td>
+            <td className="font-bold">東大生の割合</td>
             <td>{props.club.utStudentRatio}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">入会費</td>
+            <td className="font-bold">入会費</td>
             <td>{props.club.participationCost}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">年会費</td>
+            <td className="font-bold">年会費</td>
             <td>{props.club.annualCost}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">連絡先</td>
+            <td className="font-bold">連絡先</td>
             <td>{props.club.contact}</td>
           </tr>
           <tr className="border-b-2">
-            <td className="font-bold pr-5">備考</td>
+            <td className="font-bold">備考</td>
             <td>{props.club.remarks}</td>
           </tr>
         </table>
@@ -190,12 +190,12 @@ export default function ClubsPage(
               <li key={questionAndAnswerPair?.id}>
                 <div className="text-left">
                   <IoMdPerson className="w-20 h-20 inline-block text-black" />
-                  <p className="inline-block bg-white py-1 px-6 mb-6">
+                  <p className="inline-block bg-white py-1 max-w-2xl px-6 mb-6">
                     {questionAndAnswerPair?.question}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
+                  <p className="inline-block bg-secondary-main py-1 px-6 mb-6 max-w-5xl text-left text-white">
                     {questionAndAnswerPair?.answer}
                   </p>
                   <IoMdPeople className="inline-block text-black w-20 h-20" />
