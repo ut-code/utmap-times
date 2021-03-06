@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
+import RichTextRenderer from "../../components/RichTextRenderer";
 import apolloClient from "../../utils/apollo";
 import {
   GetGraduateArticleBySlugQuery,
@@ -63,8 +64,10 @@ export default function GraduateArticlePage(
             <p className="inline-block pl-1 text-white">リンクをコピー</p>
           </button>
         </div>
-        <img src={props.graduateArticle.image[0].url} alt="画像" />
-        <p className="pt-8 pb-20 border-b-2">{props.graduateArticle.content}</p>
+        <RichTextRenderer
+          markdown={props.graduateArticle.content ?? ""}
+          className="pt-8 pb-20 border-b-2"
+        />
         <div className="pt-8 pb-32 flex">
           <button
             type="button"
