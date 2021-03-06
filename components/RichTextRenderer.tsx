@@ -14,7 +14,8 @@ const Container = styled.div`
     font-size: 1.5rem;
   }
   p {
-    margin: 0.5rem 0;
+    padding: 1rem 0;
+    line-height: 1.9rem;
   }
   table {
     width: 100%;
@@ -22,6 +23,9 @@ const Container = styled.div`
   td {
     padding: 0.5rem;
     border: 1px solid #555;
+  }
+  img {
+    margin: 1.25rem 0;
   }
 `;
 
