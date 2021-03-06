@@ -25,7 +25,8 @@ const Container = styled.div`
     border: 1px solid #555;
   }
   img {
-    margin: 1.25rem 0;
+    max-height: 500px;
+    margin: auto;
   }
 `;
 
