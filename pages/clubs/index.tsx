@@ -34,7 +34,7 @@ export default function ClubIndexPage(
 
   return (
     <Layout title="サークル">
-      <Hero image="https://picsum.photos/800/600">
+      <Hero image="/images/top-clubs.jpg">
         <div className="p-32">
           <h1 className="text-4xl">Circle</h1>
           <h2>サークル選択のサポート</h2>
