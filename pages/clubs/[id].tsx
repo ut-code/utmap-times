@@ -3,6 +3,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { FaTwitter, FaLine, FaLink } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import { IoMdPerson, IoMdPeople } from "react-icons/io";
+import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import Layout from "../../components/Layout";
@@ -238,9 +239,25 @@ export default function ClubsPage(
         <p className="text-4xl font-bold">SCHEDULE</p>
         <p className="text-secondary-main">新歓情報</p>
       </div>
-      <div className="text-center h-96 py-12">
+      <div className="text-center h-auto py-12">
         <p className="text-4xl font-bold">RELATED</p>
-        <p className="text-secondary-main">関連記事</p>
+        <p className="text-secondary-main">関連サークル</p>
+        <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
+          {props.club.relatedclubs.map((related) => (
+            <li key={related.id}>
+              <ArticleLink
+                title={related.name ?? ""}
+                category={related.category?.name ?? ""}
+                url={`/clubs/${related.id}`}
+                imageUrl={related.images[0]?.url}
+                tags={related.tags.map((tag) => ({
+                  id: tag.id,
+                  name: tag.name ?? "",
+                }))}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </Layout>
   );
@@ -259,6 +276,7 @@ export async function getStaticProps({
     query: gql`
       query GetClubBySlugQuery($id: ItemId!) {
         club(filter: { id: { eq: $id } }) {
+          id
           name
           leader
           establishedYear
@@ -302,6 +320,52 @@ export async function getStaticProps({
             url
           }
           description
+          relatedclubs {
+            id
+            name
+            leader
+            establishedYear
+            description
+            place
+            schedule
+            usualActivity
+            eventSchedule
+            welcomeEvent
+            genderRatio
+            membersUniversityComposition
+            numberOfMembers
+            utStudentRatio
+            requiresExamination
+            participationCost
+            annualCost
+            contact
+            remarks
+            line
+            twitter
+            instagram
+            facebook
+            website
+            category {
+              id
+              name
+              slug
+            }
+            tags {
+              id
+              name
+              slug
+            }
+            activityWithCorona
+            qA {
+              id
+              question
+              answer
+            }
+            images {
+              url
+            }
+            description
+          }
         }
       }
     `,
