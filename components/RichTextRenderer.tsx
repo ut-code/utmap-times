@@ -36,7 +36,9 @@ export default function RichTextRenderer(props: {
   className?: string;
 }) {
   const sanitizedHtml = sanitize(
-    props.html ?? (props.markdown && marked(props.markdown)) ?? "",
+    props.html ??
+      (props.markdown && marked(props.markdown, { breaks: true })) ??
+      "",
     sanitizeOptions
   );
   // eslint-disable-next-line react/no-danger
