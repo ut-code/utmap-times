@@ -43,52 +43,68 @@ export default function GraduateArticlePage(
           </p>
         </div>
         <div className="pt-8 pb-12 flex">
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+          <script async src="https://platform.twitter.com/widgets.js" />
+          <a
+            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+            className="twitter-share-button px-4 py-1 mr-2 text-center bg-blue-400 hover:bg-blue-900"
+            data-show-count="false"
+            data-url={`graduates/${props.graduateArticle.slug}`}
+            data-text={props.graduateArticle.title}
           >
-            <FaTwitter className="inline-block text-white" />
+            <FaTwitter className="inline-block h-full text-white" />
             <p className="inline-block pl-1 text-white">ツイート</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
+          </a>
+          <div
+            className="fb-share-button mr-2"
+            data-layout="button"
+            data-size="large"
           >
-            <FaFacebookF className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">シェア</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 bg-blue-800 hover:bg-blue-900"
-          >
-            <p className="inline-block pl-1 text-white">リンクをコピー</p>
-          </button>
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+              className="fb-xfbml-parse-ignore block w-full h-full px-5 py-1 bg-blue-600 hover:bg-blue-900"
+            >
+              <FaFacebookF className="inline-block h-5 text-white" />
+              <p className="inline-block pl-1 text-white">シェア</p>
+            </a>
+          </div>
+          <div id="fb-root" />
+          <script
+            async
+            defer
+            crossOrigin="anonymous"
+            src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v10.0"
+            nonce="PDxkQGKp"
+          />
         </div>
         <RichTextRenderer
           markdown={props.graduateArticle.content ?? ""}
           className="pt-8 pb-20 border-b-2"
         />
         <div className="pt-8 pb-32 flex">
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
+          <script async src="https://platform.twitter.com/widgets.js" />
+          <a
+            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+            className="twitter-share-button px-4 py-1 mr-2 text-center bg-blue-400 hover:bg-blue-900"
+            data-show-count="false"
+            data-url={`graduates/${props.graduateArticle.slug}`}
+            data-text={props.graduateArticle.title}
           >
-            <FaTwitter className="inline-block text-white" />
+            <FaTwitter className="inline-block h-full text-white" />
             <p className="inline-block pl-1 text-white">ツイート</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
+          </a>
+          <div
+            className="fb-share-button mr-2"
+            data-layout="button"
+            data-size="large"
           >
-            <FaFacebookF className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">シェア</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 bg-blue-800 hover:bg-blue-900"
-          >
-            <p className="inline-block pl-1 text-white">リンクをコピー</p>
-          </button>
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+              className="fb-xfbml-parse-ignore block w-full h-full px-5 py-1 bg-blue-600 hover:bg-blue-900"
+            >
+              <FaFacebookF className="inline-block h-5 text-white" />
+              <p className="inline-block pl-1 text-white">シェア</p>
+            </a>
+          </div>
         </div>
       </div>
       <div className="bg-gray-100">
@@ -151,6 +167,7 @@ export async function getStaticProps({
           title
           date
           content
+          slug
           category {
             id
             name
