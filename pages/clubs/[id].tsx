@@ -213,37 +213,37 @@ export default function ClubsPage(
           <li>
             <div className="text-left">
               <IoMdPerson className="w-20 h-20 inline-block text-black" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+              <p className="inline-block bg-gray-100 py-1 max-w-2xl px-6 mb-6">
                 このサークルならではの魅力はなんですか？
               </p>
             </div>
             <div className="text-left">
               <IoMdPeople className="inline-block text-black w-20 h-20" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+              <p className="inline-block bg-secondary-main py-1 px-6 mb-6 max-w-5xl text-left text-white">
                 {props.club.interviewAttraction}
               </p>
             </div>
             <div className="text-left">
               <IoMdPerson className="w-20 h-20 inline-block text-black" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+              <p className="inline-block bg-gray-100 py-1 max-w-2xl px-6 mb-6">
                 このサークルに入って良かったと思うことはなんですか？
               </p>
             </div>
             <div className="text-left">
               <IoMdPeople className="inline-block text-black w-20 h-20" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+              <p className="inline-block bg-secondary-main py-1 px-6 mb-6 max-w-5xl text-left text-white">
                 {props.club.interviewBestThing}
               </p>
             </div>
             <div className="text-left">
               <IoMdPerson className="w-20 h-20 inline-block text-black" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+              <p className="inline-block bg-gray-100 py-1 max-w-2xl px-6 mb-6">
                 本音ベースでお聞きします。どんなタイプの学生が所属していますか？
               </p>
             </div>
             <div className="text-left">
               <IoMdPeople className="inline-block text-black w-20 h-20" />
-              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+              <p className="inline-block bg-secondary-main py-1 px-6 mb-6 max-w-5xl text-left text-white">
                 {props.club.interviewMembersPersonality}
               </p>
             </div>
