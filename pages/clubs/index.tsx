@@ -221,11 +221,11 @@ export default function ClubIndexPage(
           もっと見る
         </button>
       </div>
-      <div className="text-center h-96 py-12 bg-gray-100">
+      <div className="text-center h-auto py-12 bg-gray-100">
         <p className="text-4xl font-bold">SCHEDULE</p>
         <p className="text-yellow-500">新歓情報</p>
       </div>
-      <div className="text-center h-96 py-12">
+      <div className="text-center h-auto py-12">
         <p className="text-4xl font-bold">HISTORY</p>
         <p className="text-yellow-500">閲覧履歴</p>
       </div>
