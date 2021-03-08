@@ -1,6 +1,10 @@
 import { gql } from "@apollo/client";
 import dayjs from "dayjs";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
@@ -9,7 +13,6 @@ import {
   GetNewsArticleByIdQuery,
   GetNewsArticleByIdQueryVariables,
 } from "../../__generated__/GetNewsArticleByIdQuery";
-import { GetNewsArticlePathsQuery } from "../../__generated__/GetNewsArticlePathsQuery";
 
 export default function NewsArticlePage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -106,23 +109,12 @@ export async function getStaticProps({
 
   const { newsArticle } = queryResult.data;
   if (!newsArticle) return { notFound: true } as never;
-  return { props: { newsArticle } };
+  return { props: { newsArticle }, revalidate: 60 };
 }
 
-export async function getStaticPaths() {
-  const queryResult = await apolloClient.query<GetNewsArticlePathsQuery>({
-    query: gql`
-      query GetNewsArticlePathsQuery {
-        allNewsArticles {
-          id
-        }
-      }
-    `,
-  });
+export function getStaticPaths(): GetStaticPathsResult {
   return {
-    paths: queryResult.data.allNewsArticles.map((news) => ({
-      params: { id: news.id },
-    })),
+    paths: [],
     fallback: false,
   };
 }
