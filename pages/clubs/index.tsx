@@ -203,7 +203,7 @@ export default function ClubIndexPage(
                 title={club.name ?? ""}
                 category={club.category?.name ?? ""}
                 url={`/clubs/${club.id}`}
-                imageUrl={club.images[0]?.url}
+                imageUrl={club.images[0]?.url ?? "/images/no-image.svg"}
                 tags={club.tags.map((tag) => ({
                   id: tag.id,
                   name: tag.name ?? "",
