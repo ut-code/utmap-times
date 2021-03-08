@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 import Link from "next/link";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
@@ -10,7 +14,6 @@ import {
   GetGraduateArticleBySlugQuery,
   GetGraduateArticleBySlugQueryVariables,
 } from "../../__generated__/GetGraduateArticleBySlugQuery";
-import { GetGraduateArticlePathsQuery } from "../../__generated__/GetGraduateArticlePathsQuery";
 
 export default function GraduateArticlePage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -192,23 +195,12 @@ export async function getStaticProps({
 
   const { graduateArticle } = queryResult.data;
   if (!graduateArticle) return { notFound: true } as never;
-  return { props: { graduateArticle } };
+  return { props: { graduateArticle }, revalidate: 60 };
 }
 
-export async function getStaticPaths() {
-  const queryResult = await apolloClient.query<GetGraduateArticlePathsQuery>({
-    query: gql`
-      query GetGraduateArticlePathsQuery {
-        allGraduateArticles {
-          slug
-        }
-      }
-    `,
-  });
+export function getStaticPaths(): GetStaticPathsResult {
   return {
-    paths: queryResult.data.allGraduateArticles.map((graduateArticle) => ({
-      params: { slug: graduateArticle.slug },
-    })),
-    fallback: false,
+    paths: [],
+    fallback: "blocking",
   };
 }

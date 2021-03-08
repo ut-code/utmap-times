@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 import { FaTwitter, FaLine, FaLink } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import { IoMdPerson, IoMdPeople } from "react-icons/io";
@@ -12,7 +16,6 @@ import {
   GetClubBySlugQuery,
   GetClubBySlugQueryVariables,
 } from "../../__generated__/GetClubBySlugQuery";
-import { GetClubPathsQuery } from "../../__generated__/GetClubPathsQuery";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -420,23 +423,12 @@ export async function getStaticProps({
 
   const { club } = queryResult.data;
   if (!club) return { notFound: true } as never;
-  return { props: { club } };
+  return { props: { club }, revalidate: 60 };
 }
 
-export async function getStaticPaths() {
-  const queryResult = await apolloClient.query<GetClubPathsQuery>({
-    query: gql`
-      query GetClubPathsQuery {
-        allClubs {
-          id
-        }
-      }
-    `,
-  });
+export function getStaticPaths(): GetStaticPathsResult {
   return {
-    paths: queryResult.data.allClubs.map((club) => ({
-      params: { id: club.id },
-    })),
-    fallback: false,
+    paths: [],
+    fallback: "blocking",
   };
 }
