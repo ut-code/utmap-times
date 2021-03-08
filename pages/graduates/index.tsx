@@ -32,8 +32,11 @@ export default function GraduatArticleIndexPage(
 
   return (
     <Layout title="OBOG検索">
-      <Hero image="https://picsum.photos/800/600">
-        <h1 className="text-4xl p-32">OBOG検索</h1>
+      <Hero image="/images/top-careers.jpg">
+        <div className="py-40 px-20 md:p-40">
+          <h1 className="text-4xl">Interview</h1>
+          <h2>就職 / キャリア選択のサポート</h2>
+        </div>
       </Hero>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">

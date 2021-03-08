@@ -17,8 +17,8 @@ export default function GraduateArticlePage(
 ) {
   return (
     <Layout title={props.graduateArticle.title}>
-      <Hero image="https://picsum.photos/800/600">
-        <div className="container mx-auto px-8 md:px-24 py-48">
+      <Hero image="/images/graduates-article.jpg">
+        <div className="container mx-auto px-8 md:px-24 py-40">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.graduateArticle.category?.name}
           </p>
