@@ -209,6 +209,46 @@ export default function ClubsPage(
       <div className="text-center h-96 py-12">
         <p className="text-4xl font-bold">INTERVIEW</p>
         <p className="text-secondary-main">インタビューコーナー</p>
+        <ul>
+          <li>
+            <div className="text-left">
+              <IoMdPerson className="w-20 h-20 inline-block text-black" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+                このサークルならではの魅力はなんですか？
+              </p>
+            </div>
+            <div className="text-left">
+              <IoMdPeople className="inline-block text-black w-20 h-20" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+                {props.club.interviewAttraction}
+              </p>
+            </div>
+            <div className="text-left">
+              <IoMdPerson className="w-20 h-20 inline-block text-black" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+                このサークルに入って良かったと思うことはなんですか？
+              </p>
+            </div>
+            <div className="text-left">
+              <IoMdPeople className="inline-block text-black w-20 h-20" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+                {props.club.interviewBestThing}
+              </p>
+            </div>
+            <div className="text-left">
+              <IoMdPerson className="w-20 h-20 inline-block text-black" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white">
+                本音ベースでお聞きします。どんなタイプの学生が所属していますか？
+              </p>
+            </div>
+            <div className="text-left">
+              <IoMdPeople className="inline-block text-black w-20 h-20" />
+              <p className="inline-block bg-blue-500 py-1 px-6 mb-6 max-w-5xl text-left text-white border-solid border-8 border-secondary-main">
+                {props.club.interviewMembersPersonality}
+              </p>
+            </div>
+          </li>
+        </ul>
       </div>
       <div className="container mx-auto px-8 md:px-24 py-48">
         <div className="pt-8 pb-32 flex">
@@ -300,6 +340,9 @@ export async function getStaticProps({
           instagram
           facebook
           website
+          interviewAttraction
+          interviewBestThing
+          interviewMembersPersonality
           category {
             id
             name
@@ -345,6 +388,9 @@ export async function getStaticProps({
             instagram
             facebook
             website
+            interviewAttraction
+            interviewBestThing
+            interviewMembersPersonality
             category {
               id
               name
