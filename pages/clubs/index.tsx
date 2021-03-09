@@ -46,7 +46,7 @@ export default function ClubIndexPage(
           <h2>サークル選択のサポート</h2>
         </div>
       </Hero>
-      <section className="container mx-auto px-8 py-24 lg:py-32">
+      <section className="container mx-auto py-24 lg:py-32">
         <header className="text-center mb-12">
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目のサークル</p>
