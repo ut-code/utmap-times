@@ -398,6 +398,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       clubTagCategories: metaQueryResult.data.allClubTagCategories,
       selectedTags,
     },
-    revalidate: 300,
   };
 }
