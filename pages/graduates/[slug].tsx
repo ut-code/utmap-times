@@ -41,9 +41,9 @@ export default function GraduateArticlePage(
           {props.graduateArticle.title}
         </h2>
         <div className="pb-10 flex border-b-2">
-          <p className="px-4 py-1 bg-gray-200">
-            # {props.graduateArticle.tags[0].name}
-          </p>
+          {props.graduateArticle.tags.map((tag) => (
+            <p className="px-4 py-1 mr-2 bg-gray-200"># {tag.name}</p>
+          ))}
         </div>
         <div className="pt-8 pb-12 flex">
           <button

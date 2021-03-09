@@ -153,9 +153,7 @@ export default function GraduatArticleIndexPage(
       </section>
       <section className="container mx-auto my-12">
         {!props.graduateArticles.length && (
-          <p>
-            サークルが見つかりませんでした。キーワードを変えてお試しください。
-          </p>
+          <p>記事が見つかりませんでした。キーワードを変えてお試しください。</p>
         )}
         <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
           {props.graduateArticles.map((graduateArticle) => (
