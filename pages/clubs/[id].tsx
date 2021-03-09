@@ -22,7 +22,7 @@ export default function ClubsPage(
 ) {
   return (
     <Layout title={props.club.name}>
-      <Hero image="https://picsum.photos/800/600">
+      <Hero image={props.club.images[0]?.url ?? "/images/utmap.png"}>
         <div className="container mx-auto px-8 md:px-24 py-48">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.club.category?.name}
@@ -65,7 +65,7 @@ export default function ClubsPage(
 
         <img
           className="mx-auto"
-          src={props.club.images[0]?.url ?? "/images/no-image.svg"}
+          src={props.club.images[0]?.url ?? "/images/utmap.png"}
           alt="画像"
         />
 
