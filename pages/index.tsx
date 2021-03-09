@@ -224,5 +224,6 @@ export async function getStaticProps() {
   });
   return {
     props: queryResult.data,
+    revalidate: 60,
   };
 }
