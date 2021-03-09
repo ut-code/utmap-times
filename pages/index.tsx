@@ -61,12 +61,14 @@ export default function IndexPage(
                 UTmapが総力を挙げて取材・編集したコンテンツをご活用ください。
               </p>
             </div>
+            {/* 
+            デザイン上には存在するがリンク先不明のためいったん削除
             <button
               type="button"
               className="h-12 w-64 text-white bg-primary-main hover:bg-primary-400"
             >
               もっと見る
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -88,7 +90,7 @@ export default function IndexPage(
         image="/images/top-clubs.jpg"
         title="Circle"
         subtitle="サークル選択のサポート"
-        linkTo="/graduates"
+        linkTo="/clubs"
         descriptionParagraphs={[
           "東大生の1つ目の選択。 大学生活の多くの出会いはここから始まる。",
           "気の置けない友人と出会うのも、刺激的な友人と出会うのも、切磋琢磨できる友人と出会うのも。",
