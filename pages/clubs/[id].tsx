@@ -143,44 +143,54 @@ export default function ClubsPage(
         </div>
         <div className="py-5 text-center">
           {props.club.line && (
-            <button
-              type="button"
-              className="p-3 mr-2 bg-green-400 hover:bg-green-900 rounded-full"
+            <a
+              href={props.club.line}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-3 m-1 bg-green-400 hover:bg-green-900 rounded-full"
             >
               <FaLine className="w-16 h-16 inline-block text-white" />
-            </button>
+            </a>
           )}
           {props.club.twitter && (
-            <button
-              type="button"
-              className="p-3 mr-2 bg-blue-400 hover:bg-blue-600 rounded-full"
+            <a
+              href={props.club.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-3 m-1 bg-blue-400 hover:bg-blue-600 rounded-full"
             >
               <FaTwitter className="w-16 h-16 inline-block text-white" />
-            </button>
+            </a>
           )}
           {props.club.instagram && (
-            <button
-              type="button"
-              className="p-3 mr-2 bg-pink-500 hover:bg-pink-600 rounded-full"
+            <a
+              href={props.club.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-3 m-1 bg-pink-500 hover:bg-pink-600 rounded-full"
             >
               <AiOutlineInstagram className="w-16 h-16 inline-block text-white" />
-            </button>
+            </a>
           )}
           {props.club.facebook && (
-            <button
-              type="button"
-              className="p-3 mr-2 bg-blue-500 hover:bg-blue-700 rounded-full"
+            <a
+              href={props.club.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-3 m-1 bg-blue-500 hover:bg-blue-700 rounded-full"
             >
               <AiOutlineFacebook className="w-16 h-16 inline-block text-white" />
-            </button>
+            </a>
           )}
           {props.club.website && (
-            <button
-              type="button"
-              className="p-3 mr-2 bg-blue-800 hover:bg-blue-900 rounded-full"
+            <a
+              href={props.club.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block p-3 m-1 bg-blue-800 hover:bg-blue-900 rounded-full"
             >
               <FaLink className="w-16 h-16 inline-block text-white" />
-            </button>
+            </a>
           )}
         </div>
       </div>
