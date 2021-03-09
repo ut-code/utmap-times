@@ -4,7 +4,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { AiOutlineDown, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
@@ -31,6 +31,12 @@ export default function ClubIndexPage(
   const router = useRouter();
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
+  const selectedCategory =
+    props.clubCategories.find((category) => category.slug === query.category) ??
+    null;
+  const [expandedCategoryGroupIds, setExpandedCategoryGroupIds] = useState<
+    string[]
+  >(selectedCategory?.group ? [selectedCategory?.group.id] : []);
 
   return (
     <Layout title="サークル">
@@ -107,31 +113,64 @@ export default function ClubIndexPage(
             <div className="md:pr-8 md:border-r md:border-gray-500">
               <h3 className="text-2xl mb-6">カテゴリで検索</h3>
               <ul className="space-y-2">
-                {props.clubCategories.map((category) => {
-                  const isSelected = query.category === category.slug;
-                  const newQuery: Query = {
-                    category: isSelected
-                      ? undefined
-                      : category.slug ?? undefined,
-                  };
+                {props.clubCategoryGroups.map((clubCategoryGroup) => {
+                  const isExpanded = expandedCategoryGroupIds.includes(
+                    clubCategoryGroup.id
+                  );
                   return (
-                    <li key={category.id}>
-                      <Link
-                        href={{ query: { ...query, ...newQuery } }}
-                        scroll={false}
+                    <li key={clubCategoryGroup.id} className="bg-white">
+                      <button
+                        type="button"
+                        className={clsx(
+                          "flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                        )}
+                        onClick={() => {
+                          setExpandedCategoryGroupIds(
+                            expandedCategoryGroupIds
+                              .filter((id) => id !== clubCategoryGroup.id)
+                              .concat(isExpanded ? [] : [clubCategoryGroup.id])
+                          );
+                        }}
                       >
-                        <a
-                          className={clsx(
-                            "flex items-center py-4 px-6",
-                            query.category === category.slug
-                              ? "bg-yellow-300"
-                              : "bg-white"
-                          )}
-                        >
-                          <p className="flex-grow">{category.name}</p>
-                          <AiOutlineDown />
-                        </a>
-                      </Link>
+                        <p className="flex-grow">{clubCategoryGroup.name}</p>
+                        {isExpanded ? <AiOutlineUp /> : <AiOutlineDown />}
+                      </button>
+                      {isExpanded && (
+                        <ul className="border-t border-gray-200">
+                          {props.clubCategories
+                            .filter(
+                              (category) =>
+                                category.group?.id === clubCategoryGroup.id
+                            )
+                            .map((category) => {
+                              const newQuery: Query = {
+                                category:
+                                  selectedCategory?.id === category.id
+                                    ? undefined
+                                    : category.slug ?? undefined,
+                              };
+                              return (
+                                <li key={category.id}>
+                                  <Link
+                                    href={{ query: { ...query, ...newQuery } }}
+                                    scroll={false}
+                                  >
+                                    <a
+                                      className={clsx(
+                                        "block py-1 px-6",
+                                        query.category === category.slug
+                                          ? "bg-yellow-300"
+                                          : "bg-white"
+                                      )}
+                                    >
+                                      {category.name}
+                                    </a>
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                        </ul>
+                      )}
                     </li>
                   );
                 })}
@@ -238,10 +277,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const metaQueryResult = await apolloClient.query<ClubIndexMetaQuery>({
     query: gql`
       query ClubIndexMetaQuery {
+        allClubCategoryGroups {
+          id
+          name
+        }
         allClubCategories(first: 100) {
           id
           name
           slug
+          group {
+            id
+          }
         }
         allClubTags(first: 100) {
           id
@@ -346,6 +392,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       foundClubs: queryResult.data.foundClubs,
       randomClub,
+      clubCategoryGroups: metaQueryResult.data.allClubCategoryGroups,
       clubCategories: metaQueryResult.data.allClubCategories,
       clubTags: metaQueryResult.data.allClubTags,
       clubTagCategories: metaQueryResult.data.allClubTagCategories,
