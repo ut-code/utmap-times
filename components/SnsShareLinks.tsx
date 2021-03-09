@@ -1,10 +1,11 @@
 import { AiOutlineFacebook } from "react-icons/ai";
 import { FaLink, FaTwitter } from "react-icons/fa";
+import dynamic from "next/dynamic";
 
-export default function SnsShareLinks() {
-  const fullPath = typeof window === "object" ? window.location.href : "";
+function SnsShareLinks() {
+  const fullPath = window.location.href;
   const twitterParams = new URLSearchParams({ url: fullPath });
-  const facebookParams = new URLSearchParams({ url: fullPath });
+  const facebookParams = new URLSearchParams({ u: fullPath });
 
   return (
     <div className="flex pt-8 pb-12">
@@ -20,7 +21,7 @@ export default function SnsShareLinks() {
       <a
         target="_blank"
         rel="noreferrer"
-        href={`https://www.facebook.com/sharer/sharer.php?u=?${facebookParams.toString()}`}
+        href={`https://www.facebook.com/sharer/sharer.php?${facebookParams.toString()}`}
         className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900 text-white text-center"
       >
         <AiOutlineFacebook className="inline-block" />
@@ -42,3 +43,7 @@ export default function SnsShareLinks() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(SnsShareLinks), {
+  ssr: false,
+});
