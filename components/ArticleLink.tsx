@@ -23,7 +23,7 @@ export default function ArticleLink(props: {
           <img
             src={props.imageUrl}
             alt={title}
-            className="w-full h-64 object-cover"
+            className="w-full h-64 object-cover border-secondary-main border-solid border-8"
           />
           {props.category && (
             <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
