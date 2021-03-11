@@ -1,6 +1,5 @@
 import React from "react";
 import { FaTwitter, FaLine } from "react-icons/fa";
-import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import Link from "next/link";
 import clsx from "clsx";
 import Logo from "./Logo";
@@ -12,8 +11,12 @@ export default function Footer() {
       <div className="grid grid-cols-2 gap-2 w-60 mx-auto my-12">
         {[
           { title: "What is UTmap", linkTo: "/", wider: true },
-          { title: "Join us", linkTo: "/" },
-          { title: "Contact", linkTo: "/" },
+          { title: "Join us", linkTo: "https://lin.ee/AjkMbhF" },
+          {
+            title: "Contact",
+            linkTo:
+              "https://docs.google.com/forms/d/e/1FAIpQLSdiDVUEmiianCvGGx0dlQ279YkZwb8GSl9cJclAr_6_Pab7GA/viewform?usp=sf_link",
+          },
         ].map((buttonInfo) => (
           <Link key={buttonInfo.title} href={buttonInfo.linkTo}>
             <a
@@ -29,10 +32,8 @@ export default function Footer() {
       </div>
       <div className="flex justify-center space-x-2 my-12">
         {[
-          { Component: FaTwitter, linkTo: "https://example.com/" },
-          { Component: AiOutlineFacebook, linkTo: "https://example.com/2" },
-          { Component: AiOutlineInstagram, linkTo: "https://example.com/3" },
-          { Component: FaLine, linkTo: "https://example.com/4" },
+          { Component: FaTwitter, linkTo: "https://twitter.com/UTmap_todai" },
+          { Component: FaLine, linkTo: "https://lin.ee/oYnl12K" },
         ].map((snsInfo) => (
           <a
             key={snsInfo.linkTo}
