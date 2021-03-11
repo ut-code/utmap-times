@@ -264,7 +264,7 @@ export default function ClubsPage(
                   title={related.name ?? ""}
                   category={related.category?.name ?? ""}
                   url={`/clubs/${related.id}`}
-                  imageUrl={related.images[0]?.url}
+                  imageUrl={related.images[0]?.url ?? "/images/utmap.png"}
                   tags={related.tags.map((tag) => ({
                     id: tag.id,
                     name: tag.name ?? "",
