@@ -5,10 +5,10 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import Link from "next/link";
-import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
 import {
   GetGraduateArticleBySlugQuery,
@@ -45,54 +45,12 @@ export default function GraduateArticlePage(
             <p className="px-4 py-1 mr-2 bg-gray-200"># {tag.name}</p>
           ))}
         </div>
-        <div className="pt-8 pb-12 flex">
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
-          >
-            <FaTwitter className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">ツイート</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
-          >
-            <FaFacebookF className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">シェア</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 bg-blue-800 hover:bg-blue-900"
-          >
-            <p className="inline-block pl-1 text-white">リンクをコピー</p>
-          </button>
-        </div>
+        <SnsShareLinks />
         <RichTextRenderer
           markdown={props.graduateArticle.content ?? ""}
           className="pt-8 pb-20 border-b-2"
         />
-        <div className="pt-8 pb-32 flex">
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-400 hover:bg-blue-900"
-          >
-            <FaTwitter className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">ツイート</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 mr-2 bg-blue-600 hover:bg-blue-900"
-          >
-            <FaFacebookF className="inline-block text-white" />
-            <p className="inline-block pl-1 text-white">シェア</p>
-          </button>
-          <button
-            type="button"
-            className="py-1 w-40 bg-blue-800 hover:bg-blue-900"
-          >
-            <p className="inline-block pl-1 text-white">リンクをコピー</p>
-          </button>
-        </div>
+        <SnsShareLinks />
       </div>
       <div className="bg-gray-100">
         <div className="container mx-auto py-20">
