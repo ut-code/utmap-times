@@ -19,7 +19,7 @@ export default function Header() {
     <header className="relative z-30 lg:h-16 lg:bg-white">
       <Link href="/">
         <a rel="トップページ">
-          <Logo className="absolute top-0 left-0 w-32 h-32 bg-white" />
+          <Logo className="absolute top-0 left-0 w-32 h-32 bg-white hover:bg-gray-200" />
         </a>
       </Link>
       <button
