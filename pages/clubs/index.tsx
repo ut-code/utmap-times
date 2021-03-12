@@ -103,7 +103,7 @@ export default function ClubIndexPage(
               />
               <button
                 type="submit"
-                className="w-16 text-center bg-blue-800 text-white"
+                className="w-16 text-center bg-blue-900 hover:bg-blue-700 text-white"
               >
                 <AiOutlineSearch className="inline text-xl" />
               </button>
