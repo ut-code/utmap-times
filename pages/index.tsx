@@ -173,7 +173,7 @@ export default function IndexPage(
               })}
               key={newsArticle.id}
             >
-              <Link href={`/news/${newsArticle.id}`}>
+              <Link href={`/news/${newsArticle.slug}`}>
                 <a className="block py-4 hover:bg-gray-50 md:flex md:px-2">
                   <time className="block w-36 mb-2 md:m-0 md:flex-shrink-0">
                     {dayjs(newsArticle.updatedAt).format("YYYY-MM-DD")}

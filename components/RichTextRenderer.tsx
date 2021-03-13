@@ -28,6 +28,10 @@ const Container = styled.div`
     max-height: 500px;
     margin: auto;
   }
+  a {
+    color: var(--color-secondary-main);
+    text-decoration: underline;
+  }
 `;
 
 export default function RichTextRenderer(props: {
