@@ -21,6 +21,21 @@ import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  const interviewItems = [
+    {
+      question: "このサークルならではの魅力はなんですか？",
+      answer: props.club.interviewAttraction,
+    },
+    {
+      question: "このサークルに入って良かったと思うことはなんですか？",
+      answer: props.club.interviewBestThing,
+    },
+    {
+      question:
+        "本音ベースでお聞きします。どんなタイプの学生が所属していますか？",
+      answer: props.club.interviewMembersPersonality,
+    },
+  ].filter((questionAndAnswerPair) => questionAndAnswerPair.answer);
   return (
     <Layout title={props.club.name}>
       <Hero image={props.club.images[0]?.url ?? "/images/utmap.png"}>
@@ -189,60 +204,50 @@ export default function ClubsPage(
         </div>
       </div>
 
-      <div className="text-center h-auto py-12 bg-gray-100">
-        <p className="text-4xl font-bold">Q &amp; A</p>
-        <p className="text-secondary-main mb-8">質問コーナー</p>
-        <ul className="container mx-auto px-8 md:px-24">
-          {props.club.qA?.map((questionAndAnswerPair) => (
-            <li key={questionAndAnswerPair?.id}>
-              <ClubQuestionOrAnswer
-                type="question"
-                isOnGrayBackground
-                className="my-8"
-              >
-                {questionAndAnswerPair?.question}
-              </ClubQuestionOrAnswer>
-              <ClubQuestionOrAnswer
-                type="answer"
-                isOnGrayBackground
-                className="my-8"
-              >
-                {questionAndAnswerPair?.answer}
-              </ClubQuestionOrAnswer>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="text-center py-12">
-        <p className="text-4xl font-bold">INTERVIEW</p>
-        <p className="text-secondary-main mb-8">インタビューコーナー</p>
-        <ul className="container mx-auto px-8 md:px-24">
-          {[
-            {
-              question: "このサークルならではの魅力はなんですか？",
-              answer: props.club.interviewAttraction,
-            },
-            {
-              question: "このサークルに入って良かったと思うことはなんですか？",
-              answer: props.club.interviewBestThing,
-            },
-            {
-              question:
-                "本音ベースでお聞きします。どんなタイプの学生が所属していますか？",
-              answer: props.club.interviewMembersPersonality,
-            },
-          ].map((questionAndAnswerPair) => (
-            <li key={questionAndAnswerPair.question}>
-              <ClubQuestionOrAnswer type="question" className="my-8">
-                {questionAndAnswerPair.question}
-              </ClubQuestionOrAnswer>
-              <ClubQuestionOrAnswer type="answer" className="my-8">
-                {questionAndAnswerPair.answer}
-              </ClubQuestionOrAnswer>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {Boolean(props.club.qA?.length) && (
+        <div className="text-center h-auto py-12 bg-gray-100">
+          <p className="text-4xl font-bold">Q &amp; A</p>
+          <p className="text-secondary-main mb-8">質問コーナー</p>
+          <ul className="container mx-auto px-8 md:px-24">
+            {props.club.qA?.map((questionAndAnswerPair) => (
+              <li key={questionAndAnswerPair?.id}>
+                <ClubQuestionOrAnswer
+                  type="question"
+                  isOnGrayBackground
+                  className="my-8"
+                >
+                  {questionAndAnswerPair?.question}
+                </ClubQuestionOrAnswer>
+                <ClubQuestionOrAnswer
+                  type="answer"
+                  isOnGrayBackground
+                  className="my-8"
+                >
+                  {questionAndAnswerPair?.answer}
+                </ClubQuestionOrAnswer>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {interviewItems.length > 0 && (
+        <div className="text-center py-12">
+          <p className="text-4xl font-bold">INTERVIEW</p>
+          <p className="text-secondary-main mb-8">インタビューコーナー</p>
+          <ul className="container mx-auto px-8 md:px-24">
+            {interviewItems.map((questionAndAnswerPair) => (
+              <li key={questionAndAnswerPair.question}>
+                <ClubQuestionOrAnswer type="question" className="my-8">
+                  {questionAndAnswerPair.question}
+                </ClubQuestionOrAnswer>
+                <ClubQuestionOrAnswer type="answer" className="my-8">
+                  {questionAndAnswerPair.answer}
+                </ClubQuestionOrAnswer>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="container mx-auto px-8 md:px-24">
         <SnsShareLinks />
@@ -274,7 +279,7 @@ export default function ClubsPage(
             ))}
           </ul>
         ) : (
-          <p>関連サークルが見つかりませんでした。</p>
+          <p className="px-8">関連サークルが見つかりませんでした。</p>
         )}
       </div>
     </Layout>
