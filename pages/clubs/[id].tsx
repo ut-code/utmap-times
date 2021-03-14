@@ -17,6 +17,7 @@ import {
 } from "../../__generated__/GetClubBySlugQuery";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
+import EmbeddedVideoPlayer from "../../components/EmbeddedVideoPlayer";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -105,6 +106,17 @@ export default function ClubsPage(
         <div className="px-6 py-2 border-2 border-secondary-main bg-yellow-50">
           <RichTextRenderer markdown={props.club.welcomeEvent ?? ""} />
         </div>
+
+        {props.club.videoUrl && (
+          <div className="pt-24">
+            <h1 className="bg-gray-200 py-3 px-6">紹介動画</h1>
+            <EmbeddedVideoPlayer
+              title="紹介動画"
+              src={props.club.videoUrl}
+              className="max-w-screen-md mt-8 mx-auto"
+            />
+          </div>
+        )}
 
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
@@ -301,6 +313,7 @@ export async function getStaticProps({
         club(filter: { id: { eq: $id } }) {
           id
           name
+          videoUrl
           leader
           establishedYear
           description
