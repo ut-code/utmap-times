@@ -41,8 +41,8 @@ export default function ClubIndexPage(
   return (
     <Layout title="サークル">
       <Hero image="/images/top-clubs.jpg">
-        <div className="p-32">
-          <h1 className="text-4xl">Circle</h1>
+        <div className="pt-40 pb-24 px-20 md:px-56 md:pt-56 md:pb-32">
+          <h1 className="text-6xl">Circle</h1>
           <h2>サークル選択のサポート</h2>
         </div>
       </Hero>

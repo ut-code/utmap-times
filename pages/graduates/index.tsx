@@ -31,10 +31,10 @@ export default function GraduatArticleIndexPage(
   const [search, setSearch] = useState(query.q ?? "");
 
   return (
-    <Layout title="OBOG検索">
+    <Layout title="卒業生">
       <Hero image="/images/top-careers.jpg">
-        <div className="py-40 px-20 md:p-40">
-          <h1 className="text-4xl">Interview</h1>
+        <div className="pt-40 pb-24 px-16 md:px-56 md:pt-56 md:pb-32">
+          <h1 className="text-6xl">Interview</h1>
           <h2>就職 / キャリア選択のサポート</h2>
         </div>
       </Hero>
