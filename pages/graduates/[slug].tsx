@@ -40,9 +40,11 @@ export default function GraduateArticlePage(
         <h2 className="py-8 text-3xl font-bold">
           {props.graduateArticle.title}
         </h2>
-        <div className="pb-10 flex border-b-2">
+        <div className="pb-10 border-b-2">
           {props.graduateArticle.tags.map((tag) => (
-            <p className="px-4 py-1 mr-2 bg-gray-200"># {tag.name}</p>
+            <p className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block">
+              # {tag.name}
+            </p>
           ))}
         </div>
         <SnsShareLinks />
