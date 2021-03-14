@@ -155,7 +155,7 @@ export default function IndexPage(
       />
       <section className="grid lg:grid-cols-1 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
         <FeatureLink
-          title="OB/OG分析"
+          title="卒業生分析"
           imageUrl="/images/top-button-graduates.jpg"
           linkTo="/graduates"
         />
