@@ -16,7 +16,7 @@ export default function Header() {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
 
   return (
-    <header className="relative z-30 lg:h-16 lg:bg-white">
+    <header className="sticky top-0 right-0 z-30 lg:h-16 lg:bg-white">
       <Link href="/">
         <a rel="トップページ">
           <Logo className="absolute top-0 left-0 w-32 h-32 bg-white hover:bg-gray-200" />
