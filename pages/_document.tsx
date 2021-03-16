@@ -1,11 +1,18 @@
-/**
- * SSR時にstyled-componentsのスタイルを適用させるために必要
- * https://styled-components.com/docs/advanced#nextjs
- */
-import Document, { DocumentContext } from "next/document";
+import Document, {
+  DocumentContext,
+  Html,
+  Head,
+  Main,
+  NextScript,
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import { gtagInjectedHeadElements } from "../utils/gtag";
 
 export default class MyDocument extends Document {
+  /**
+   * SSR時にstyled-componentsのスタイルを適用させるために必要
+   * https://styled-components.com/docs/advanced#nextjs
+   */
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
@@ -31,5 +38,17 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <Html lang="ja">
+        <Head>{gtagInjectedHeadElements}</Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
