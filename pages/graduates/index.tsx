@@ -7,6 +7,7 @@ import { useState } from "react";
 import { AiOutlineDown, AiOutlineSearch } from "react-icons/ai";
 import * as s from "superstruct";
 import Hero from "../../components/Hero";
+import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { GraduateArticleModelFilter } from "../../__generated__/globalTypes";
@@ -38,6 +39,43 @@ export default function GraduatArticleIndexPage(
           <h2>就職 / キャリア選択のサポート</h2>
         </div>
       </Hero>
+      <section className="container mx-auto py-24 lg:py-32">
+        <header className="text-center mb-12">
+          <h2 className="text-4xl font-bold">PICKUP</h2>
+          <p className="text-secondary-main">注目の記事</p>
+        </header>
+        <Link href={`/graduateArticles/${props.randomArticle.id}`}>
+          <a className="block relative hover:bg-gray-100 p-8">
+            <ImageOrLogo
+              alt={props.randomArticle.title ?? ""}
+              src={props.randomArticle.image[0]?.url}
+              className="w-full h-96"
+            />
+            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
+              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
+                {props.randomArticle?.category?.name}
+              </div>
+              <p className="my-6 text-3xl lg:text-4xl">
+                {props.randomArticle.title}
+              </p>
+              <ul>
+                {props.randomArticle.tags.map((tag) => (
+                  <li
+                    key={tag.id}
+                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                  >
+                    {`#${tag.name}`}
+                  </li>
+                ))}
+              </ul>
+              <div
+                aria-hidden
+                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
+              />
+            </div>
+          </a>
+        </Link>
+      </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <form
@@ -315,6 +353,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             id
             name
           }
+          _allGraduateArticlesMeta {
+            count
+          }
           allTopRatedGraduateArticles {
             graduateArticle {
               id
@@ -371,13 +412,36 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     : {};
   const variables: GraduateArticleIndexQueryVariables = {
     filter: { ...nameFilter, ...categoryFilter, ...tagFilter },
+    randomArticleIndex: Math.floor(
+      Math.random() * metaQueryResult.data._allGraduateArticlesMeta.count
+    ),
   };
   const queryResult = await apolloClient.query<
     GraduateArticleIndexQuery,
     GraduateArticleIndexQueryVariables
   >({
     query: gql`
-      query GraduateArticleIndexQuery($filter: GraduateArticleModelFilter) {
+      query GraduateArticleIndexQuery(
+        $filter: GraduateArticleModelFilter
+        $randomArticleIndex: IntType!
+      ) {
+        randomArticle: allGraduateArticles(skip: $randomArticleIndex) {
+          id
+          slug
+          title
+          date
+          image {
+            url(imgixParams: { maxW: 600 })
+          }
+          category {
+            name
+          }
+          tags {
+            id
+            slug
+            name
+          }
+        }
         allGraduateArticles(filter: $filter) {
           id
           slug
@@ -399,9 +463,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `,
     variables,
   });
+  const randomArticle = queryResult.data.randomArticle[0];
+  if (!randomArticle) throw new Error("No articles found.");
   return {
     props: {
       graduateArticles: queryResult.data.allGraduateArticles,
+      randomArticle,
       graduateArticleCategories:
         metaQueryResult.data.allGraduateArticleCategories,
       graduateArticleTags: metaQueryResult.data.allGraduateArticleTags,
