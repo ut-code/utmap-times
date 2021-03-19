@@ -28,7 +28,7 @@ export default function GraduateArticlePage(
           <h1 className="text-3xl">{props.graduateArticle.title}</h1>
         </div>
       </Hero>
-      <div className="container mx-auto px-8 md:px-24">
+      <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
           <p className="bg-secondary-main py-1 px-6 text-white">
             {props.graduateArticle.category?.name}
