@@ -117,6 +117,13 @@ export default function ClubsPage(
             />
           </div>
         )}
+        {props.club.videoUrl2 && (
+          <EmbeddedVideoPlayer
+            title="紹介動画2"
+            src={props.club.videoUrl2}
+            className="max-w-screen-md mt-8 mx-auto"
+          />
+        )}
 
         <div className="pt-24">
           <h1 className="bg-gray-200 py-3 px-6">詳細情報</h1>
@@ -314,6 +321,7 @@ export async function getStaticProps({
           id
           name
           videoUrl
+          videoUrl2
           leader
           establishedYear
           description
