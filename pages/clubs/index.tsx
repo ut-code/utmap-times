@@ -58,6 +58,10 @@ export default function ClubIndexPage(
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
 
+  const randomClubIndex = useMemo(
+    () => Math.floor(Math.random() * props.totalClubCount),
+    [props.totalClubCount]
+  );
   const randomClubQuery = useQuery<RandomClubQuery, RandomClubQueryVariables>(
     gql`
       ${clubSearchFragment}
@@ -67,15 +71,7 @@ export default function ClubIndexPage(
         }
       }
     `,
-    {
-      variables: {
-        randomClubIndex: useMemo(
-          () => Math.floor(Math.random() * props.totalClubCount),
-          [props.totalClubCount]
-        ),
-      },
-      ssr: false,
-    }
+    { variables: { randomClubIndex }, ssr: false }
   );
 
   const selectedCategorySlug = query.category;
@@ -124,7 +120,8 @@ export default function ClubIndexPage(
       ssr: false,
     }
   );
-  const paginate = () => {
+
+  const fetchMore = () => {
     const newPage = page + 1;
     setIsLoading(true);
     searchQuery
@@ -374,7 +371,7 @@ export default function ClubIndexPage(
                           : "bg-gray-300"
                       )}
                       disabled={isLoading}
-                      onClick={paginate}
+                      onClick={fetchMore}
                     >
                       もっと見る
                     </button>
