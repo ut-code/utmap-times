@@ -1,20 +1,29 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { datoCmsPagination } from "./datocms";
 
-const { GRAPHQL_ENDPOINT } = process.env;
-const { GRAPHQL_TOKEN } = process.env;
-if (!GRAPHQL_ENDPOINT || !GRAPHQL_TOKEN)
+const { NEXT_PUBLIC_GRAPHQL_ENDPOINT } = process.env;
+const { NEXT_PUBLIC_GRAPHQL_TOKEN } = process.env;
+if (!NEXT_PUBLIC_GRAPHQL_ENDPOINT || !NEXT_PUBLIC_GRAPHQL_TOKEN)
   throw new Error(
-    "Could not detect GRAPHQL_ENDPOINT or GRAPHQL_TOKEN from environment variables."
+    "Could not detect NEXT_PUBLIC_GRAPHQL_ENDPOINT or NEXT_PUBLIC_GRAPHQL_TOKEN from environment variables."
   );
 
 const apolloClient = new ApolloClient({
   link: new HttpLink({
-    uri: GRAPHQL_ENDPOINT,
+    uri: NEXT_PUBLIC_GRAPHQL_ENDPOINT,
     headers: {
-      Authorization: `Bearer ${GRAPHQL_TOKEN}`,
+      Authorization: `Bearer ${NEXT_PUBLIC_GRAPHQL_TOKEN}`,
     },
   }),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          allClubs: datoCmsPagination,
+        },
+      },
+    },
+  }),
 });
 
 export default apolloClient;

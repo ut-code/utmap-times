@@ -7,9 +7,9 @@ module.exports = {
     includes: ["./pages/**/*"],
     service: {
       name: "CMS",
-      url: process.env.GRAPHQL_ENDPOINT,
+      url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
       headers: {
-        Authorization: `Bearer ${process.env.GRAPHQL_TOKEN}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPHQL_TOKEN}`,
       },
     },
   },
