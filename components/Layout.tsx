@@ -1,8 +1,20 @@
+import { gql } from "@apollo/client";
 import React, { PropsWithChildren } from "react";
 import Head from "next/head";
-import Header from "../Header";
-import Footer from "../Footer";
-import { LayoutSeoFragment } from "../../__generated__/LayoutSeoFragment";
+import Header from "./Header";
+import Footer from "./Footer";
+import { LayoutSeoFragment } from "../__generated__/LayoutSeoFragment";
+
+export const layoutSeoFragment = gql`
+  fragment LayoutSeoFragment on SeoField {
+    description
+    image {
+      url
+    }
+    title
+    twitterCard
+  }
+`;
 
 export default function Layout(
   props: PropsWithChildren<{
@@ -10,6 +22,7 @@ export default function Layout(
     seo?: LayoutSeoFragment | null;
   }>
 ) {
+  const title = props.title ? `${props.title} | UTmap Times` : "UTmap Times";
   return (
     <>
       <Head>
@@ -19,17 +32,18 @@ export default function Layout(
         <meta
           property="og:title"
           content={
-            props.seo?.title
-              ? `${props.seo.title} | UTmap Times`
-              : "UTmap Times"
+            props.seo?.title ? `${props.seo.title} | UTmap Times` : title
           }
         />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={props.seo?.image?.url} />
         <meta
-          property="og:description"
-          content={props.seo?.description ? props.seo.description : ""}
+          property="og:image"
+          content={
+            props.seo?.image?.url ? props.seo.image.url : "/images/utmap.png"
+          }
         />
+        {props.seo?.description && (
+          <meta property="og:description" content={props.seo.description} />
+        )}
         <meta
           name="twitter:card"
           content={

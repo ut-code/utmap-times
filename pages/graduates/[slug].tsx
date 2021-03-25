@@ -6,8 +6,7 @@ import {
 } from "next";
 import Link from "next/link";
 import Hero from "../../components/Hero";
-import Layout from "../../components/Layout";
-import layoutSeoFragment from "../../components/Layout/fragment";
+import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
