@@ -19,18 +19,24 @@ export default function Layout(
         <meta
           property="og:title"
           content={
-            props.seo?.title?.toString() && `${props.seo.title} | UTmap Times`
+            props.seo?.title
+              ? `${props.seo.title} | UTmap Times`
+              : "UTmap Times"
           }
         />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={props.seo?.image?.url} />
         <meta
           property="og:description"
-          content={props.seo?.description?.toString()}
+          content={props.seo?.description ? props.seo.description : ""}
         />
         <meta
           name="twitter:card"
-          content={props.seo?.twitterCard?.toString()}
+          content={
+            props.seo?.twitterCard
+              ? props.seo.twitterCard
+              : "summary_large_image"
+          }
         />
       </Head>
       <Header />
