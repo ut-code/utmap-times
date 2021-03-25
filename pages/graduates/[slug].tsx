@@ -7,6 +7,7 @@ import {
 import Link from "next/link";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
+import layoutSeoFragment from "../../components/Layout/fragment";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
@@ -19,7 +20,7 @@ export default function GraduateArticlePage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Layout title={props.graduateArticle.title}>
+    <Layout title={props.graduateArticle.title} seo={props.graduateArticle.seo}>
       <Hero image="/images/graduates-article.jpg">
         <div className="container mx-auto px-8 md:px-24 py-40">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
@@ -109,6 +110,7 @@ export async function getStaticProps({
     GetGraduateArticleBySlugQueryVariables
   >({
     query: gql`
+      ${layoutSeoFragment}
       query GetGraduateArticleBySlugQuery($slug: String!) {
         graduateArticle(filter: { slug: { eq: $slug } }) {
           title
@@ -146,6 +148,9 @@ export async function getStaticProps({
             image {
               url
             }
+          }
+          seo {
+            ...LayoutSeoFragment
           }
         }
       }
