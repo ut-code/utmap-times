@@ -18,6 +18,7 @@ import {
 import SnsShareLinks from "../../components/SnsShareLinks";
 import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
 import EmbeddedVideoPlayer from "../../components/EmbeddedVideoPlayer";
+import Banners from "../../components/Banners";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -47,6 +48,7 @@ export default function ClubsPage(
           <h1 className="text-3xl">{props.club.name}</h1>
         </div>
       </Hero>
+      <Banners />
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
           <p className="bg-secondary-main py-1 px-6 text-white">

@@ -5,6 +5,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -25,6 +26,7 @@ export default function NewsArticlePage(
           <h1 className="text-3xl">{props.newsArticle.title}</h1>
         </div>
       </Hero>
+      <Banners />
       <div className="container mx-auto px-8 md:px-24">
         <div className="pt-28 border-b-2">
           <time>{dayjs(props.newsArticle.updatedAt).format("YYYY/MM/DD")}</time>

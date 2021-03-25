@@ -1,34 +1,14 @@
-import { gql } from "@apollo/client";
-import { InferGetStaticPropsType } from "next";
-import Link from "next/link";
+import Banners from "../components/Banners";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
-import apolloClient from "../utils/apollo";
-import { AboutIndexQuery } from "../__generated__/AboutIndexQuery";
 
-export default function AboutPage(
-  props: InferGetStaticPropsType<typeof getStaticProps>
-) {
+export default function AboutPage() {
   return (
     <Layout title="What is UTmap">
-      <Hero image="https://picsum.photos/800/600">
+      <Hero image="/images/utmap.png">
         <h1 className="text-4xl p-32">What is UTmap</h1>
       </Hero>
-      <div className="overflow-x-hidden bg-black p-4">
-        <div className="flex flex-row w-max space-x-8">
-          {[...props.allBanners].map((banner) => (
-            <Link href={banner.link ?? ""}>
-              <a>
-                <img
-                  src={banner.image?.url ?? ""}
-                  alt="banner"
-                  className="h-16"
-                />
-              </a>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <Banners />
       <main className="container mx-auto px-2 py-16 leading-loose text-2xl">
         <p>
           東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を授けたい。
@@ -40,23 +20,4 @@ export default function AboutPage(
       </main>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const queryResult = await apolloClient.query<AboutIndexQuery>({
-    query: gql`
-      query AboutIndexQuery {
-        allBanners {
-          title
-          link
-          image {
-            url
-          }
-        }
-      }
-    `,
-  });
-  return {
-    props: queryResult.data,
-  };
 }

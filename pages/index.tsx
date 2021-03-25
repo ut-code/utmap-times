@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
+import Banners from "../components/Banners";
 import FeatureLink from "../components/FeatureLink";
 import Hero from "../components/Hero";
 import HomePageSectionHeader from "../components/HomePageSectionHeader";
@@ -29,6 +30,7 @@ export default function IndexPage(
           <p>東大生のキャリア設計プラットフォーム</p>
         </div>
       </Hero>
+      <Banners />
       <div className="relative">
         <div
           aria-hidden
