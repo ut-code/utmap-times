@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
+import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
@@ -148,6 +149,7 @@ export default function ClubIndexPage(
           <h2>サークル選択のサポート</h2>
         </div>
       </Hero>
+      <Banners />
       <section className="container mx-auto py-24 lg:py-32">
         <header className="text-center mb-12">
           <h2 className="text-4xl font-bold">PICKUP</h2>

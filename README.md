@@ -17,7 +17,7 @@ https://utmap.jp/
 1. リポジトリをクローンする
 2. `/.env.local.sample` を `/.env.local` にコピーし、[DatoCMS](https://www.datocms.com/)のAPIトークンを設定する
 3. `npm ci`
-4. `npm run graphql:codegen`
+4. `npm run prebuild`
 5. `npm run dev`
 
 ## GraphQL

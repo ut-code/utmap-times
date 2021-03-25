@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -24,6 +25,7 @@ export default function StaticPage(
           {props.staticPage.title}
         </h1>
       </Hero>
+      <Banners />
       <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
         <h2 className="pt-24 pb-16 text-3xl font-bold border-b-2">
           {props.staticPage.title}

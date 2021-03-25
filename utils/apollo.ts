@@ -1,4 +1,5 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { fetch } from "cross-fetch";
 import { datoCmsPagination } from "./datocms";
 
 const { NEXT_PUBLIC_GRAPHQL_ENDPOINT } = process.env;
@@ -14,6 +15,7 @@ const apolloClient = new ApolloClient({
     headers: {
       Authorization: `Bearer ${NEXT_PUBLIC_GRAPHQL_TOKEN}`,
     },
+    fetch,
   }),
   cache: new InMemoryCache({
     typePolicies: {

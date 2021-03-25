@@ -1,3 +1,4 @@
+import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 
@@ -7,6 +8,7 @@ export default function NewsArticleIndexPage() {
       <Hero image="https://picsum.photos/800/600" className="p-40">
         <h1 className="text-3xl">ニュース</h1>
       </Hero>
+      <Banners />
     </Layout>
   );
 }

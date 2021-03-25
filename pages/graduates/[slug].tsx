@@ -5,6 +5,7 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import Link from "next/link";
+import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -28,6 +29,7 @@ export default function GraduateArticlePage(
           <h1 className="text-3xl">{props.graduateArticle.title}</h1>
         </div>
       </Hero>
+      <Banners />
       <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
         <div className="pt-24 flex">
           <p className="bg-secondary-main py-1 px-6 text-white">
