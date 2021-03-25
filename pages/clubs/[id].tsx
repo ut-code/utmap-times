@@ -84,6 +84,18 @@ export default function ClubsPage(
         </div>
         <table className="my-3 w-full" cellPadding="10">
           <tr className="border-b-2">
+            <td className="font-bold w-1/4">場所</td>
+            <td className="w-3/4">
+              <RichTextRenderer markdown={props.club.place ?? ""} />
+            </td>
+          </tr>
+          <tr className="border-b-2">
+            <td className="font-bold w-1/4">活動日</td>
+            <td className="w-3/4">
+              <RichTextRenderer markdown={props.club.schedule ?? ""} />
+            </td>
+          </tr>
+          <tr className="border-b-2">
             <td className="font-bold w-1/4">普段の活動予定</td>
             <td className="w-3/4">
               <RichTextRenderer markdown={props.club.usualActivity ?? ""} />
