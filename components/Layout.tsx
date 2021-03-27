@@ -26,6 +26,7 @@ export default function Layout(
   return (
     <>
       <Head>
+        <link rel="icon" href="/images/favicon.ico" />
         <title>{props.title && `${props.title} | `}UTmap Times</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
