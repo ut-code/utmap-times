@@ -9,7 +9,7 @@ import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
-import Layout from "../../components/Layout";
+import Layout, { layoutSeoFragment } from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import {
   GetClubBySlugQuery,
@@ -39,7 +39,7 @@ export default function ClubsPage(
     },
   ].filter((questionAndAnswerPair) => questionAndAnswerPair.answer);
   return (
-    <Layout title={props.club.name}>
+    <Layout title={props.club.name} seo={props.club.seo}>
       <Hero image={props.club.images[0]?.url ?? "/images/utmap.png"}>
         <div className="container mx-auto px-8 md:px-24 py-48">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
@@ -330,6 +330,7 @@ export async function getStaticProps({
     GetClubBySlugQueryVariables
   >({
     query: gql`
+      ${layoutSeoFragment}
       query GetClubBySlugQuery($id: ItemId!) {
         club(filter: { id: { eq: $id } }) {
           id
@@ -429,6 +430,9 @@ export async function getStaticProps({
               url
             }
             description
+          }
+          seo {
+            ...LayoutSeoFragment
           }
         }
       }
