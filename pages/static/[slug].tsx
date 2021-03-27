@@ -6,7 +6,7 @@ import {
 } from "next";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
-import Layout from "../../components/Layout";
+import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
@@ -19,7 +19,7 @@ export default function StaticPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Layout title={props.staticPage.title}>
+    <Layout title={props.staticPage.title} seo={props.staticPage.seo}>
       <Hero image="/images/graduates-article.jpg">
         <h1 className="container mx-auto px-8 md:px-24 py-40 text-3xl">
           {props.staticPage.title}
@@ -52,6 +52,7 @@ export async function getStaticProps({
     GetStaticPageBySlugQueryVariables
   >({
     query: gql`
+      ${layoutSeoFragment}
       query GetStaticPageBySlugQuery($slug: String!) {
         staticPage(filter: { slug: { eq: $slug } }) {
           title
@@ -61,6 +62,9 @@ export async function getStaticProps({
             url
           }
           content
+          seo {
+            ...LayoutSeoFragment
+          }
         }
       }
     `,
