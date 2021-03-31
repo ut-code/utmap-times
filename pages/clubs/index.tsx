@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import ArticleLink from "../../components/ArticleLink";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -59,20 +60,41 @@ export default function ClubIndexPage(
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
 
-  const randomClubIndex = useMemo(
+  const randomClubIndex1 = useMemo(
+    () => Math.floor(Math.random() * props.totalClubCount),
+    [props.totalClubCount]
+  );
+  const randomClubIndex2 = useMemo(
+    () => Math.floor(Math.random() * props.totalClubCount),
+    [props.totalClubCount]
+  );
+  const randomClubIndex3 = useMemo(
     () => Math.floor(Math.random() * props.totalClubCount),
     [props.totalClubCount]
   );
   const randomClubQuery = useQuery<RandomClubQuery, RandomClubQueryVariables>(
     gql`
       ${clubSearchFragment}
-      query RandomClubQuery($randomClubIndex: IntType!) {
-        allClubs(skip: $randomClubIndex, first: 1) {
+      query RandomClubQuery(
+        $randomClubIndex1: IntType!
+        $randomClubIndex2: IntType!
+        $randomClubIndex3: IntType!
+      ) {
+        club1: allClubs(skip: $randomClubIndex1, first: 1) {
+          ...ClubSearchFragment
+        }
+        club2: allClubs(skip: $randomClubIndex2, first: 1) {
+          ...ClubSearchFragment
+        }
+        club3: allClubs(skip: $randomClubIndex3, first: 1) {
           ...ClubSearchFragment
         }
       }
     `,
-    { variables: { randomClubIndex }, ssr: false }
+    {
+      variables: { randomClubIndex1, randomClubIndex2, randomClubIndex3 },
+      ssr: false,
+    }
   );
 
   const selectedCategorySlug = query.category;
@@ -138,9 +160,21 @@ export default function ClubIndexPage(
       });
   };
 
+  const randomClub1 = randomClubQuery.data?.club1[0];
   const searchQueryData = searchQuery.data;
-  const randomClub = randomClubQuery.data?.allClubs[0];
+  const randomClubs = [
+    randomClubQuery.data?.club1[0],
+    randomClubQuery.data?.club2[0],
+    randomClubQuery.data?.club3[0],
+  ];
 
+  const [pickUpIndex, setPickUpIndex] = useState(0);
+  const indexForward = () => {
+    setPickUpIndex(pickUpIndex !== 2 ? pickUpIndex + 1 : pickUpIndex);
+  };
+  const indexback = () => {
+    setPickUpIndex(pickUpIndex !== 0 ? pickUpIndex - 1 : pickUpIndex);
+  };
   return (
     <Layout title="サークル">
       <Hero image="/images/top-clubs.jpg">
@@ -152,40 +186,66 @@ export default function ClubIndexPage(
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
         <header className="text-center mb-12">
-          <h2 className="text-4xl font-bold">PICKUP</h2>
+          <h2 className="text-4xl font-bold">PICKUP{randomClub1?.id}</h2>
           <p className="text-secondary-main">注目のサークル</p>
         </header>
-        <Link href={`/clubs/${randomClub?.id}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={randomClub?.name ?? ""}
-              src={randomClub?.images[0]?.url}
-              className="w-full h-96"
-            />
-            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
-              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
-                {randomClub?.category?.name}
-              </div>
-              <p className={clsx("my-6 text-3xl lg:text-4xl")}>
-                {randomClub?.name}
-              </p>
-              <ul>
-                {randomClub?.tags.map((tag) => (
-                  <li
-                    key={tag.id}
-                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                  >
-                    {`#${tag.name}`}
-                  </li>
-                ))}
-              </ul>
-              <div
-                aria-hidden
-                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
-              />
-            </div>
-          </a>
-        </Link>
+        <div className="relative px-6 lg:mx-24">
+          <button
+            className="absolute top-52 md:top-56 lg:top-60 left-0 z-10 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
+            type="button"
+            onClick={() => {
+              indexback();
+            }}
+          >
+            <BsChevronLeft className="m-auto" />
+          </button>
+          <button
+            className="absolute top-52 md:top-56 lg:top-60 right-0 z-10 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
+            type="button"
+            onClick={() => {
+              indexForward();
+            }}
+          >
+            <BsChevronRight className="m-auto" />
+          </button>
+          {randomClubs.map((randomClub, index) => (
+            <Link key={randomClub?.id} href={`/clubs/${randomClub?.id}`}>
+              <a
+                className={clsx("block relative hover:bg-gray-100 p-8", {
+                  hidden: index !== pickUpIndex,
+                })}
+              >
+                <ImageOrLogo
+                  alt={randomClub?.name ?? ""}
+                  src={randomClub?.images[0]?.url}
+                  className="w-full h-96"
+                />
+                <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
+                  <div className="inline-block bg-secondary-main py-2 px-6 text-white">
+                    {randomClub?.category?.name}
+                  </div>
+                  <p className={clsx("my-6 text-3xl lg:text-4xl")}>
+                    {randomClub?.name}
+                  </p>
+                  <ul>
+                    {randomClub?.tags.map((tag) => (
+                      <li
+                        key={tag.id}
+                        className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                      >
+                        {`#${tag.name}`}
+                      </li>
+                    ))}
+                  </ul>
+                  <div
+                    aria-hidden
+                    className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
+                  />
+                </div>
+              </a>
+            </Link>
+          ))}
+        </div>
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
