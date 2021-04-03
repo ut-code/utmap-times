@@ -50,6 +50,12 @@ export default function GraduateArticlePage(
           ))}
         </div>
         <SnsShareLinks />
+        {props.graduateArticle.introduction && (
+          <RichTextRenderer
+            markdown={props.graduateArticle.introduction}
+            className="bg-gray-100 px-2 md:px-6 md:py-4"
+          />
+        )}
         <RichTextRenderer
           markdown={props.graduateArticle.content ?? ""}
           className="pt-8 pb-20 border-b-2"
@@ -116,6 +122,7 @@ export async function getStaticProps({
         graduateArticle(filter: { slug: { eq: $slug } }) {
           title
           date
+          introduction
           content
           category {
             id
