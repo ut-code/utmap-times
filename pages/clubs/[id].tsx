@@ -82,48 +82,64 @@ export default function ClubsPage(
 
         <SnsShareLinks />
         <div className="relative lg:w-max mx-auto pt-14 px-6 -top-14">
-          <button
-            type="button"
-            onClick={() => {
-              subtractImageIndex();
-            }}
-            className="absolute top-1/2 left-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
-          >
-            <BsChevronLeft className="m-auto" />
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              addImageIndex();
-            }}
-            className="absolute top-1/2 right-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
-          >
-            <BsChevronRight className="m-auto" />
-          </button>
-
-          {props.club.images.map(
-            (image, index) =>
-              index === imageIndex && (
-                <img
-                  className="mx-auto max-h-96 object-contain border-8 border-secondary-main"
-                  src={image.url}
-                  alt={`サークル画像${index}`}
-                />
-              )
+          {props.club.images[1] && (
+            <button
+              type="button"
+              onClick={() => {
+                subtractImageIndex();
+              }}
+              className="absolute top-1/2 left-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
+            >
+              <BsChevronLeft className="m-auto" />
+            </button>
           )}
-          <div className="w-max ml-auto">
-            {props.club.images.map(
+          {props.club.images[1] && (
+            <button
+              type="button"
+              onClick={() => {
+                addImageIndex();
+              }}
+              className="absolute top-1/2 right-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
+            >
+              <BsChevronRight className="m-auto" />
+            </button>
+          )}
+
+          {props.club.images[0] ? (
+            props.club.images.map(
               (image, index) =>
-                image && (
-                  <div
-                    className={clsx(
-                      "inline-block h-2 w-2 ml-1 rounded-full",
-                      index === imageIndex ? "bg-primary-400" : "bg-primary-50"
-                    )}
+                index === imageIndex && (
+                  <img
+                    className="mx-auto max-h-96 object-contain border-8 border-secondary-main"
+                    src={image.url}
+                    alt={`サークル画像${index}`}
                   />
                 )
-            )}
-          </div>
+            )
+          ) : (
+            <img
+              className="mx-auto max-h-96 object-contain border-8 border-secondary-main"
+              src="/images/utmap.png"
+              alt="画像"
+            />
+          )}
+          {props.club.images[1] && (
+            <div className="w-max ml-auto">
+              {props.club.images.map(
+                (image, index) =>
+                  image && (
+                    <div
+                      className={clsx(
+                        "inline-block h-2 w-2 ml-1 rounded-full",
+                        index === imageIndex
+                          ? "bg-primary-400"
+                          : "bg-primary-50"
+                      )}
+                    />
+                  )
+              )}
+            </div>
+          )}
         </div>
 
         <h1 className="mt-24 mb-6 px-6 py-3 bg-gray-200">基本情報</h1>
