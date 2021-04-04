@@ -20,7 +20,7 @@ export default function StaticPage(
 ) {
   return (
     <Layout title={props.staticPage.title} seo={props.staticPage.seo}>
-      <Hero image="/images/graduates-article.jpg">
+      <Hero image={props.staticPage.image[0].url}>
         <h1 className="container mx-auto px-8 md:px-24 py-40 text-3xl">
           {props.staticPage.title}
         </h1>
