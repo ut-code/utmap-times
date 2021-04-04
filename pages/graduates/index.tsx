@@ -53,7 +53,7 @@ export default function GraduatArticleIndexPage(
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目の記事</p>
         </header>
-        <Link href={`/graduateArticles/${props.randomArticle.id}`}>
+        <Link href={`graduates/${props.randomArticle.slug}`}>
           <a className="block relative hover:bg-gray-100 p-8">
             <ImageOrLogo
               alt={props.randomArticle.title ?? ""}
