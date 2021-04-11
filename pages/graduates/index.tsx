@@ -57,7 +57,7 @@ export default function GraduatArticleIndexPage(
           <a className="block relative hover:bg-gray-100 p-8">
             <ImageOrLogo
               alt={props.randomArticle.title ?? ""}
-              src={props.randomArticle.image[0]?.url}
+              src={props.randomArticle.image?.url}
               className="w-full h-96"
             />
             <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
@@ -255,7 +255,7 @@ export default function GraduatArticleIndexPage(
                 <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-100">
                   <div className="relative mb-8">
                     <img
-                      src={graduateArticle.image[0]?.url}
+                      src={graduateArticle.image?.url}
                       alt={graduateArticle.title ?? ""}
                       className="w-full h-64 object-cover"
                     />
@@ -296,8 +296,8 @@ export default function GraduatArticleIndexPage(
                   <div className="relative mb-8">
                     <img
                       src={
-                        props.topRatedGraduateArticles[0].graduateArticle
-                          ?.image[0]?.url
+                        props.topRatedGraduateArticles[0].graduateArticle?.image
+                          ?.url
                       }
                       alt={
                         props.topRatedGraduateArticles[0].graduateArticle
@@ -344,7 +344,7 @@ export default function GraduatArticleIndexPage(
                     <Link href={`graduates/${rated.graduateArticle?.slug}`}>
                       <a className="flex px-4 py-2 cursor-pointer hover:bg-gray-200 relative">
                         <img
-                          src={rated.graduateArticle?.image[0].url}
+                          src={rated.graduateArticle?.image?.url}
                           alt={rated.graduateArticle?.title ?? ""}
                           className="w-32 h-full inline-block mr-6"
                         />
