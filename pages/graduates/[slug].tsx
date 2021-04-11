@@ -21,7 +21,9 @@ export default function GraduateArticlePage(
 ) {
   return (
     <Layout title={props.graduateArticle.title} seo={props.graduateArticle.seo}>
-      <Hero image={props.graduateArticle.image[0].url}>
+      <Hero
+        image={props.graduateArticle.image?.url ?? "../../images/article.jpg"}
+      >
         <div className="container mx-auto px-8 md:px-24 py-40">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
             {props.graduateArticle.category?.name}
@@ -73,7 +75,7 @@ export default function GraduateArticlePage(
                   <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-200">
                     <div className="relative mb-8">
                       <img
-                        src={related.image[0].url}
+                        src={related.image?.url}
                         alt={related.title ?? ""}
                         className="w-full h-64 object-cover"
                       />

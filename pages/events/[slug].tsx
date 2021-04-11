@@ -20,7 +20,7 @@ export default function EventPage(
 ) {
   return (
     <Layout title={props.event.title}>
-      <Hero image={props.event.image[0].url}>
+      <Hero image={props.event.image?.url ?? "../../images/article.jpg"}>
         <div className="container mx-auto px-8 md:px-24 py-40">
           <h1 className="text-3xl">{props.event.title}</h1>
         </div>
