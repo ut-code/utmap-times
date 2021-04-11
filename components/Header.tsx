@@ -56,6 +56,14 @@ export default function Header() {
         >
           <AiOutlineClose className="w-10 h-10" />
         </button>
+        <Link href="/">
+          <button
+            type="button"
+            className="lg:hidden block w-full px-6 py-4 text-left hover:bg-gray-200"
+          >
+            TOP
+          </button>
+        </Link>
         <ul className="lg:flex lg:justify-center lg:h-full lg:bg-white">
           {menu.map((menuItem) => (
             <li key={menuItem.label} className="h-full">
