@@ -17,11 +17,13 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 right-0 z-30 lg:h-16 lg:bg-white">
-      <Link href="/">
-        <a rel="トップページ">
-          <Logo className="absolute top-0 left-0 w-32 h-32 bg-white hover:bg-gray-200" />
-        </a>
-      </Link>
+      <div className="hidden lg:block">
+        <Link href="/">
+          <a rel="トップページ">
+            <Logo className="absolute top-0 left-0 w-32 h-32 bg-white hover:bg-gray-200" />
+          </a>
+        </Link>
+      </div>
       <button
         type="button"
         className="absolute top-0 right-0 p-6 hover:bg-white hover:bg-opacity-20 lg:hidden"
