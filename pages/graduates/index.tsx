@@ -57,7 +57,7 @@ export default function GraduatArticleIndexPage(
           <a className="block relative hover:bg-gray-100 p-8">
             <ImageOrLogo
               alt={props.randomArticle.title ?? ""}
-              src={props.randomArticle.image[0]?.url}
+              src={props.randomArticle.image?.url}
               className="w-full h-96"
             />
             <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
