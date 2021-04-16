@@ -426,6 +426,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
               date
               content
               image {
+                id
                 url(imgixParams: { maxW: 300 })
               }
               category {
@@ -493,6 +494,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           title
           date
           image {
+            id
             url(imgixParams: { maxW: 600 })
           }
           category {
@@ -510,6 +512,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           title
           date
           image {
+            id
             url(imgixParams: { maxW: 300 })
           }
           category {

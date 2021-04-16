@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 import { staticData } from "../__generated_data__/static";
 
 export default function Banners() {
@@ -8,7 +9,7 @@ export default function Banners() {
         <div className="w-full overflow-x-auto bg-black">
           <div className="flex mx-auto w-max p-4 space-x-6 md:p-6 md:space-x-10">
             {staticData.allBanners.map((banner) => (
-              <>
+              <Fragment key={banner.id}>
                 <Link href={banner.link ?? ""}>
                   <a className="flex-none">
                     <img
@@ -18,7 +19,7 @@ export default function Banners() {
                     />
                   </a>
                 </Link>
-              </>
+              </Fragment>
             ))}
           </div>
         </div>

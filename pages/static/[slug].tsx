@@ -4,6 +4,10 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
+import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
+import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout, { layoutSeoFragment } from "../../components/Layout";
@@ -31,10 +35,17 @@ export default function StaticPage(
           {props.staticPage.title}
         </h2>
         <SnsShareLinks />
-        <RichTextRenderer
-          markdown={props.staticPage.content ?? ""}
-          className="pt-8 pb-20 border-b-2"
-        />
+        {props.staticPage.content && (
+          <RichTextRenderer
+            markdown={props.staticPage.content}
+            className="pt-8 pb-20 border-b-2"
+          />
+        )}
+        {props.staticPage.structuredContent && (
+          <ArticleContentStructuredTextRenderer
+            structuredText={props.staticPage.structuredContent}
+          />
+        )}
         <SnsShareLinks />
       </div>
     </Layout>
@@ -53,6 +64,9 @@ export async function getStaticProps({
   >({
     query: gql`
       ${layoutSeoFragment}
+      ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextEmbeddedVideoFragment}
+      ${articleContentPersonAndStatementFragment}
       query GetStaticPageBySlugQuery($slug: String!) {
         staticPage(filter: { slug: { eq: $slug } }) {
           title
@@ -62,6 +76,20 @@ export async function getStaticProps({
             url
           }
           content
+          structuredContent {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentPersonAndStatementFragment
+              }
+            }
+            value
+          }
           seo {
             ...LayoutSeoFragment
           }
