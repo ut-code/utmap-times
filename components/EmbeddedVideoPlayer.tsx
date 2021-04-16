@@ -20,7 +20,10 @@ export default function EmbeddedVideoPlayer(props: {
 }) {
   return (
     <PlayerContainer
-      className={clsx("relative", props.className)}
+      className={clsx(
+        "relative max-w-screen-sm lg:max-w-screen-md mx-auto",
+        props.className
+      )}
       aspectRatio={props.aspectRatio}
     >
       <iframe

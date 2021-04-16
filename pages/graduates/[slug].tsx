@@ -46,7 +46,10 @@ export default function GraduateArticlePage(
         </h2>
         <div className="pb-10 border-b-2">
           {props.graduateArticle.tags.map((tag) => (
-            <p className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block">
+            <p
+              key={tag.id}
+              className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block"
+            >
               # {tag.name}
             </p>
           ))}
