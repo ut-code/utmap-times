@@ -6,6 +6,7 @@ import {
 } from "next";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
 import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
 import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import Banners from "../../components/Banners";
@@ -60,6 +61,7 @@ export async function getStaticProps({
       ${layoutSeoFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
       ${articleContentStructuredTextEmbeddedVideoFragment}
+      ${articleContentStructuredTextEmbeddedImageFragment}
       ${articleContentPersonAndStatementFragment}
       query GetCompanyBySlugQuery($slug: String!) {
         company(filter: { slug: { eq: $slug } }) {
@@ -89,6 +91,9 @@ export async function getStaticProps({
               }
               ... on EmbeddedVideoRecord {
                 ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
               }
               ... on PersonAndStatementRecord {
                 ...ArticleContentPersonAndStatementFragment
