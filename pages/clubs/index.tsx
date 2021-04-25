@@ -8,10 +8,12 @@ import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
 import Banners from "../../components/Banners";
+import BookmarkedClubs from "../../components/BookmarkedClubs";
 import Hero from "../../components/Hero";
 import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
+import { useClubBookmarks } from "../../utils/hooks/clubBookmarks";
 import { ClubIndexMetaQuery } from "../../__generated__/ClubIndexMetaQuery";
 import {
   ClubSearchQuery,
@@ -37,7 +39,7 @@ const clubSearchFragment = gql`
     id
     name
     images {
-      url(imgixParams: { maxW: 600 })
+      url(imgixParams: { w: 1200, h: 900, auto: format })
     }
     category {
       name
@@ -58,6 +60,7 @@ export default function ClubIndexPage(
   const [isLoading, setIsLoading] = useState(false);
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
+  const { bookmarkedClubIds, toggleClubBookmark } = useClubBookmarks();
 
   const randomClubIndex = useMemo(
     () => Math.floor(Math.random() * props.totalClubCount),
@@ -357,6 +360,10 @@ export default function ClubIndexPage(
                           name: tag.name ?? "",
                         }))}
                         className="h-full"
+                        isBookmarked={bookmarkedClubIds.includes(club.id)}
+                        onBookmarkToggled={() => {
+                          toggleClubBookmark(club.id);
+                        }}
                       />
                     </li>
                   ))}
@@ -389,6 +396,15 @@ export default function ClubIndexPage(
         ) : (
           <p>読み込み中です...</p>
         )}
+      </section>
+      <section className="bg-gray-50">
+        <div className="container mx-auto py-16 lg:py-32">
+          <header className="text-center mb-12">
+            <h2 className="text-4xl font-bold">FAVORITES</h2>
+            <p className="text-secondary-main">お気に入り</p>
+          </header>
+          <BookmarkedClubs />
+        </div>
       </section>
     </Layout>
   );
