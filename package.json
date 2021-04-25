@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.7",
+    "@rehooks/local-storage": "^2.4.1",
     "autoprefixer": "^10.2.4",
     "clsx": "^1.1.1",
     "cross-fetch": "^3.0.6",
@@ -28,10 +29,12 @@
     "react-datocms": "^1.6.0",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
+    "react-intersection-observer": "^8.31.1",
     "sanitize-html": "^2.3.2",
     "styled-components": "^5.2.1",
     "superstruct": "^0.14.1",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.0.2",
+    "use-local-storage-state": "^9.0.2"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.4",
