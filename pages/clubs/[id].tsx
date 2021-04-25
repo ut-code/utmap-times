@@ -152,34 +152,36 @@ export default function ClubsPage(
           <RichTextRenderer markdown={props.club.description ?? ""} />
         </div>
         <table className="my-3 w-full" cellPadding="10">
-          <tr className="border-b-2">
-            <td className="font-bold w-1/4">場所</td>
-            <td className="w-3/4">
-              <RichTextRenderer markdown={props.club.place ?? ""} />
-            </td>
-          </tr>
-          <tr className="border-b-2">
-            <td className="font-bold w-1/4">活動日</td>
-            <td className="w-3/4">
-              <RichTextRenderer markdown={props.club.schedule ?? ""} />
-            </td>
-          </tr>
-          <tr className="border-b-2">
-            <td className="font-bold w-1/4">普段の活動予定</td>
-            <td className="w-3/4">
-              <RichTextRenderer markdown={props.club.usualActivity ?? ""} />
-            </td>
-          </tr>
-          <tr className="border-b-2">
-            <td className="font-bold">月ごとの特別な予定</td>
-            <td>
-              <RichTextRenderer markdown={props.club.eventSchedule ?? ""} />
-            </td>
-          </tr>
-          <tr className="border-b-2">
-            <td className="font-bold">入会選考の有無</td>
-            <td>{props.club.requiresExamination}</td>
-          </tr>
+          <tbody>
+            <tr className="border-b-2">
+              <td className="font-bold w-1/4">場所</td>
+              <td className="w-3/4">
+                <RichTextRenderer markdown={props.club.place ?? ""} />
+              </td>
+            </tr>
+            <tr className="border-b-2">
+              <td className="font-bold w-1/4">活動日</td>
+              <td className="w-3/4">
+                <RichTextRenderer markdown={props.club.schedule ?? ""} />
+              </td>
+            </tr>
+            <tr className="border-b-2">
+              <td className="font-bold w-1/4">普段の活動予定</td>
+              <td className="w-3/4">
+                <RichTextRenderer markdown={props.club.usualActivity ?? ""} />
+              </td>
+            </tr>
+            <tr className="border-b-2">
+              <td className="font-bold">月ごとの特別な予定</td>
+              <td>
+                <RichTextRenderer markdown={props.club.eventSchedule ?? ""} />
+              </td>
+            </tr>
+            <tr className="border-b-2">
+              <td className="font-bold">入会選考の有無</td>
+              <td>{props.club.requiresExamination}</td>
+            </tr>
+          </tbody>
         </table>
         <div className="container mx-auto px-1 md:px-24 p-3 bg-secondary-main border-t-8 border-white text-white">
           <div className="text-center">新歓日程</div>
