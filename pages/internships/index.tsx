@@ -210,7 +210,7 @@ export default function InternshipsIndexPage(
             ) : (
               <>
                 <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のサークルが見つかりました。`}</p>
-                <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
+                <ul className="md:grid md:grid-cols-1 xl:grid-cols-1">
                   {searchQueryData.allInternships.map((internship) => (
                     <li key={internship.id}>
                       <ArticleLinkIntern

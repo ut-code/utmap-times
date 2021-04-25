@@ -8,6 +8,9 @@ export const articleLinkInternFragment = gql`
   fragment ArticleLinkInternFragment on InternshipRecord {
     id
     title
+    company {
+      name
+    }
     images {
       url(imgixParams: { maxW: 600 })
     }
@@ -15,6 +18,7 @@ export const articleLinkInternFragment = gql`
       name
       slug
     }
+    isRecruiting
     salary
     location
     industry {
@@ -38,34 +42,60 @@ export default function ArticleLinkIntern(props: {
     <Link href={`/internships/${props.article.slug}`}>
       <a
         className={clsx(
-          "block p-8 cursor-pointer hover:bg-gray-100",
+          "flex p-8 cursor-pointer hover:bg-gray-100",
           props.className
         )}
       >
-        <div className="relative mb-8">
+        <span className="relative mb-8">
           <img
             src={props.article.images[0]?.url ?? "/images/utmap.png"}
             alt={title}
-            className="w-full h-64 object-cover border-secondary-main border-solid border-8"
+            className="relative lg:w-max mx-auto pt-14 px-6 -top-14"
           />
-        </div>
-        <p className="text-2xl">{props.article.title}</p>
-        <p className="text-2xl">{props.article.jobType?.name}</p>
-        <p className="text-2xl">{props.article.salary}</p>
-        <p className="text-2xl">{props.article.location}</p>
-        <p className="text-2xl">{props.article.industry?.name}</p>
-        {props.article.features && (
-          <ul>
-            {props.article.features.map((feature) => (
-              <li
-                key={feature.id}
-                className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-              >
-                {`#${feature.name}`}
-              </li>
-            ))}
-          </ul>
-        )}
+        </span>
+        <div>{props.article.isRecruiting}</div>
+        <span className="my-3 w-full">
+          <p className="border-solid border-black border-b-2">
+            {props.article.company?.name}
+          </p>
+          <p className="font-bold text-center text-lg pt-6">
+            {props.article.title}
+          </p>
+          <div className="my-3 w-full grid grid-cols-8 text-center">
+            <div className="font-bold col-span-1 border-b-2">職種</div>
+            <div className="col-span-3 border-b-2">
+              {props.article.jobType?.name}
+            </div>
+            <div className="font-bold col-span-1 border-b-2">給与</div>
+            <div className="col-span-3 border-b-2">{props.article.salary}</div>
+
+            <div className="font-bold col-span-1 border-b-2">場所</div>
+            <div className="col-span-3 border-b-2">
+              {props.article.location}
+            </div>
+            <div className="font-bold col-span-1 border-b-2">特徴</div>
+            <div className="col-span-3 border-b-2">
+              {props.article.features && (
+                <ul>
+                  {props.article.features.map((feature) => (
+                    <li
+                      key={feature.id}
+                      className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                    >
+                      {`#${feature.name}`}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="font-bold text-white bg-black col-span-1 border-b-2">
+              業界
+            </div>
+            <div className="col-span-3 border-b-2">
+              {props.article.industry?.name}
+            </div>
+          </div>
+        </span>
       </a>
     </Link>
   );
