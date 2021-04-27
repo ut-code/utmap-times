@@ -53,11 +53,11 @@ export default function ArticleLinkIntern(props: {
             className="relative lg:w-max mx-auto pt-14 px-6 -top-14"
           />
         </span>
-        <div>{props.article.isRecruiting}</div>
         <span className="my-3 w-full">
           <p className="border-solid border-black border-b-2">
             {props.article.company?.name}
           </p>
+          <div>aa${props.article.isRecruiting}</div>
           <p className="font-bold text-center text-lg pt-6">
             {props.article.title}
           </p>

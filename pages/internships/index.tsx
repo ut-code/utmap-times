@@ -27,6 +27,7 @@ import {
 
 const queryType = s.type({
   q: s.optional(s.string()),
+  isRecruiting: s.optional(s.boolean()),
   features: s.optional(s.union([s.string(), s.array(s.string())])),
 });
 export type Query = s.Infer<typeof queryType>;
@@ -60,6 +61,10 @@ export default function InternshipsIndexPage(
     `,
     { variables: { randomInternshipsIndex }, ssr: false }
   );
+  const selectedIsRecruiting = query.isRecruiting;
+  const isRecruitingFilter: InternshipModelFilter = selectedIsRecruiting
+    ? {}
+    : {};
   const selectedFeaturesSlugs = Array.isArray(query.features)
     ? query.features
     : [query.features];
@@ -93,7 +98,7 @@ export default function InternshipsIndexPage(
     `,
     {
       variables: {
-        filter: { ...titleFilter, ...featuresFilter },
+        filter: { ...titleFilter, ...featuresFilter, ...isRecruitingFilter },
         first: ARTICLES_PER_PAGE * (page + 1),
         skip: 0,
       },
