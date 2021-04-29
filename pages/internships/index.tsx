@@ -29,6 +29,7 @@ const queryType = s.type({
   q: s.optional(s.string()),
   isRecruiting: s.optional(s.boolean()),
   features: s.optional(s.union([s.string(), s.array(s.string())])),
+  industry: s.optional(s.union([s.string(), s.array(s.string())])),
 });
 export type Query = s.Infer<typeof queryType>;
 
@@ -68,14 +69,23 @@ export default function InternshipsIndexPage(
   const selectedFeaturesSlugs = Array.isArray(query.features)
     ? query.features
     : [query.features];
-  const selectedFeatures = props.InternshipsFeatures.filter((features) =>
-    selectedFeaturesSlugs.some((slug) => slug === features.slug)
+  const selectedFeatures = props.InternshipsFeatures.filter((feature) =>
+    selectedFeaturesSlugs.some((slug) => slug === feature.slug)
+  );
+  const selectedIndustriesSlugs = Array.isArray(query.industry)
+    ? query.industry
+    : [query.industry];
+  const selectedIndustries = props.InternshipsIndustry.filter((industry) =>
+    selectedIndustriesSlugs.some((slug) => slug === industry.slug)
   );
   const titleFilter: InternshipModelFilter = query.q
     ? { title: { matches: { pattern: query.q || "" } } }
     : {};
   const featuresFilter: InternshipModelFilter = selectedFeatures.length
-    ? { features: { allIn: selectedFeatures.map((features) => features.id) } }
+    ? { features: { allIn: selectedFeatures.map((feature) => feature.id) } }
+    : {};
+  const industryFilter: InternshipModelFilter = selectedIndustries.length
+    ? { industry: { in: selectedIndustries.map((industry) => industry.id) } }
     : {};
   const searchQuery = useQuery<
     InternshipsSearchQuery,
@@ -98,7 +108,12 @@ export default function InternshipsIndexPage(
     `,
     {
       variables: {
-        filter: { ...titleFilter, ...featuresFilter, ...isRecruitingFilter },
+        filter: {
+          ...titleFilter,
+          ...featuresFilter,
+          ...isRecruitingFilter,
+          ...industryFilter,
+        },
         first: ARTICLES_PER_PAGE * (page + 1),
         skip: 0,
       },
@@ -196,10 +211,79 @@ export default function InternshipsIndexPage(
           </form>
           <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2">
             <div className="md:pr-8 md:border-r md:border-gray-500">
-              <h3 className="text-2xl mb-6">カテゴリで検索</h3>
+              <h3 className="text-2xl mb-6">業界で検索</h3>
+              <ul>
+                {props.InternshipsIndustry.map((industry) => {
+                  const isSelected = selectedIndustries.some(
+                    (selectedIndustry) => selectedIndustry.id === industry.id
+                  );
+                  const newSelectedIndustries = isSelected
+                    ? selectedIndustries.filter(
+                        (selectedIndustry) =>
+                          selectedIndustry.id !== industry.id
+                      )
+                    : [...selectedIndustries, industry];
+                  const newQuery: Query = {
+                    industry: newSelectedIndustries.map(
+                      (selectedIndustry) => selectedIndustry.slug ?? ""
+                    ),
+                  };
+                  return (
+                    <li key={industry.slug} className="inline-block mr-2 mb-2">
+                      <Link
+                        href={{ query: { ...query, ...newQuery } }}
+                        scroll={false}
+                      >
+                        <a
+                          className={clsx(
+                            "block py-1 px-2 text-sm",
+                            isSelected ? "bg-yellow-300" : "bg-white"
+                          )}
+                        >
+                          {`#${industry.name}`}
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
             <div className="md:pl-8">
-              <h3 className="text-2xl">タグで検索</h3>
+              <h3 className="text-2xl">特徴で検索</h3>
+              <ul>
+                {props.InternshipsFeatures.map((feature) => {
+                  const isSelected = selectedFeatures.some(
+                    (selectedFeature) => selectedFeature.id === feature.id
+                  );
+                  const newSelectedFeatures = isSelected
+                    ? selectedFeatures.filter(
+                        (selectedFeature) => selectedFeature.id !== feature.id
+                      )
+                    : [...selectedFeatures, feature];
+                  const newQuery: Query = {
+                    features: newSelectedFeatures.map(
+                      (selectedFeature) => selectedFeature.slug ?? ""
+                    ),
+                  };
+                  return (
+                    <li key={feature.slug} className="inline-block mr-2 mb-2">
+                      <Link
+                        href={{ query: { ...query, ...newQuery } }}
+                        scroll={false}
+                      >
+                        <a
+                          className={clsx(
+                            "block py-1 px-2 text-sm",
+                            isSelected ? "bg-yellow-300" : "bg-white"
+                          )}
+                        >
+                          {`#${feature.name}`}
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </div>
@@ -267,6 +351,11 @@ export async function getStaticProps() {
           name
           slug
         }
+        allIndustries {
+          id
+          name
+          slug
+        }
         _allInternshipsMeta {
           count
         }
@@ -276,6 +365,7 @@ export async function getStaticProps() {
   return {
     props: {
       InternshipsFeatures: metaQueryResult.data.allInternshipFeatures,
+      InternshipsIndustry: metaQueryResult.data.allIndustries,
       totalInternshipsCount: metaQueryResult.data._allInternshipsMeta.count,
     },
   };

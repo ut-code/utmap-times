@@ -22,6 +22,7 @@ export const articleLinkInternFragment = gql`
     salary
     location
     industry {
+      id
       name
       slug
     }
@@ -57,7 +58,6 @@ export default function ArticleLinkIntern(props: {
           <p className="border-solid border-black border-b-2">
             {props.article.company?.name}
           </p>
-          <div>aa${props.article.isRecruiting}</div>
           <p className="font-bold text-center text-lg pt-6">
             {props.article.title}
           </p>
@@ -92,7 +92,7 @@ export default function ArticleLinkIntern(props: {
               業界
             </div>
             <div className="col-span-3 border-b-2">
-              {props.article.industry?.name}
+              {props.article?.industry}
             </div>
           </div>
         </span>
