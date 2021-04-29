@@ -92,7 +92,7 @@ export default function ArticleLinkIntern(props: {
               業界
             </div>
             <div className="col-span-3 border-b-2">
-              {props.article?.industry}
+              {props.article.industry?.name}
             </div>
           </div>
         </span>
