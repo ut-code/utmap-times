@@ -30,6 +30,7 @@ const queryType = s.type({
   isRecruiting: s.optional(s.boolean()),
   features: s.optional(s.union([s.string(), s.array(s.string())])),
   industry: s.optional(s.union([s.string(), s.array(s.string())])),
+  jobType: s.optional(s.union([s.string(), s.array(s.string())])),
 });
 export type Query = s.Infer<typeof queryType>;
 
@@ -72,6 +73,12 @@ export default function InternshipsIndexPage(
   const selectedFeatures = props.InternshipsFeatures.filter((feature) =>
     selectedFeaturesSlugs.some((slug) => slug === feature.slug)
   );
+  const selectedJobTypesSlugs = Array.isArray(query.jobType)
+    ? query.jobType
+    : [query.jobType];
+  const selectedJobTypes = props.InternshipsJobType.filter((jobType) =>
+    selectedJobTypesSlugs.some((slug) => slug === jobType.slug)
+  );
   const selectedIndustriesSlugs = Array.isArray(query.industry)
     ? query.industry
     : [query.industry];
@@ -83,6 +90,9 @@ export default function InternshipsIndexPage(
     : {};
   const featuresFilter: InternshipModelFilter = selectedFeatures.length
     ? { features: { allIn: selectedFeatures.map((feature) => feature.id) } }
+    : {};
+  const jobTypeFilter: InternshipModelFilter = selectedJobTypes.length
+    ? { jobType: { in: selectedJobTypes.map((jobType) => jobType.id) } }
     : {};
   const industryFilter: InternshipModelFilter = selectedIndustries.length
     ? { industry: { in: selectedIndustries.map((industry) => industry.id) } }
@@ -113,6 +123,7 @@ export default function InternshipsIndexPage(
           ...featuresFilter,
           ...isRecruitingFilter,
           ...industryFilter,
+          ...jobTypeFilter,
         },
         first: ARTICLES_PER_PAGE * (page + 1),
         skip: 0,
@@ -209,7 +220,44 @@ export default function InternshipsIndexPage(
               </button>
             </div>
           </form>
-          <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2">
+          <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-3">
+            <div className="md:pr-8 md:border-r md:border-gray-500">
+              <h3 className="text-2xl mb-6">職種で検索</h3>
+              <ul>
+                {props.InternshipsJobType.map((jobType) => {
+                  const isSelected = selectedJobTypes.some(
+                    (selectedJobType) => selectedJobType.id === jobType.id
+                  );
+                  const newSelectedJobTypes = isSelected
+                    ? selectedJobTypes.filter(
+                        (selectedJobType) => selectedJobType.id !== jobType.id
+                      )
+                    : [...selectedJobTypes, jobType];
+                  const newQuery: Query = {
+                    jobType: newSelectedJobTypes.map(
+                      (selectedJobType) => selectedJobType.slug ?? ""
+                    ),
+                  };
+                  return (
+                    <li key={jobType.slug} className="inline-block mr-2 mb-2">
+                      <Link
+                        href={{ query: { ...query, ...newQuery } }}
+                        scroll={false}
+                      >
+                        <a
+                          className={clsx(
+                            "block py-1 px-2 text-sm",
+                            isSelected ? "bg-yellow-300" : "bg-white"
+                          )}
+                        >
+                          {`#${jobType.name}`}
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
             <div className="md:pr-8 md:border-r md:border-gray-500">
               <h3 className="text-2xl mb-6">業界で検索</h3>
               <ul>
@@ -356,6 +404,11 @@ export async function getStaticProps() {
           name
           slug
         }
+        allInternshipJobTypes {
+          id
+          name
+          slug
+        }
         _allInternshipsMeta {
           count
         }
@@ -366,6 +419,7 @@ export async function getStaticProps() {
     props: {
       InternshipsFeatures: metaQueryResult.data.allInternshipFeatures,
       InternshipsIndustry: metaQueryResult.data.allIndustries,
+      InternshipsJobType: metaQueryResult.data.allInternshipJobTypes,
       totalInternshipsCount: metaQueryResult.data._allInternshipsMeta.count,
     },
   };

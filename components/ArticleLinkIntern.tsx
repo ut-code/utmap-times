@@ -15,6 +15,7 @@ export const articleLinkInternFragment = gql`
       url(imgixParams: { maxW: 600 })
     }
     jobType {
+      id
       name
       slug
     }
