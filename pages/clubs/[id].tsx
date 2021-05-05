@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { gql } from "@apollo/client";
 import {
   GetStaticPathsResult,
@@ -22,6 +22,7 @@ import SnsShareLinks from "../../components/SnsShareLinks";
 import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
 import EmbeddedVideoPlayer from "../../components/EmbeddedVideoPlayer";
 import Banners from "../../components/Banners";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -62,7 +63,7 @@ export default function ClubsPage(
         </div>
       </Hero>
       <Banners />
-      <div className="container mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <div className="pt-24 flex">
           <p className="bg-secondary-main py-1 px-6 text-white">
             {props.club.category?.name}
@@ -221,6 +222,10 @@ export default function ClubsPage(
             <td>{props.club.establishedYear}</td>
           </tr>
           <tr className="border-b-2">
+            <td className="font-bold">構成員数</td>
+            <td>{props.club.numberOfMembers}</td>
+          </tr>
+          <tr className="border-b-2">
             <td className="font-bold">男女比</td>
             <td>{props.club.genderRatio}</td>
           </tr>
@@ -304,15 +309,15 @@ export default function ClubsPage(
             </a>
           )}
         </div>
-      </div>
+      </ArticleContentContainer>
 
       {Boolean(props.club.qA?.length) && (
-        <div className="text-center h-auto py-12 bg-gray-100">
-          <p className="text-4xl font-bold">Q &amp; A</p>
-          <p className="text-secondary-main mb-8">質問コーナー</p>
-          <ul className="container mx-auto px-8 md:px-24">
+        <div className="py-12 bg-gray-100">
+          <p className="text-center text-4xl font-bold">Q &amp; A</p>
+          <p className="text-center text-secondary-main mb-8">質問コーナー</p>
+          <ArticleContentContainer>
             {props.club.qA?.map((questionAndAnswerPair) => (
-              <li key={questionAndAnswerPair?.id}>
+              <Fragment key={questionAndAnswerPair?.id}>
                 <ClubQuestionOrAnswer
                   type="question"
                   isOnGrayBackground
@@ -327,38 +332,35 @@ export default function ClubsPage(
                 >
                   {questionAndAnswerPair?.answer}
                 </ClubQuestionOrAnswer>
-              </li>
+              </Fragment>
             ))}
-          </ul>
+          </ArticleContentContainer>
         </div>
       )}
       {interviewItems.length > 0 && (
-        <div className="text-center py-12">
-          <p className="text-4xl font-bold">INTERVIEW</p>
-          <p className="text-secondary-main mb-8">インタビューコーナー</p>
-          <ul className="container mx-auto px-8 md:px-24">
+        <div className="py-12">
+          <p className="text-center text-4xl font-bold">INTERVIEW</p>
+          <p className="text-center text-secondary-main mb-8">
+            インタビューコーナー
+          </p>
+          <ArticleContentContainer>
             {interviewItems.map((questionAndAnswerPair) => (
-              <li key={questionAndAnswerPair.question}>
+              <Fragment key={questionAndAnswerPair.question}>
                 <ClubQuestionOrAnswer type="question" className="my-8">
                   {questionAndAnswerPair.question}
                 </ClubQuestionOrAnswer>
                 <ClubQuestionOrAnswer type="answer" className="my-8">
                   {questionAndAnswerPair.answer}
                 </ClubQuestionOrAnswer>
-              </li>
+              </Fragment>
             ))}
-          </ul>
+          </ArticleContentContainer>
         </div>
       )}
 
-      <div className="container mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <SnsShareLinks />
-      </div>
-
-      {/* <div className="text-center h-96 py-12 bg-gray-100">
-        <p className="text-4xl font-bold">SCHEDULE</p>
-        <p className="text-secondary-main">新歓情報</p>
-      </div> */}
+      </ArticleContentContainer>
 
       <div className="container mx-auto py-12">
         <p className="text-4xl text-center font-bold">RELATED</p>
@@ -381,7 +383,9 @@ export default function ClubsPage(
             ))}
           </ul>
         ) : (
-          <p className="px-8">関連サークルが見つかりませんでした。</p>
+          <ArticleContentContainer>
+            <p>関連サークルが見つかりませんでした。</p>
+          </ArticleContentContainer>
         )}
       </div>
     </Layout>

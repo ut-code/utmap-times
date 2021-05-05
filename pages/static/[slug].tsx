@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
@@ -31,7 +32,7 @@ export default function StaticPage(
         </h1>
       </Hero>
       <Banners />
-      <div className="container mx-auto px-8">
+      <ArticleContentContainer>
         <h2 className="pt-24 pb-16 text-3xl font-bold border-b-2">
           {props.staticPage.title}
         </h2>
@@ -48,7 +49,7 @@ export default function StaticPage(
           />
         )}
         <SnsShareLinks />
-      </div>
+      </ArticleContentContainer>
     </Layout>
   );
 }

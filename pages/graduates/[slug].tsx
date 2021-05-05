@@ -5,6 +5,12 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import Link from "next/link";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
+import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
+import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
+import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
+import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout, { layoutSeoFragment } from "../../components/Layout";
@@ -32,7 +38,7 @@ export default function GraduateArticlePage(
         </div>
       </Hero>
       <Banners />
-      <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <div className="pt-24 flex">
           <p className="bg-secondary-main py-1 px-6 text-white">
             {props.graduateArticle.category?.name}
@@ -61,12 +67,18 @@ export default function GraduateArticlePage(
             className="bg-gray-100 px-2 md:px-6 md:py-4"
           />
         )}
-        <RichTextRenderer
-          markdown={props.graduateArticle.content ?? ""}
-          className="pt-8 pb-20 border-b-2"
-        />
+        <div className="py-8 border-b-2">
+          {props.graduateArticle.content && (
+            <RichTextRenderer markdown={props.graduateArticle.content} />
+          )}
+          {props.graduateArticle.structuredContent && (
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.graduateArticle.structuredContent}
+            />
+          )}
+        </div>
         <SnsShareLinks />
-      </div>
+      </ArticleContentContainer>
       <div className="bg-gray-100">
         <div className="container mx-auto py-20">
           <p className="text-4xl font-bold text-center">RELATED</p>
@@ -123,12 +135,33 @@ export async function getStaticProps({
   >({
     query: gql`
       ${layoutSeoFragment}
+      ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextEmbeddedVideoFragment}
+      ${articleContentStructuredTextEmbeddedImageFragment}
+      ${articleContentPersonAndStatementFragment}
       query GetGraduateArticleBySlugQuery($slug: String!) {
         graduateArticle(filter: { slug: { eq: $slug } }) {
           title
           date
           introduction
           content
+          structuredContent {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentPersonAndStatementFragment
+              }
+            }
+            value
+          }
           category {
             id
             name

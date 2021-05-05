@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
@@ -30,7 +31,7 @@ export default function CompanyPage(
         </div>
       </Hero>
       <Banners />
-      <div className="container mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <img
           className="w-24 h-24 lg:w-48 lg:h-48 xl:w-64 xl:h-64 mt-20 float-right object-cover"
           alt={props.company.logo?.alt ?? ""}
@@ -42,7 +43,7 @@ export default function CompanyPage(
           structuredText={props.company.description}
         />
         <SnsShareLinks />
-      </div>
+      </ArticleContentContainer>
     </Layout>
   );
 }
