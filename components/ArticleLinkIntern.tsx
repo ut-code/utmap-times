@@ -20,6 +20,7 @@ export const articleLinkInternFragment = gql`
       slug
     }
     isRecruiting
+    isLongTermInternship
     salary
     location
     industry {
@@ -56,9 +57,20 @@ export default function ArticleLinkIntern(props: {
           />
         </span>
         <span className="my-3 w-full">
-          <p className="border-solid border-black border-b-2">
-            {props.article.company?.name}
-          </p>
+          <div className="border-solid border-black border-b-2">
+            <span>{props.article.company?.name}</span>
+            <span
+              className={clsx(
+                "py-1 px-4 text-white text-sm object-right",
+                props.article?.isRecruiting
+                  ? "bg-secondary-main"
+                  : "bg-gray-500"
+              )}
+            >
+              {props.article?.isRecruiting ? "募集中" : "募集終了"}
+            </span>
+          </div>
+
           <p className="font-bold text-center text-lg pt-6">
             {props.article.title}
           </p>
