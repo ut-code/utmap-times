@@ -61,7 +61,7 @@ export default function ArticleLinkIntern(props: {
             <span>{props.article.company?.name}</span>
             <span
               className={clsx(
-                "py-1 px-4 text-white text-sm object-right",
+                "py-1 px-4 mt-0 mx-3 text-white text-sm float-right",
                 props.article?.isRecruiting
                   ? "bg-secondary-main"
                   : "bg-gray-500"

@@ -211,31 +211,11 @@ export default function InternshipsIndexPage(
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
-          <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2">
-            <li key="isLongTermInternship" className="my-2 md:my-0 xl:mr-2">
-              <button
-                type="button"
-                className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                onClick={() => {
-                  setExpandedInternshipGroup(
-                    expandedInternshipGroup === "isLongTermInternship"
-                      ? ""
-                      : "isLongTermInternship"
-                  );
-                }}
-              >
-                {expandedInternshipGroup === "isLongTermInternship" ? (
-                  <AiOutlineUp />
-                ) : (
-                  <AiOutlineDown />
-                )}
-              </button>
-              {expandedInternshipGroup === "isLongTermInternship" && (
-                <ul className="border-t border-gray-200">
-                  {[
-                    { title: "長期インターンシップで探す", boolean: "true" },
-                    { title: "短期インターンシップで探す", boolean: "false" },
-                  ].map((isLongTermInternship) => {
+          <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2">
+            <span key="isLongTermInternship" className="my-2 md:my-0 xl:mr-2">
+              <span className="border-t border-gray-200">
+                {[{ title: "長期インターンシップで探す", boolean: "true" }].map(
+                  (isLongTermInternship) => {
                     const newQuery: Query = {
                       isLongTermInternship:
                         query.isLongTermInternship ===
@@ -244,7 +224,7 @@ export default function InternshipsIndexPage(
                           : isLongTermInternship.boolean ?? undefined,
                     };
                     return (
-                      <li key={isLongTermInternship.title}>
+                      <span key={isLongTermInternship.title}>
                         <Link
                           href={{ query: { ...query, ...newQuery } }}
                           scroll={false}
@@ -254,19 +234,54 @@ export default function InternshipsIndexPage(
                               "block py-1 px-6",
                               query.isLongTermInternship ===
                                 isLongTermInternship.boolean
-                                ? "bg-secondary-300"
-                                : "bg-white"
+                                ? "bg-blue-900 hover:bg-blue-700 text-white"
+                                : "bg-blue-200 hover:bg-blue-300 text-white"
                             )}
                           >
                             {isLongTermInternship.title}
                           </a>
                         </Link>
-                      </li>
+                      </span>
                     );
-                  })}
-                </ul>
-              )}
-            </li>
+                  }
+                )}
+              </span>
+            </span>
+            <span key="isLongTermInternship" className="my-2 md:my-0 xl:mr-2">
+              <span className="border-t border-gray-200">
+                {[
+                  { title: "短期インターンシップで探す", boolean: "false" },
+                ].map((isLongTermInternship) => {
+                  const newQuery: Query = {
+                    isLongTermInternship:
+                      query.isLongTermInternship ===
+                      isLongTermInternship.boolean
+                        ? undefined
+                        : isLongTermInternship.boolean ?? undefined,
+                  };
+                  return (
+                    <span key={isLongTermInternship.title}>
+                      <Link
+                        href={{ query: { ...query, ...newQuery } }}
+                        scroll={false}
+                      >
+                        <a
+                          className={clsx(
+                            "block py-1 px-6",
+                            query.isLongTermInternship ===
+                              isLongTermInternship.boolean
+                              ? "bg-blue-900 hover:bg-blue-700 text-white"
+                              : "bg-blue-200 hover:bg-blue-300 text-white"
+                          )}
+                        >
+                          {isLongTermInternship.title}
+                        </a>
+                      </Link>
+                    </span>
+                  );
+                })}
+              </span>
+            </span>
           </div>
           <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4">
             <div className="md:pr-8 md:border-r md:border-gray-500">
