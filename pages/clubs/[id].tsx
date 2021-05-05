@@ -221,6 +221,10 @@ export default function ClubsPage(
             <td>{props.club.establishedYear}</td>
           </tr>
           <tr className="border-b-2">
+            <td className="font-bold">構成員数</td>
+            <td>{props.club.numberOfMembers}</td>
+          </tr>
+          <tr className="border-b-2">
             <td className="font-bold">男女比</td>
             <td>{props.club.genderRatio}</td>
           </tr>
