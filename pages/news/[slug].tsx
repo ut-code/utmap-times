@@ -5,6 +5,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
@@ -27,7 +28,7 @@ export default function NewsArticlePage(
         </div>
       </Hero>
       <Banners />
-      <div className="container mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <div className="pt-28 border-b-2">
           <time>{dayjs(props.newsArticle.updatedAt).format("YYYY/MM/DD")}</time>
           <h1 className="py-8 text-3xl font-bold">{props.newsArticle.title}</h1>
@@ -35,7 +36,7 @@ export default function NewsArticlePage(
         <SnsShareLinks />
         <RichTextRenderer markdown={props.newsArticle.content ?? ""} />
         <SnsShareLinks />
-      </div>
+      </ArticleContentContainer>
     </Layout>
   );
 }

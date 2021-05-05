@@ -10,7 +10,7 @@ export default function Footer() {
       <Logo white className="w-40 h-40 mx-auto" />
       <div className="grid grid-cols-2 gap-2 w-60 mx-auto my-12">
         {[
-          { title: "What is UTmap", linkTo: "/", wider: true },
+          { title: "What is UTmap", linkTo: "/about", wider: true },
           { title: "Join us", linkTo: "https://lin.ee/AjkMbhF" },
           {
             title: "Contact",
