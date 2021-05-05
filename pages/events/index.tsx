@@ -15,7 +15,10 @@ import {
   EventSearchQuery,
   EventSearchQueryVariables,
 } from "../../__generated__/EventSearchQuery";
-import { EventModelFilter } from "../../__generated__/globalTypes";
+import {
+  EventModelFilter,
+  EventModelOrderBy,
+} from "../../__generated__/globalTypes";
 import AritcleLinkEvent from "../../components/ArticleLinkEvent";
 import {
   RandomEventQuery,
@@ -23,16 +26,29 @@ import {
 } from "../../__generated__/RandomEventQuery";
 import ImageOrLogo from "../../components/ImageOrLogo";
 
+const queryOrderByType = s.union([
+  s.literal("createdAt"),
+  s.literal("startsAt"),
+  s.literal("applicationDeadline"),
+]);
+type QueryOrderBy = s.Infer<typeof queryOrderByType>;
+
+const queryOrderByMap: Record<QueryOrderBy, EventModelOrderBy> = {
+  applicationDeadline: EventModelOrderBy.applicationDeadlineString_ASC,
+  createdAt: EventModelOrderBy.createdAt_DESC,
+  startsAt: EventModelOrderBy.startsAt_ASC,
+};
+
 const queryType = s.type({
   q: s.optional(s.string()),
   category: s.optional(s.string()),
   isRecruiting: s.optional(s.string()),
   targets: s.optional(s.union([s.string(), s.array(s.string())])),
   features: s.optional(s.union([s.string(), s.array(s.string())])),
+  orderBy: s.optional(queryOrderByType),
+  page: s.optional(s.string()),
 });
 export type Query = s.Infer<typeof queryType>;
-
-const ARTICLES_PER_PAGE = 12;
 
 const eventSearchFragment = gql`
   fragment EventSearchFragment on EventRecord {
@@ -74,8 +90,6 @@ export default function EventIndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   const router = useRouter();
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
   const [expandedEventGroup, setExpandedEventGroup] = useState("");
@@ -98,7 +112,6 @@ export default function EventIndexPage(
     `,
     { variables: { randomEventIndex }, ssr: false }
   );
-
   const selectedCategorySlug = query.category;
   const selectedCategory =
     props.eventCategories.find(
@@ -139,11 +152,15 @@ export default function EventIndexPage(
         },
       }
     : {};
+  const selectedOrderBy = [queryOrderByMap[query.orderBy ?? "createdAt"]];
   const searchQuery = useQuery<EventSearchQuery, EventSearchQueryVariables>(
     gql`
       ${eventSearchFragment}
-      query EventSearchQuery($filter: EventModelFilter) {
-        allEvents(filter: $filter) {
+      query EventSearchQuery(
+        $filter: EventModelFilter
+        $orderBy: [EventModelOrderBy]
+      ) {
+        allEvents(filter: $filter, orderBy: $orderBy) {
           ...EventSearchFragment
         }
         _allEventsMeta(filter: $filter) {
@@ -160,26 +177,11 @@ export default function EventIndexPage(
           ...targetFilter,
           ...featureFilter,
         },
+        orderBy: selectedOrderBy,
       },
       ssr: false,
     }
   );
-
-  const fetchMore = () => {
-    const newPage = page + 1;
-    setIsLoading(true);
-    searchQuery
-      .fetchMore({
-        variables: {
-          first: ARTICLES_PER_PAGE,
-          skip: newPage * ARTICLES_PER_PAGE,
-        },
-      })
-      .then(() => {
-        setPage(newPage);
-        setIsLoading(false);
-      });
-  };
 
   const searchQueryData = searchQuery.data;
   const randomEvent = randomEventQuery.data?.allEvents[0];
@@ -491,7 +493,51 @@ export default function EventIndexPage(
               </p>
             ) : (
               <>
-                <p>{`${searchQueryData._allEventsMeta.count}件のイベントが見つかりました。`}</p>
+                <p className="px-8">{`${searchQueryData._allEventsMeta.count}件のイベントが見つかりました。`}</p>
+                <div className="py-12 text-center items-center">
+                  <div className="py-1 px-3 mr-4 hidden sm:inline-block bg-primary-main text-white ">
+                    並び替え順
+                  </div>
+                  {[
+                    { title: "新着", slug: "createdAt" },
+                    { title: "開催日", slug: "startsAt" },
+                    { title: "締め切り日", slug: "applicationDeadline" },
+                  ].map((component) => {
+                    const createdAtSlug =
+                      component.slug === "createdAt" ? "createdAt" : undefined;
+                    const startsAtSlug =
+                      !createdAtSlug && component.slug === "startsAt"
+                        ? "startsAt"
+                        : undefined;
+                    const applicationDeadlineSlug =
+                      !startsAtSlug && component.slug === "applicationDeadline"
+                        ? "applicationDeadline"
+                        : undefined;
+                    const newQuery: Query = {
+                      orderBy:
+                        createdAtSlug ??
+                        startsAtSlug ??
+                        applicationDeadlineSlug,
+                    };
+                    return (
+                      <Link
+                        href={{ query: { ...query, ...newQuery } }}
+                        scroll={false}
+                      >
+                        <a
+                          className={clsx(
+                            "inline-block px-2 md:px-4",
+                            query.orderBy === component.slug
+                              ? "text-black"
+                              : "text-gray-400"
+                          )}
+                        >
+                          {component.title}
+                        </a>
+                      </Link>
+                    );
+                  })}
+                </div>
                 <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
                   {searchQueryData?.allEvents.map((event) => (
                     <li key={event.id}>
@@ -518,28 +564,6 @@ export default function EventIndexPage(
                     </li>
                   ))}
                 </ul>
-                <div className="text-center mt-8">
-                  {searchQueryData.allEvents.length <
-                  searchQueryData._allEventsMeta.count ? (
-                    <button
-                      type="button"
-                      className={clsx(
-                        "h-12 w-64 text-white",
-                        !isLoading
-                          ? "bg-blue-900 hover:bg-blue-500"
-                          : "bg-gray-300"
-                      )}
-                      disabled={isLoading}
-                      onClick={fetchMore}
-                    >
-                      もっと見る
-                    </button>
-                  ) : (
-                    <p className="bg-gray-100 py-6">
-                      すべてのイベントを検索しました。
-                    </p>
-                  )}
-                </div>
               </>
             )}
           </>
