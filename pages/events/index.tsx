@@ -93,6 +93,7 @@ export default function EventIndexPage(
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
   const [expandedEventGroup, setExpandedEventGroup] = useState("");
+  const ARTICLES_PER_PAGE = 9;
 
   const randomEventIndex = useMemo(
     () => Math.floor(Math.random() * props.totalEventCount),
@@ -153,14 +154,22 @@ export default function EventIndexPage(
       }
     : {};
   const selectedOrderBy = [queryOrderByMap[query.orderBy ?? "createdAt"]];
+  const selectedPage = query.page ? parseInt(query.page, 10) : 0;
   const searchQuery = useQuery<EventSearchQuery, EventSearchQueryVariables>(
     gql`
       ${eventSearchFragment}
       query EventSearchQuery(
         $filter: EventModelFilter
         $orderBy: [EventModelOrderBy]
+        $first: IntType
+        $skip: IntType
       ) {
-        allEvents(filter: $filter, orderBy: $orderBy) {
+        allEvents(
+          filter: $filter
+          orderBy: $orderBy
+          first: $first
+          skip: $skip
+        ) {
           ...EventSearchFragment
         }
         _allEventsMeta(filter: $filter) {
@@ -178,6 +187,8 @@ export default function EventIndexPage(
           ...featureFilter,
         },
         orderBy: selectedOrderBy,
+        first: ARTICLES_PER_PAGE,
+        skip: ARTICLES_PER_PAGE * selectedPage ?? 0,
       },
       ssr: false,
     }
@@ -185,7 +196,11 @@ export default function EventIndexPage(
 
   const searchQueryData = searchQuery.data;
   const randomEvent = randomEventQuery.data?.allEvents[0];
-
+  const totalPages =
+    searchQueryData && searchQueryData._allEventsMeta.count > ARTICLES_PER_PAGE
+      ? Math.floor(searchQueryData._allEventsMeta.count / ARTICLES_PER_PAGE) + 1
+      : undefined;
+  const pageIndex = totalPages && [...Array(totalPages)].map((_, i) => i);
   return (
     <Layout title="イベント">
       <Hero image="/images/article.jpg">
@@ -520,21 +535,31 @@ export default function EventIndexPage(
                         applicationDeadlineSlug,
                     };
                     return (
-                      <Link
-                        href={{ query: { ...query, ...newQuery } }}
-                        scroll={false}
-                      >
-                        <a
-                          className={clsx(
-                            "inline-block px-2 md:px-4",
-                            query.orderBy === component.slug
-                              ? "text-black"
-                              : "text-gray-400"
-                          )}
+                      <div className="relative inline-block pl-1">
+                        <Link
+                          href={{ query: { ...query, ...newQuery } }}
+                          scroll={false}
                         >
-                          {component.title}
-                        </a>
-                      </Link>
+                          <a
+                            className={clsx(
+                              "inline-block px-2 md:px-4",
+                              query.orderBy === component.slug
+                                ? "text-black"
+                                : "text-gray-400"
+                            )}
+                          >
+                            {component.title}
+                          </a>
+                        </Link>
+                        <div
+                          className={clsx(
+                            "absolute left-1/2 -bottom-4 h-2 w-2 rounded-full",
+                            query.orderBy === component.slug
+                              ? "bg-primary-main"
+                              : "hidden"
+                          )}
+                        />
+                      </div>
                     );
                   })}
                 </div>
@@ -566,6 +591,32 @@ export default function EventIndexPage(
                 </ul>
               </>
             )}
+            <div className="py-12 text-center space-x-2">
+              {pageIndex &&
+                pageIndex.map((index) => {
+                  const newQuery: Query = {
+                    page: index.toString(),
+                  };
+
+                  return (
+                    <Link
+                      href={{ query: { ...query, ...newQuery } }}
+                      scroll={false}
+                    >
+                      <a
+                        className={clsx(
+                          "inline-block h-12 w-12 pt-1 text-center leading-10 text-sm",
+                          selectedPage === index
+                            ? "bg-primary-main text-white"
+                            : "text-primary-main"
+                        )}
+                      >
+                        {index + 1}
+                      </a>
+                    </Link>
+                  );
+                })}
+            </div>
           </>
         ) : (
           <p>読み込み中です...</p>
