@@ -244,10 +244,16 @@ export default function EventIndexPage(
                 {`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}
               </p>
               {randomEvent?.targets.map((target) => (
-                <p className="inline-block mr-2 my-2 p-1 border bg-gray-200">{`#${target.name}`}</p>
+                <p
+                  key={target.id}
+                  className="inline-block mr-2 my-2 p-1 border bg-gray-200"
+                >{`#${target.name}`}</p>
               ))}
               {randomEvent?.features.map((feature) => (
-                <p className="inline-block mr-2 my-2 p-1 border bg-gray-200">{`#${feature.name}`}</p>
+                <p
+                  key={feature.id}
+                  className="inline-block mr-2 my-2 p-1 border bg-gray-200"
+                >{`#${feature.name}`}</p>
               ))}
             </div>
           </a>
@@ -395,7 +401,7 @@ export default function EventIndexPage(
                         ),
                       };
                       return (
-                        <li key="targets">
+                        <li key={target.id}>
                           <Link
                             href={{ query: { ...query, ...newQuery } }}
                             scroll={false}
@@ -450,7 +456,7 @@ export default function EventIndexPage(
                         ),
                       };
                       return (
-                        <li key="features">
+                        <li key={feature.id}>
                           <Link
                             href={{ query: { ...query, ...newQuery } }}
                             scroll={false}
@@ -539,7 +545,10 @@ export default function EventIndexPage(
                         applicationDeadlineSlug,
                     };
                     return (
-                      <div className="relative inline-block pl-1">
+                      <div
+                        key={component.slug}
+                        className="relative inline-block pl-1"
+                      >
                         <Link
                           href={{ query: { ...query, ...newQuery } }}
                           scroll={false}
@@ -606,6 +615,7 @@ export default function EventIndexPage(
 
                   return (
                     <Link
+                      key={index}
                       href={{ query: { ...query, ...newQuery } }}
                       scroll={false}
                     >
