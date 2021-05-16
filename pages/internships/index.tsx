@@ -170,50 +170,107 @@ export default function InternshipsIndexPage(
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目のインターン</p>
         </header>
-        <Link href={`/internships/${randomInternships?.id}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={randomInternships?.title ?? ""}
-              src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
-              className="w-full h-96"
-            />
-            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
-              <p className={clsx("my-6 text-3xl lg:text-4xl")}>
-                {randomInternships?.title}
-              </p>
-              <p
-                className={clsx(
-                  "py-1 px-4 text-white text-sm",
-                  randomInternships?.isRecruiting
-                    ? "bg-secondary-main"
-                    : "bg-gray-500"
-                )}
-              >
-                {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
-              </p>
-              <ul>
-                {randomInternships?.features.map((feature) => (
-                  <li
-                    key={feature.id}
-                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                  >
-                    {`#${feature.name}`}
-                  </li>
-                ))}
-              </ul>
-              <div
-                aria-hidden
-                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
+        <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-3">
+          <Link href={`/internships/${randomInternships?.id}`}>
+            <a className="block relative hover:bg-gray-100 p-8">
+              <ImageOrLogo
+                alt={randomInternships?.title ?? ""}
+                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                className="w-full h-96"
               />
-            </div>
-          </a>
-        </Link>
+              <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
+                <div
+                  className={clsx(
+                    "inline-block py-1 px-4 text-white text-sm",
+                    randomInternships?.isRecruiting
+                      ? "bg-secondary-main"
+                      : "bg-gray-500"
+                  )}
+                >
+                  {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
+                </div>
+                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                  {randomInternships?.title}
+                </p>
+                <div className="py-4 border-t border-secondary-main">
+                  {randomInternships?.company?.name}
+                </div>
+                <div
+                  aria-hidden
+                  className="hidden absolute bottom-0 left-0 w-1/2 lg:block"
+                />
+              </div>
+            </a>
+          </Link>
+          <Link href={`/internships/${randomInternships?.id}`}>
+            <a className="block relative hover:bg-gray-100 p-8">
+              <ImageOrLogo
+                alt={randomInternships?.title ?? ""}
+                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                className="w-full h-96"
+              />
+              <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
+                <p
+                  className={clsx(
+                    "inline-block py-1 px-4 text-white text-sm",
+                    randomInternships?.isRecruiting
+                      ? "bg-secondary-main"
+                      : "bg-gray-500"
+                  )}
+                >
+                  {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
+                </p>
+                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                  {randomInternships?.title}
+                </p>
+                <div className="py-4 border-t border-secondary-main">
+                  {randomInternships?.company?.name}
+                </div>
+                <div
+                  aria-hidden
+                  className="hidden absolute bottom-0 left-0 w-1/2 lg:block"
+                />
+              </div>
+            </a>
+          </Link>
+          <Link href={`/internships/${randomInternships?.id}`}>
+            <a className="block relative hover:bg-gray-100 p-8">
+              <ImageOrLogo
+                alt={randomInternships?.title ?? ""}
+                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                className="w-full h-96"
+              />
+              <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
+                <p
+                  className={clsx(
+                    "inline-block py-1 px-4 text-white text-sm",
+                    randomInternships?.isRecruiting
+                      ? "bg-secondary-main"
+                      : "bg-gray-500"
+                  )}
+                >
+                  {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
+                </p>
+                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                  {randomInternships?.title}
+                </p>
+                <div className="py-4 border-t border-secondary-main">
+                  {randomInternships?.company?.name}
+                </div>
+                <div
+                  aria-hidden
+                  className="hidden absolute bottom-0 left-0 w-1/2 lg:block"
+                />
+              </div>
+            </a>
+          </Link>
+        </div>
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2">
-            <span key="isLongTermInternship" className="my-2 md:my-0 xl:mr-2">
-              <span className="border-t border-gray-200">
+            <button type="button" key="isLongTermInternship" className="mx-4">
+              <span className="h-12">
                 {[{ title: "長期インターンシップで探す", boolean: "true" }].map(
                   (isLongTermInternship) => {
                     const newQuery: Query = {
@@ -235,7 +292,7 @@ export default function InternshipsIndexPage(
                               query.isLongTermInternship ===
                                 isLongTermInternship.boolean
                                 ? "bg-blue-900 hover:bg-blue-700 text-white"
-                                : "bg-blue-200 hover:bg-blue-300 text-white"
+                                : "bg-gray-500 hover:bg-blue-300 text-white"
                             )}
                           >
                             {isLongTermInternship.title}
@@ -246,9 +303,9 @@ export default function InternshipsIndexPage(
                   }
                 )}
               </span>
-            </span>
-            <span key="isLongTermInternship" className="my-2 md:my-0 xl:mr-2">
-              <span className="border-t border-gray-200">
+            </button>
+            <button type="button" key="isLongTermInternship" className="mx-2">
+              <span className="h-12">
                 {[
                   { title: "短期インターンシップで探す", boolean: "false" },
                 ].map((isLongTermInternship) => {
@@ -271,7 +328,7 @@ export default function InternshipsIndexPage(
                             query.isLongTermInternship ===
                               isLongTermInternship.boolean
                               ? "bg-blue-900 hover:bg-blue-700 text-white"
-                              : "bg-blue-200 hover:bg-blue-300 text-white"
+                              : "bg-gray-500 hover:bg-gray-600 text-white"
                           )}
                         >
                           {isLongTermInternship.title}
@@ -281,10 +338,11 @@ export default function InternshipsIndexPage(
                   );
                 })}
               </span>
-            </span>
+            </button>
           </div>
+          <p className="my-4 ">カテゴリで絞り込み</p>
           <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4">
-            <div className="md:pr-8 md:border-r md:border-gray-500">
+            <div className="md:pr-8">
               <li key="jobType" className="my-2 xl:my-0">
                 <button
                   type="button"
@@ -305,7 +363,7 @@ export default function InternshipsIndexPage(
                   )}
                 </button>
                 {expandedInternshipGroup === "jobType" && (
-                  <ul className="border-t border-gray-200">
+                  <ul className="border-t">
                     {props.InternshipsJobType.map((jobType) => {
                       const isSelected = selectedJobTypes.some(
                         (selectedJobType) => selectedJobType.id === jobType.id
@@ -343,7 +401,7 @@ export default function InternshipsIndexPage(
                 )}
               </li>
             </div>
-            <div className="md:pr-8 md:border-r md:border-gray-500">
+            <div className="md:pr-4">
               <li key="industries" className="my-2 xl:my-0">
                 <button
                   type="button"
@@ -403,7 +461,7 @@ export default function InternshipsIndexPage(
                 )}
               </li>
             </div>
-            <div className="md:pl-8">
+            <div className="md:pl-4">
               <li key="features" className="my-2 xl:my-0">
                 <button
                   type="button"
@@ -556,7 +614,7 @@ export default function InternshipsIndexPage(
             ) : (
               <>
                 <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のサークルが見つかりました。`}</p>
-                <ul className="md:grid md:grid-cols-1 xl:grid-cols-1">
+                <ul className="md:grid md:grid-cols-1 xl:grid-cols-1 mx-12">
                   {searchQueryData.allInternships.map((internship) => (
                     <li key={internship.id}>
                       <ArticleLinkIntern
