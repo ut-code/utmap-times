@@ -4,7 +4,12 @@ require("dotenv").config({ path: ".env.local" });
 /** @type {import('apollo').ApolloConfig} */
 module.exports = {
   client: {
-    includes: ["./pages/**/*", "./components/**/*", "./scripts/**/*"],
+    includes: [
+      "./pages/**/*",
+      "./components/**/*",
+      "./scripts/**/*",
+      "./utils/**/*",
+    ],
     service: {
       name: "CMS",
       url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,

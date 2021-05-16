@@ -7,6 +7,7 @@ import {
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextArticleLinkFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleLink";
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
 import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
 import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
@@ -67,6 +68,7 @@ export async function getStaticProps({
     query: gql`
       ${layoutSeoFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextArticleLinkFragment}
       ${articleContentStructuredTextEmbeddedVideoFragment}
       ${articleContentStructuredTextEmbeddedImageFragment}
       ${articleContentPersonAndStatementFragment}
@@ -83,6 +85,9 @@ export async function getStaticProps({
             blocks {
               ... on ArticleGalleryRecord {
                 ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
               }
               ... on EmbeddedVideoRecord {
                 ...ArticleContentStructuredTextEmbeddedVideoFragment
