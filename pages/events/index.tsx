@@ -514,9 +514,13 @@ export default function EventIndexPage(
                     並び替え順
                   </div>
                   {[
-                    { title: "新着", slug: "createdAt" },
-                    { title: "開催日", slug: "startsAt" },
-                    { title: "締め切り日", slug: "applicationDeadline" },
+                    { title: "新着", slug: "createdAt", default: undefined },
+                    { title: "開催日", slug: "startsAt", default: "false" },
+                    {
+                      title: "締め切り日",
+                      slug: "applicationDeadline",
+                      default: "false",
+                    },
                   ].map((component) => {
                     const createdAtSlug =
                       component.slug === "createdAt" ? "createdAt" : undefined;
@@ -543,7 +547,8 @@ export default function EventIndexPage(
                           <a
                             className={clsx(
                               "inline-block px-2 md:px-4",
-                              query.orderBy === component.slug
+                              query.orderBy === component.slug ||
+                                query.orderBy === component.default
                                 ? "text-black"
                                 : "text-gray-400"
                             )}
@@ -554,7 +559,8 @@ export default function EventIndexPage(
                         <div
                           className={clsx(
                             "absolute left-1/2 -bottom-4 h-2 w-2 rounded-full",
-                            query.orderBy === component.slug
+                            query.orderBy === component.slug ||
+                              query.orderBy === component.default
                               ? "bg-primary-main"
                               : "hidden"
                           )}
