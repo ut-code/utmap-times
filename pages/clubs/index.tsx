@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
 import Banners from "../../components/Banners";
@@ -61,21 +62,43 @@ export default function ClubIndexPage(
   const query = router.query as s.Infer<typeof queryType>;
   const [search, setSearch] = useState(query.q ?? "");
   const { bookmarkedClubIds, toggleClubBookmark } = useClubBookmarks();
+  const [pickUpIndex, setPickUpIndex] = useState(0);
+  const addPickUpIndex = () => {
+    setPickUpIndex(pickUpIndex !== 2 ? pickUpIndex + 1 : pickUpIndex);
+  };
+  const subtractPickUpIndex = () => {
+    setPickUpIndex(pickUpIndex !== 0 ? pickUpIndex - 1 : pickUpIndex);
+  };
 
-  const randomClubIndex = useMemo(
-    () => Math.floor(Math.random() * props.totalClubCount),
+  const randomClubIndexArray = useMemo(
+    () =>
+      [...Array(props.totalClubCount).keys()]
+        .map((_, i) => i + 1)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3),
     [props.totalClubCount]
   );
+  const randomClubIndexFilter: ClubModelFilter = {
+    OR: randomClubIndexArray.map((index) => {
+      return {
+        position: { eq: index },
+      };
+    }),
+  };
+
   const randomClubQuery = useQuery<RandomClubQuery, RandomClubQueryVariables>(
     gql`
       ${clubSearchFragment}
-      query RandomClubQuery($randomClubIndex: IntType!) {
-        allClubs(skip: $randomClubIndex, first: 1) {
+      query RandomClubQuery($filter: ClubModelFilter) {
+        allClubs(filter: $filter) {
           ...ClubSearchFragment
         }
       }
     `,
-    { variables: { randomClubIndex }, ssr: false }
+    {
+      variables: { filter: randomClubIndexFilter },
+      ssr: false,
+    }
   );
 
   const selectedCategorySlug = query.category;
@@ -142,7 +165,7 @@ export default function ClubIndexPage(
   };
 
   const searchQueryData = searchQuery.data;
-  const randomClub = randomClubQuery.data?.allClubs[0];
+  const randomClub = randomClubQuery.data?.allClubs;
 
   return (
     <Layout title="サークル">
@@ -154,41 +177,81 @@ export default function ClubIndexPage(
       </Hero>
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
-        <header className="text-center mb-12">
+        <header className="text-center">
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目のサークル</p>
         </header>
-        <Link href={`/clubs/${randomClub?.id}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={randomClub?.name ?? ""}
-              src={randomClub?.images[0]?.url}
-              className="w-full h-96"
-            />
-            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
-              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
-                {randomClub?.category?.name}
-              </div>
-              <p className={clsx("my-6 text-3xl lg:text-4xl")}>
-                {randomClub?.name}
-              </p>
-              <ul>
-                {randomClub?.tags.map((tag) => (
-                  <li
-                    key={tag.id}
-                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                  >
-                    {`#${tag.name}`}
-                  </li>
-                ))}
-              </ul>
-              <div
-                aria-hidden
-                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
-              />
-            </div>
-          </a>
-        </Link>
+        <div className="relative px-6 pt-12">
+          <button
+            type="button"
+            onClick={() => {
+              subtractPickUpIndex();
+            }}
+            className="absolute top-1/2 left-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none z-10"
+          >
+            <BsChevronLeft className="m-auto" />
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              addPickUpIndex();
+            }}
+            className="absolute top-1/2 right-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none z-10"
+          >
+            <BsChevronRight className="m-auto" />
+          </button>
+          {randomClub?.map((club, index) => (
+            <Link key={club.id} href={`/clubs/${club?.id}`}>
+              <a
+                className={clsx(
+                  "block relative hover:bg-gray-100 p-8",
+                  index !== pickUpIndex ? "hidden" : ""
+                )}
+              >
+                <ImageOrLogo
+                  alt={club?.name ?? ""}
+                  src={club?.images[0]?.url}
+                  className="w-full h-96"
+                />
+                <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
+                  <div className="inline-block bg-secondary-main py-2 px-6 text-white">
+                    {club?.category?.name}
+                  </div>
+                  <p className={clsx("my-6 text-3xl lg:text-4xl")}>
+                    {club?.name}
+                  </p>
+                  <ul>
+                    {club?.tags.map((tag) => (
+                      <li
+                        key={tag.id}
+                        className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
+                      >
+                        {`#${tag.name}`}
+                      </li>
+                    ))}
+                  </ul>
+                  <div
+                    aria-hidden
+                    className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
+                  />
+                </div>
+              </a>
+            </Link>
+          ))}
+          <div className="pt-5 pr-4 space-x-4 w-max ml-auto">
+            {randomClub?.map(
+              (club, index) =>
+                club && (
+                  <div
+                    className={clsx(
+                      "inline-block h-2 w-2 rounded-full",
+                      index === pickUpIndex ? "bg-primary-400" : "bg-primary-50"
+                    )}
+                  />
+                )
+            )}
+          </div>
+        </div>
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
