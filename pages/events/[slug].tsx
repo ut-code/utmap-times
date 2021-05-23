@@ -67,7 +67,7 @@ export default function EventPage(
         </div>
         <SnsShareLinks />
         <img
-          src={props.event.image?.url}
+          src={props.event.image?.url ?? "../../images/article.jpg"}
           alt="イベント画像"
           className="w-full max-w-3xl mx-auto mb-12"
         />
