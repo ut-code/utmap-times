@@ -23,8 +23,9 @@ export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   dayjs.locale(ja);
-  const day = dayjs(props.event.applicationDeadline);
-  const applicationDeadlineString = day.format("YYYY/MM/DD(dd) HH:mm");
+  const applicationDeadlineString = dayjs(
+    props.event.applicationDeadline
+  ).format("YYYY/MM/DD(dd) HH:mm");
   return (
     <Layout title={props.event.title}>
       <Hero image={props.event.image?.url ?? "../../images/article.jpg"}>
