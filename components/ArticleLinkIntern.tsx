@@ -11,6 +11,10 @@ export const articleLinkInternFragment = gql`
     title
     company {
       name
+      leader
+      logo {
+        url
+      }
     }
     images {
       url(imgixParams: { maxW: 600 })
@@ -48,15 +52,21 @@ export default function ArticleLinkIntern(props: {
     <Link href={`/internships/${props.article.slug}`}>
       <a
         className={clsx(
-          "flex m-4 p-8 cursor-pointer bg-gray-100 hover:bg-gray-200",
+          "md:flex-grow lg:flex m-4 cursor-pointer bg-gray-100 hover:bg-gray-200",
           props.className
         )}
       >
-        <span className="relative mb-8">
+        <span className="relative mr-6">
           <img
             src={props.article.images[0]?.url ?? "/images/utmap.png"}
             alt={title}
-            className="relative lg:w-max mx-auto pt-14 px-6 -top-14"
+            className="relative lg:w-96 md:w-full h-full object-cover"
+          />
+
+          <img
+            alt={props.article?.company?.name ?? ""}
+            src={props.article?.company?.logo?.url ?? "/images/utmap.png"}
+            className="absolute top-0 right-0 w-32 h-32 "
           />
         </span>
         <span className="py-3 w-full">
@@ -77,7 +87,7 @@ export default function ArticleLinkIntern(props: {
           <p className="pt-6 font-bold text-center text-lg">
             {props.article.title}
           </p>
-          <div className="my-3 w-full grid grid-cols-8 text-center">
+          <div className="my-3 w-full grid md:grid-cols-4 lg:grid-cols-8 text-center">
             <div className="mt-3 font-bold col-span-1 border-black border-b">
               職種
             </div>

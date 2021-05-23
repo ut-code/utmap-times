@@ -170,14 +170,23 @@ export default function InternshipsIndexPage(
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目のインターン</p>
         </header>
-        <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-3">
+        <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2 xl:grid-cols-3">
           <Link href={`/internships/${randomInternships?.id}`}>
             <a className="block relative hover:bg-gray-100 p-8">
-              <ImageOrLogo
-                alt={randomInternships?.title ?? ""}
-                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
-                className="w-full h-96"
-              />
+              <div className="relative">
+                <ImageOrLogo
+                  alt={randomInternships?.title ?? ""}
+                  src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                  className="w-full h-96 object-cover"
+                />
+                <img
+                  alt={randomInternships?.company?.name ?? ""}
+                  src={
+                    randomInternships?.company?.logo?.url ?? "/images/utmap.png"
+                  }
+                  className="absolute top-0 right-0 w-32 h-32 object-cover"
+                />
+              </div>
               <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
                 <div
                   className={clsx(
@@ -204,11 +213,20 @@ export default function InternshipsIndexPage(
           </Link>
           <Link href={`/internships/${randomInternships?.id}`}>
             <a className="block relative hover:bg-gray-100 p-8">
-              <ImageOrLogo
-                alt={randomInternships?.title ?? ""}
-                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
-                className="w-full h-96"
-              />
+              <div className="relative">
+                <ImageOrLogo
+                  alt={randomInternships?.title ?? ""}
+                  src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                  className="w-full h-96"
+                />
+                <img
+                  alt={randomInternships?.company?.name ?? ""}
+                  src={
+                    randomInternships?.company?.logo?.url ?? "/images/utmap.png"
+                  }
+                  className="absolute top-0 right-0 w-32 h-32 object-cover"
+                />
+              </div>
               <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
                 <p
                   className={clsx(
@@ -235,11 +253,20 @@ export default function InternshipsIndexPage(
           </Link>
           <Link href={`/internships/${randomInternships?.id}`}>
             <a className="block relative hover:bg-gray-100 p-8">
-              <ImageOrLogo
-                alt={randomInternships?.title ?? ""}
-                src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
-                className="w-full h-96"
-              />
+              <div className="relative">
+                <ImageOrLogo
+                  alt={randomInternships?.title ?? ""}
+                  src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
+                  className="w-full h-96"
+                />
+                <img
+                  alt={randomInternships?.company?.name ?? ""}
+                  src={
+                    randomInternships?.company?.logo?.url ?? "/images/utmap.png"
+                  }
+                  className="absolute top-0 right-0 w-32 h-32 object-cover"
+                />
+              </div>
               <div className="inline-block relative z-10 w-full -mt-6 lg:-mt-12 lg:p-14 lg:mr-0 lg:bg-white">
                 <p
                   className={clsx(
@@ -288,7 +315,7 @@ export default function InternshipsIndexPage(
                         >
                           <a
                             className={clsx(
-                              "block py-1 px-6",
+                              "block py-3 px-6",
                               query.isLongTermInternship ===
                                 isLongTermInternship.boolean
                                 ? "bg-blue-900 hover:bg-blue-700 text-white"
@@ -324,7 +351,7 @@ export default function InternshipsIndexPage(
                       >
                         <a
                           className={clsx(
-                            "block py-1 px-6",
+                            "block py-3 px-6",
                             query.isLongTermInternship ===
                               isLongTermInternship.boolean
                               ? "bg-blue-900 hover:bg-blue-700 text-white"
