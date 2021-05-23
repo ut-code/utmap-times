@@ -5,6 +5,8 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import Link from "next/link";
+import dayjs from "dayjs";
+import ja from "dayjs/locale/ja";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -20,6 +22,10 @@ import {
 export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  dayjs.locale(ja);
+  const applicationDeadlineString = dayjs(
+    props.event.applicationDeadline
+  ).format("YYYY/MM/DD(dd) HH:mm");
   return (
     <Layout title={props.event.title}>
       <Hero image={props.event.image?.url ?? "../../images/article.jpg"}>
@@ -84,7 +90,7 @@ export default function EventPage(
             { title: "場所", component: props.event.location },
             {
               title: "申し込み締切",
-              component: props.event.applicationDeadlineString,
+              component: applicationDeadlineString,
             },
           ].map((information) => (
             <li key={information.title} className="relative p-4 border-b">
@@ -184,7 +190,6 @@ export async function getStaticProps({
           startsAt
           location
           applicationDeadline
-          applicationDeadlineString
           participationFee
           capacity
           thingsToBring
