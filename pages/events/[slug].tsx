@@ -28,7 +28,13 @@ export default function EventPage(
   ).format("YYYY/MM/DD(dd) HH:mm");
   return (
     <Layout title={props.event.title}>
-      <Hero image={props.event.image?.url ?? "../../images/article.jpg"}>
+      <Hero
+        image={
+          props.event.heroImage?.url ??
+          props.event.image?.url ??
+          "../../images/article.jpg"
+        }
+      >
         <div className="container mx-auto px-8 md:px-24 py-40">
           <h1 className="text-3xl">{props.event.title}</h1>
         </div>
@@ -160,6 +166,9 @@ export async function getStaticProps({
       query GetEventBySlugQuery($slug: String!) {
         event(filter: { slug: { eq: $slug } }) {
           title
+          heroImage {
+            url
+          }
           image {
             url
           }

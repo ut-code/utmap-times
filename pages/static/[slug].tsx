@@ -27,7 +27,13 @@ export default function StaticPage(
 ) {
   return (
     <Layout title={props.staticPage.title} seo={props.staticPage.seo}>
-      <Hero image={props.staticPage.image?.url ?? "/images/utmap.png"}>
+      <Hero
+        image={
+          props.staticPage.heroImage?.url ??
+          props.staticPage.image?.url ??
+          "/images/utmap.png"
+        }
+      >
         <h1 className="container mx-auto px-8 md:px-24 py-40 text-3xl">
           {props.staticPage.title}
         </h1>
@@ -78,6 +84,9 @@ export async function getStaticProps({
           date
           slug
           image {
+            url
+          }
+          heroImage {
             url
           }
           content
