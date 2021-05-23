@@ -176,7 +176,7 @@ export async function getStaticProps({
           capacity
           thingsToBring
           remarks
-          url
+          applicationLink
         }
       }
     `,
