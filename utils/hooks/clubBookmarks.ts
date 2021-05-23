@@ -3,9 +3,8 @@ import { createLocalStorageStateHook } from "use-local-storage-state";
 import * as s from "superstruct";
 
 const localStorageKey = "CLUB_BOOKMARK";
-const useClubBookmarksLocalStorage = createLocalStorageStateHook<unknown>(
-  localStorageKey
-);
+const useClubBookmarksLocalStorage =
+  createLocalStorageStateHook<unknown>(localStorageKey);
 
 const bookmarkedClubIdsType = s.array(s.string());
 
