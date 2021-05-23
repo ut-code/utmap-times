@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import Link from "next/link";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -95,7 +96,7 @@ export default function EventPage(
           ))}
         </ul>
         <div className="p-4 bg-gray-100 text-xl font-bold">参加要項</div>
-        <ul className="pb-10">
+        <ul className="pb-20">
           {[
             { title: "募集対象", list: props.event.targets },
             { title: "定員", component: props.event.capacity },
@@ -123,6 +124,18 @@ export default function EventPage(
           ))}
         </ul>
       </ArticleContentContainer>
+      <div className="bg-primary-main">
+        <div className="container mx-auto py-16 text-center">
+          <p className="pb-8 bg-primary-main text-2xl text-white">
+            このイベントに応募する
+          </p>
+          <Link href={props.event.applicationLink ?? ""}>
+            <a className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main">
+              応募する
+            </a>
+          </Link>
+        </div>
+      </div>
     </Layout>
   );
 }
