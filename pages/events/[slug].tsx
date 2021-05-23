@@ -66,6 +66,11 @@ export default function EventPage(
           ))}
         </div>
         <SnsShareLinks />
+        <img
+          src={props.event.image?.url}
+          alt="イベント画像"
+          className="w-full max-w-3xl mx-auto mb-12"
+        />
         <div className="p-4 bg-gray-100 text-xl font-bold">イベントの内容</div>
         <RichTextRenderer
           markdown={props.event.description ?? ""}
