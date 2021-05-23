@@ -28,7 +28,11 @@ export default function GraduateArticlePage(
   return (
     <Layout title={props.graduateArticle.title} seo={props.graduateArticle.seo}>
       <Hero
-        image={props.graduateArticle.image?.url ?? "../../images/article.jpg"}
+        image={
+          props.graduateArticle.heroImage?.url ??
+          props.graduateArticle.image?.url ??
+          "../../images/article.jpg"
+        }
       >
         <div className="container mx-auto px-8 md:px-24 py-40">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
@@ -171,6 +175,9 @@ export async function getStaticProps({
             id
             name
             slug
+          }
+          heroImage {
+            url
           }
           image {
             url
