@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { StructuredText, StructuredTextDocument } from "react-datocms";
-import { ArticleContentPersonAndStatementFragment } from "../../__generated__/ArticleContentPersonAndStatementFragment";
+import { ArticleContentStructuredTextPersonAndStatementFragment } from "../../__generated__/ArticleContentStructuredTextPersonAndStatementFragment";
+import { ArticleContentStructuredTextCallToActionButtonFragment } from "../../__generated__/ArticleContentStructuredTextCallToActionButtonFragment";
 import { ArticleContentStructuredTextArticleGalleryFragment } from "../../__generated__/ArticleContentStructuredTextArticleGalleryFragment";
 import { ArticleContentStructuredTextEmbeddedImageFragment } from "../../__generated__/ArticleContentStructuredTextEmbeddedImageFragment";
 import { ArticleContentStructuredTextEmbeddedVideoFragment } from "../../__generated__/ArticleContentStructuredTextEmbeddedVideoFragment";
@@ -11,6 +12,7 @@ import ArticleContentStructuredTextEmbeddedImage from "./EmbeddedImage";
 import ArticleContentPersonAndStatement from "./PersonAndStatement";
 import { ArticleContentStructuredTextArticleLinkFragment } from "../../__generated__/ArticleContentStructuredTextArticleLinkFragment";
 import ArticleContentStructuredTextArticleLink from "./ArticleLink";
+import ArticleContentStructuredTextCallToActionButton from "./CallToActionButton";
 
 // TypeScriptの制限でinterfaceで定義された値はindex signatureを持つ型として使用できない
 // https://github.com/microsoft/TypeScript/issues/15300#issuecomment-816859086
@@ -19,9 +21,10 @@ type IndexSignatureHack<T> = { [P in keyof T]: T[P] };
 export type ArticleContentStructuredTextBlockFragment = IndexSignatureHack<
   | ArticleContentStructuredTextArticleGalleryFragment
   | ArticleContentStructuredTextArticleLinkFragment
+  | ArticleContentStructuredTextCallToActionButtonFragment
   | ArticleContentStructuredTextEmbeddedVideoFragment
   | ArticleContentStructuredTextEmbeddedImageFragment
-  | ArticleContentPersonAndStatementFragment
+  | ArticleContentStructuredTextPersonAndStatementFragment
 >;
 
 export type ArticleContentStructuredText = {
@@ -89,6 +92,16 @@ export default function ArticleContentStructuredTextRenderer(props: {
           type: "CUSTOM_BLOCK",
           renderedElement: (
             <ArticleContentStructuredTextArticleLink
+              fragment={blockDefinition}
+            />
+          ),
+        });
+        return;
+      case "CallToActionButtonRecord":
+        rootFragments.push({
+          type: "CUSTOM_BLOCK",
+          renderedElement: (
+            <ArticleContentStructuredTextCallToActionButton
               fragment={blockDefinition}
             />
           ),
