@@ -2,11 +2,11 @@ import { gql } from "@apollo/client";
 import clsx from "clsx";
 import { StructuredText } from "react-datocms";
 import styled from "styled-components";
-import { ArticleContentPersonAndStatementFragment } from "../../__generated__/ArticleContentPersonAndStatementFragment";
+import { ArticleContentStructuredTextPersonAndStatementFragment } from "../../__generated__/ArticleContentStructuredTextPersonAndStatementFragment";
 import RichTextStyleProvider from "../RichTextStyleProvider";
 
-export const articleContentPersonAndStatementFragment = gql`
-  fragment ArticleContentPersonAndStatementFragment on PersonAndStatementRecord {
+export const articleStructuredTextContentPersonAndStatementFragment = gql`
+  fragment ArticleContentStructuredTextPersonAndStatementFragment on PersonAndStatementRecord {
     id
     team
     person {
@@ -36,7 +36,7 @@ const FullWidthRichTextStyleProvider = styled(RichTextStyleProvider)`
 export default function ArticleContentPersonAndStatement({
   fragment,
 }: {
-  fragment: ArticleContentPersonAndStatementFragment;
+  fragment: ArticleContentStructuredTextPersonAndStatementFragment;
 }) {
   return (
     <Root className="items-center md:items-start">

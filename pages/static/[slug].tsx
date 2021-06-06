@@ -8,9 +8,10 @@ import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
 import { articleContentStructuredTextArticleLinkFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleLink";
+import { articleContentStructuredTextCallToActionButtonFragment } from "../../components/ArticleContentStructuredTextRenderer/CallToActionButton";
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
 import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
-import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
+import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout, { layoutSeoFragment } from "../../components/Layout";
@@ -75,9 +76,10 @@ export async function getStaticProps({
       ${layoutSeoFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
       ${articleContentStructuredTextArticleLinkFragment}
+      ${articleContentStructuredTextCallToActionButtonFragment}
       ${articleContentStructuredTextEmbeddedVideoFragment}
       ${articleContentStructuredTextEmbeddedImageFragment}
-      ${articleContentPersonAndStatementFragment}
+      ${articleStructuredTextContentPersonAndStatementFragment}
       query GetStaticPageBySlugQuery($slug: String!) {
         staticPage(filter: { slug: { eq: $slug } }) {
           title
@@ -98,6 +100,9 @@ export async function getStaticProps({
               ... on ArticleLinkRecord {
                 ...ArticleContentStructuredTextArticleLinkFragment
               }
+              ... on CallToActionButtonRecord {
+                ...ArticleContentStructuredTextCallToActionButtonFragment
+              }
               ... on EmbeddedVideoRecord {
                 ...ArticleContentStructuredTextEmbeddedVideoFragment
               }
@@ -105,7 +110,7 @@ export async function getStaticProps({
                 ...ArticleContentStructuredTextEmbeddedImageFragment
               }
               ... on PersonAndStatementRecord {
-                ...ArticleContentPersonAndStatementFragment
+                ...ArticleContentStructuredTextPersonAndStatementFragment
               }
             }
             value
