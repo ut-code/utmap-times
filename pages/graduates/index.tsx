@@ -387,8 +387,8 @@ export default function GraduatArticleIndexPage(
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!s.is(context.query, queryType)) return { notFound: true } as never;
-  const metaQueryResult = await apolloClient.query<GraduateArticleIndexMetaQuery>(
-    {
+  const metaQueryResult =
+    await apolloClient.query<GraduateArticleIndexMetaQuery>({
       query: gql`
         query GraduateArticleIndexMetaQuery {
           allGraduateArticleCategoryGroups {
@@ -441,8 +441,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           }
         }
       `,
-    }
-  );
+    });
   const selectedCategorySlug = context.query.category;
   const selectedTagSlugs = Array.isArray(context.query.tag)
     ? context.query.tag

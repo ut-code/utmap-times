@@ -24,7 +24,7 @@ export default function ArticleContentStructuredTextArticleGallery({
   fragment: ArticleContentStructuredTextArticleGalleryFragment;
 }) {
   return (
-    <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3">
+    <div className="md:grid md:grid-cols-2 xl:grid-cols-3">
       {fragment.articles.map((article) => (
         <ArticleLink
           key={article.id}

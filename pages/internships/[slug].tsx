@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
@@ -26,7 +27,7 @@ export default function InternshipPage(
         </div>
       </Hero>
       <Banners />
-      <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <div className="pt-24 flex">
           {props.internship.isRecruiting ? (
             <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
@@ -135,7 +136,7 @@ export default function InternshipPage(
             </li>
           ))}
         </ul>
-      </div>
+      </ArticleContentContainer>
     </Layout>
   );
 }

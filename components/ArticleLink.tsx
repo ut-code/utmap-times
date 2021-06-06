@@ -3,6 +3,11 @@ import Link from "next/link";
 import { title } from "process";
 import { UrlObject } from "url";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import styled from "styled-components";
+
+const ImageContainer = styled.div`
+  padding-top: 75%;
+`;
 
 export default function ArticleLink(props: {
   title: string;
@@ -24,11 +29,13 @@ export default function ArticleLink(props: {
       >
         <div className="relative mb-8">
           <div className="relative border-secondary-main border-solid border-8">
-            <img
-              src={props.imageUrl}
-              alt={title}
-              className="w-full h-64 object-cover"
-            />
+            <ImageContainer className="relative">
+              <img
+                src={props.imageUrl}
+                alt={title}
+                className="absolute top-0 left-0s w-full h-full object-cover"
+              />
+            </ImageContainer>
             {typeof props.isBookmarked === "boolean" && (
               <button
                 type="button"
@@ -52,9 +59,9 @@ export default function ArticleLink(props: {
             </div>
           )}
         </div>
-        <p className="text-2xl">{props.title}</p>
+        <p className="text-xl">{props.title}</p>
         {props.tags && (
-          <ul>
+          <ul className="mt-2">
             {props.tags.map((tag) => (
               <li
                 key={tag.id}

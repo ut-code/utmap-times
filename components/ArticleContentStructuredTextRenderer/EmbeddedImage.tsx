@@ -1,24 +1,16 @@
 import { gql } from "@apollo/client";
 import { Image } from "react-datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import { ArticleContentStructuredTextEmbeddedImageFragment } from "../../__generated__/ArticleContentStructuredTextEmbeddedImageFragment";
 
 export const articleContentStructuredTextEmbeddedImageFragment = gql`
+  ${responsiveImageFragment}
   fragment ArticleContentStructuredTextEmbeddedImageFragment on EmbeddedImageRecord {
     id
     image {
       id
       responsiveImage(imgixParams: { fit: max, h: 400, auto: format }) {
-        srcSet
-        webpSrcSet
-        sizes
-        src
-        width
-        height
-        aspectRatio
-        alt
-        title
-        bgColor
-        base64
+        ...ResponsiveImageFragment
       }
     }
   }

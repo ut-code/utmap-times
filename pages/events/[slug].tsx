@@ -4,6 +4,10 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import Link from "next/link";
+import dayjs from "dayjs";
+import ja from "dayjs/locale/ja";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
@@ -18,15 +22,25 @@ import {
 export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  dayjs.locale(ja);
+  const applicationDeadlineString = dayjs(
+    props.event.applicationDeadline
+  ).format("YYYY/MM/DD(dd) HH:mm");
   return (
     <Layout title={props.event.title}>
-      <Hero image={props.event.image?.url ?? "../../images/article.jpg"}>
+      <Hero
+        image={
+          props.event.heroImage?.url ??
+          props.event.image?.url ??
+          "../../images/article.jpg"
+        }
+      >
         <div className="container mx-auto px-8 md:px-24 py-40">
           <h1 className="text-3xl">{props.event.title}</h1>
         </div>
       </Hero>
       <Banners />
-      <div className="w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-8 md:px-24">
+      <ArticleContentContainer>
         <div className="pt-24 flex">
           {props.event.isRecruiting ? (
             <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
@@ -52,6 +66,11 @@ export default function EventPage(
           ))}
         </div>
         <SnsShareLinks />
+        <img
+          src={props.event.image?.url ?? "../../images/article.jpg"}
+          alt="イベント画像"
+          className="w-full max-w-3xl mx-auto mb-12"
+        />
         <div className="p-4 bg-gray-100 text-xl font-bold">イベントの内容</div>
         <RichTextRenderer
           markdown={props.event.description ?? ""}
@@ -82,7 +101,7 @@ export default function EventPage(
             { title: "場所", component: props.event.location },
             {
               title: "申し込み締切",
-              component: props.event.applicationDeadlineString,
+              component: applicationDeadlineString,
             },
           ].map((information) => (
             <li key={information.title} className="relative p-4 border-b">
@@ -94,7 +113,7 @@ export default function EventPage(
           ))}
         </ul>
         <div className="p-4 bg-gray-100 text-xl font-bold">参加要項</div>
-        <ul className="pb-10">
+        <ul className="pb-20">
           {[
             { title: "募集対象", list: props.event.targets },
             { title: "定員", component: props.event.capacity },
@@ -121,6 +140,18 @@ export default function EventPage(
             </li>
           ))}
         </ul>
+      </ArticleContentContainer>
+      <div className="bg-primary-main">
+        <div className="container mx-auto py-16 text-center">
+          <p className="pb-8 bg-primary-main text-2xl text-white">
+            このイベントに応募する
+          </p>
+          <Link href={props.event.applicationLink ?? ""}>
+            <a className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main">
+              応募する
+            </a>
+          </Link>
+        </div>
       </div>
     </Layout>
   );
@@ -140,6 +171,9 @@ export async function getStaticProps({
       query GetEventBySlugQuery($slug: String!) {
         event(filter: { slug: { eq: $slug } }) {
           title
+          heroImage {
+            url
+          }
           image {
             url
           }
@@ -170,12 +204,11 @@ export async function getStaticProps({
           startsAt
           location
           applicationDeadline
-          applicationDeadlineString
           participationFee
           capacity
           thingsToBring
           remarks
-          url
+          applicationLink
         }
       }
     `,

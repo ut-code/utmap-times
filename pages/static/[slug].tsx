@@ -4,8 +4,10 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextArticleLinkFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleLink";
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
 import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
 import { articleContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
@@ -25,13 +27,19 @@ export default function StaticPage(
 ) {
   return (
     <Layout title={props.staticPage.title} seo={props.staticPage.seo}>
-      <Hero image={props.staticPage.image?.url ?? "/images/utmap.png"}>
+      <Hero
+        image={
+          props.staticPage.heroImage?.url ??
+          props.staticPage.image?.url ??
+          "/images/utmap.png"
+        }
+      >
         <h1 className="container mx-auto px-8 md:px-24 py-40 text-3xl">
           {props.staticPage.title}
         </h1>
       </Hero>
       <Banners />
-      <div className="container mx-auto px-8">
+      <ArticleContentContainer>
         <h2 className="pt-24 pb-16 text-3xl font-bold border-b-2">
           {props.staticPage.title}
         </h2>
@@ -48,7 +56,7 @@ export default function StaticPage(
           />
         )}
         <SnsShareLinks />
-      </div>
+      </ArticleContentContainer>
     </Layout>
   );
 }
@@ -66,6 +74,7 @@ export async function getStaticProps({
     query: gql`
       ${layoutSeoFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextArticleLinkFragment}
       ${articleContentStructuredTextEmbeddedVideoFragment}
       ${articleContentStructuredTextEmbeddedImageFragment}
       ${articleContentPersonAndStatementFragment}
@@ -77,11 +86,17 @@ export async function getStaticProps({
           image {
             url
           }
+          heroImage {
+            url
+          }
           content
           structuredContent {
             blocks {
               ... on ArticleGalleryRecord {
                 ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
               }
               ... on EmbeddedVideoRecord {
                 ...ArticleContentStructuredTextEmbeddedVideoFragment

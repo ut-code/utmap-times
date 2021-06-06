@@ -9,6 +9,8 @@ import ArticleContentStructuredTextArticleGallery from "./ArticleGallery";
 import ArticleContentStructuredTextEmbeddedVideo from "./EmbeddedVideo";
 import ArticleContentStructuredTextEmbeddedImage from "./EmbeddedImage";
 import ArticleContentPersonAndStatement from "./PersonAndStatement";
+import { ArticleContentStructuredTextArticleLinkFragment } from "../../__generated__/ArticleContentStructuredTextArticleLinkFragment";
+import ArticleContentStructuredTextArticleLink from "./ArticleLink";
 
 // TypeScriptの制限でinterfaceで定義された値はindex signatureを持つ型として使用できない
 // https://github.com/microsoft/TypeScript/issues/15300#issuecomment-816859086
@@ -16,6 +18,7 @@ type IndexSignatureHack<T> = { [P in keyof T]: T[P] };
 
 export type ArticleContentStructuredTextBlockFragment = IndexSignatureHack<
   | ArticleContentStructuredTextArticleGalleryFragment
+  | ArticleContentStructuredTextArticleLinkFragment
   | ArticleContentStructuredTextEmbeddedVideoFragment
   | ArticleContentStructuredTextEmbeddedImageFragment
   | ArticleContentPersonAndStatementFragment
@@ -76,6 +79,16 @@ export default function ArticleContentStructuredTextRenderer(props: {
           type: "CUSTOM_BLOCK",
           renderedElement: (
             <ArticleContentStructuredTextArticleGallery
+              fragment={blockDefinition}
+            />
+          ),
+        });
+        return;
+      case "ArticleLinkRecord":
+        rootFragments.push({
+          type: "CUSTOM_BLOCK",
+          renderedElement: (
+            <ArticleContentStructuredTextArticleLink
               fragment={blockDefinition}
             />
           ),
