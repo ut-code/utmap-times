@@ -68,9 +68,10 @@ export default function InternshipsIndexPage(
   const isRecruitingFilter: InternshipModelFilter = query.isRecruiting
     ? { isRecruiting: { eq: query.isRecruiting } }
     : {};
-  const isLongTermInternshipFilter: InternshipModelFilter = query.isLongTermInternship
-    ? { isLongTermInternship: { eq: query.isLongTermInternship } }
-    : {};
+  const isLongTermInternshipFilter: InternshipModelFilter =
+    query.isLongTermInternship
+      ? { isLongTermInternship: { eq: query.isLongTermInternship } }
+      : {};
   const selectedFeaturesSlugs = Array.isArray(query.features)
     ? query.features
     : [query.features];
