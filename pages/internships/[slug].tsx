@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import Link from "next/link";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -169,6 +170,18 @@ export default function InternshipPage(
           ))}
         </ul>
       </ArticleContentContainer>
+      <div className="bg-primary-main">
+        <div className="container mx-auto py-16 text-center">
+          <p className="pb-8 bg-primary-main text-2xl text-white">
+            このインターンに応募する
+          </p>
+          <Link href={props.internship.applicationlink ?? ""}>
+            <a className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main">
+              応募する
+            </a>
+          </Link>
+        </div>
+      </div>
     </Layout>
   );
 }
@@ -189,6 +202,7 @@ export async function getStaticProps({
           title
           description
           updatedAt
+          applicationlink
           company {
             name
             logo {
