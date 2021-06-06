@@ -172,7 +172,7 @@ export default function InternshipsIndexPage(
           <p className="text-secondary-main">注目のインターン</p>
         </header>
         <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2 xl:grid-cols-3">
-          <Link href={`/internships/${randomInternships?.id}`}>
+          <Link href={`/internships/${randomInternships?.slug}`}>
             <a className="block relative hover:bg-gray-100 p-8">
               <div className="relative">
                 <ImageOrLogo
@@ -212,7 +212,7 @@ export default function InternshipsIndexPage(
               </div>
             </a>
           </Link>
-          <Link href={`/internships/${randomInternships?.id}`}>
+          <Link href={`/internships/${randomInternships?.slug}`}>
             <a className="block relative hover:bg-gray-100 p-8">
               <div className="relative">
                 <ImageOrLogo
@@ -252,7 +252,7 @@ export default function InternshipsIndexPage(
               </div>
             </a>
           </Link>
-          <Link href={`/internships/${randomInternships?.id}`}>
+          <Link href={`/internships/${randomInternships?.slug}`}>
             <a className="block relative hover:bg-gray-100 p-8">
               <div className="relative">
                 <ImageOrLogo
