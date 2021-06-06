@@ -18,6 +18,13 @@ import {
   GetEventBySlugQuery,
   GetEventBySlugQueryVariables,
 } from "../../__generated__/GetEventBySlugQuery";
+import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextArticleLinkFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleLink";
+import { articleContentStructuredTextCallToActionButtonFragment } from "../../components/ArticleContentStructuredTextRenderer/CallToActionButton";
+import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
+import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
+import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
+import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 
 export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -40,7 +47,7 @@ export default function EventPage(
         </div>
       </Hero>
       <Banners />
-      <ArticleContentContainer>
+      <ArticleContentContainer className="pb-16">
         <div className="mt-24 relative">
           <img
             src={props.event.company?.logo?.url}
@@ -62,12 +69,18 @@ export default function EventPage(
         <h2 className="py-8 text-3xl font-bold">{props.event.title}</h2>
         <div className="pb-10 border-b-2">
           {props.event.targets.map((target) => (
-            <p className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block">
+            <p
+              key={target.id}
+              className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block"
+            >
               # {target.name}
             </p>
           ))}
           {props.event.features.map((feature) => (
-            <p className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block">
+            <p
+              key={feature.id}
+              className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block"
+            >
               # {feature.name}
             </p>
           ))}
@@ -78,11 +91,19 @@ export default function EventPage(
           alt="イベント画像"
           className="w-full max-w-3xl mx-auto mb-12"
         />
-        <div className="p-4 bg-gray-100 text-xl font-bold">イベントの内容</div>
+        <div className="p-4 bg-gray-100 text-xl font-bold">イベント内容</div>
         <RichTextRenderer
           markdown={props.event.description ?? ""}
           className="pt-4 pb-10"
         />
+        <div className="p-4 bg-gray-100 text-xl font-bold">会社概要</div>
+        <div className="pt-4 pb-10">
+          {props.event.company?.description && (
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.event.company.description}
+            />
+          )}
+        </div>
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[
@@ -101,7 +122,9 @@ export default function EventPage(
             </li>
           ))}
         </ul>
-        <div className="p-4 bg-gray-100 text-xl font-bold">開催要項</div>
+        <div className="p-2 mb-4 border-b-2 border-secondary-main text-2xl font-bold">
+          開催要項
+        </div>
         <ul className="pb-10">
           {[
             { title: "日時", component: props.event.schedule },
@@ -119,8 +142,10 @@ export default function EventPage(
             </li>
           ))}
         </ul>
-        <div className="p-4 bg-gray-100 text-xl font-bold">参加要項</div>
-        <ul className="pb-20">
+        <div className="p-2 mb-4 border-b-2 border-secondary-main text-2xl font-bold">
+          参加要項
+        </div>
+        <ul className="pb-10">
           {[
             { title: "募集対象", list: props.event.targets },
             { title: "定員", component: props.event.capacity },
@@ -133,9 +158,13 @@ export default function EventPage(
                 <div className="absolute left-44 inline-block">
                   {information.list?.map((target, index) =>
                     index === 0 ? (
-                      <p className="inline-block">{target.name}</p>
+                      <p key={target.name} className="inline-block">
+                        {target.name}
+                      </p>
                     ) : (
-                      <p className="inline-block">、{target.name}</p>
+                      <p key={target.name} className="inline-block">
+                        、{target.name}
+                      </p>
                     )
                   )}
                 </div>
@@ -147,6 +176,13 @@ export default function EventPage(
             </li>
           ))}
         </ul>
+        <div className="p-2 border-b-2 border-secondary-main text-2xl font-bold">
+          備考
+        </div>
+        <RichTextRenderer
+          markdown={props.event.remarks ?? ""}
+          className="p-4"
+        />
       </ArticleContentContainer>
       <div className="bg-primary-main">
         <div className="container mx-auto py-16 text-center">
@@ -175,6 +211,12 @@ export async function getStaticProps({
     GetEventBySlugQueryVariables
   >({
     query: gql`
+      ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextArticleLinkFragment}
+      ${articleContentStructuredTextCallToActionButtonFragment}
+      ${articleContentStructuredTextEmbeddedVideoFragment}
+      ${articleContentStructuredTextEmbeddedImageFragment}
+      ${articleStructuredTextContentPersonAndStatementFragment}
       query GetEventBySlugQuery($slug: String!) {
         event(filter: { slug: { eq: $slug } }) {
           title
@@ -187,6 +229,29 @@ export async function getStaticProps({
           updatedAt
           company {
             name
+            description {
+              blocks {
+                ... on ArticleGalleryRecord {
+                  ...ArticleContentStructuredTextArticleGalleryFragment
+                }
+                ... on ArticleLinkRecord {
+                  ...ArticleContentStructuredTextArticleLinkFragment
+                }
+                ... on CallToActionButtonRecord {
+                  ...ArticleContentStructuredTextCallToActionButtonFragment
+                }
+                ... on EmbeddedVideoRecord {
+                  ...ArticleContentStructuredTextEmbeddedVideoFragment
+                }
+                ... on EmbeddedImageRecord {
+                  ...ArticleContentStructuredTextEmbeddedImageFragment
+                }
+                ... on PersonAndStatementRecord {
+                  ...ArticleContentStructuredTextPersonAndStatementFragment
+                }
+              }
+              value
+            }
             leader
             industry {
               name
@@ -204,9 +269,11 @@ export async function getStaticProps({
           }
           isRecruiting
           targets {
+            id
             name
           }
           features {
+            id
             name
           }
           description
