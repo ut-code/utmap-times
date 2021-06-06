@@ -7,10 +7,10 @@ import { useMemo, useState } from "react";
 import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import ArticleLink from "../../components/ArticleLink";
+import HighlightedArticleLink from "../../components/HighlightedArticleLink";
 import Banners from "../../components/Banners";
 import BookmarkedClubs from "../../components/BookmarkedClubs";
 import Hero from "../../components/Hero";
-import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { useClubBookmarks } from "../../utils/hooks/clubBookmarks";
@@ -24,6 +24,11 @@ import {
   RandomClubQuery,
   RandomClubQueryVariables,
 } from "../../__generated__/RandomClubQuery";
+import { placeholderResponsiveImage } from "../../utils/constant";
+import {
+  normalizeResponsiveImage,
+  responsiveImageFragment,
+} from "../../utils/datocms";
 
 const queryType = s.type({
   q: s.optional(s.string()),
@@ -35,11 +40,15 @@ export type Query = s.Infer<typeof queryType>;
 const ARTICLES_PER_PAGE = 12;
 
 const clubSearchFragment = gql`
+  ${responsiveImageFragment}
   fragment ClubSearchFragment on ClubRecord {
     id
     name
     images {
       url(imgixParams: { w: 1200, h: 900, auto: format })
+      responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+        ...ResponsiveImageFragment
+      }
     }
     category {
       name
@@ -158,37 +167,22 @@ export default function ClubIndexPage(
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目のサークル</p>
         </header>
-        <Link href={`/clubs/${randomClub?.id}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={randomClub?.name ?? ""}
-              src={randomClub?.images[0]?.url}
-              className="w-full h-96"
-            />
-            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
-              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
-                {randomClub?.category?.name}
-              </div>
-              <p className={clsx("my-6 text-3xl lg:text-4xl")}>
-                {randomClub?.name}
-              </p>
-              <ul>
-                {randomClub?.tags.map((tag) => (
-                  <li
-                    key={tag.id}
-                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                  >
-                    {`#${tag.name}`}
-                  </li>
-                ))}
-              </ul>
-              <div
-                aria-hidden
-                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
-              />
-            </div>
-          </a>
-        </Link>
+        <HighlightedArticleLink
+          title={randomClub?.name ?? ""}
+          url={`/clubs/${randomClub?.id}`}
+          responsiveImage={
+            randomClub?.images[0]?.responsiveImage
+              ? normalizeResponsiveImage(randomClub.images[0].responsiveImage)
+              : placeholderResponsiveImage
+          }
+          category={randomClub?.category?.name ?? ""}
+          tags={
+            randomClub?.tags.map((tag) => ({
+              id: tag.id ?? "",
+              name: tag.name ?? "",
+            })) ?? []
+          }
+        />
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
