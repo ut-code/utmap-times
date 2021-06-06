@@ -6,6 +6,7 @@ export default function AritcleLinkEvent(props: {
   title: string;
   url: string | UrlObject;
   imageUrl: string;
+  companyLogoUrl: string;
   schedule: string;
   location: string;
   companyName?: string;
@@ -29,6 +30,11 @@ export default function AritcleLinkEvent(props: {
               src={props.imageUrl}
               alt={props.title}
               className="w-full h-64 object-cover"
+            />
+            <img
+              src={props.companyLogoUrl}
+              alt="会社ロゴ"
+              className="absolute w-1/4 right-0 bottom-0"
             />
             {props.isRecruiting ? (
               <p className="absolute top-0 left-0 p-2 bg-secondary-main text-white">

@@ -66,6 +66,9 @@ const eventSearchFragment = gql`
       industry {
         name
       }
+      logo {
+        url
+      }
     }
     category {
       id
@@ -216,12 +219,19 @@ export default function EventIndexPage(
           <p className="text-secondary-main">注目のイベント</p>
         </header>
         <Link href={`/events/${randomEvent?.slug}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={randomEvent?.title ?? ""}
-              src={randomEvent?.image?.url}
-              className="w-full h-96 bg-cover"
-            />
+          <a className="hidden md:block relative hover:bg-gray-100 p-8">
+            <div className="relative">
+              <ImageOrLogo
+                alt={randomEvent?.title ?? ""}
+                src={randomEvent?.image?.url}
+                className="w-full h-96 bg-cover"
+              />
+              <img
+                src={randomEvent?.company?.logo?.url}
+                alt="会社ロゴ"
+                className="w-1/4 md:w-36 absolute right-0 top-0"
+              />
+            </div>
             <div className="absolute -bottom-28 bg-white p-8">
               <div className="flex py-4 items-center text-left">
                 <h3 className="flex-grow pl-2 pr-8 border-l-4 border-secondary-main text-2xl font-bold">
@@ -258,6 +268,28 @@ export default function EventIndexPage(
             </div>
           </a>
         </Link>
+        <AritcleLinkEvent
+          title={randomEvent?.title ?? ""}
+          url={`events/${randomEvent?.slug}`}
+          imageUrl={randomEvent?.image?.url ?? "/images/utmap.png"}
+          companyLogoUrl={
+            randomEvent?.company?.logo?.url ?? "/images/utmap.png"
+          }
+          schedule={randomEvent?.schedule ?? ""}
+          location={randomEvent?.location ?? ""}
+          companyName={randomEvent?.company?.name ?? undefined}
+          industryName={randomEvent?.company?.industry?.name ?? undefined}
+          targets={randomEvent?.targets.map((target) => ({
+            id: target.id,
+            name: target.name ?? "",
+          }))}
+          features={randomEvent?.features.map((feature) => ({
+            id: feature.id,
+            name: feature.name ?? "",
+          }))}
+          isRecruiting={randomEvent?.isRecruiting}
+          className="block md:hidden"
+        />
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
@@ -585,6 +617,9 @@ export default function EventIndexPage(
                         title={event.title ?? ""}
                         url={`events/${event.slug}`}
                         imageUrl={event.image?.url ?? "/images/utmap.png"}
+                        companyLogoUrl={
+                          event.company?.logo?.url ?? "/images/utmap.png"
+                        }
                         schedule={event.schedule ?? ""}
                         location={event.location ?? ""}
                         companyName={event.company?.name ?? undefined}

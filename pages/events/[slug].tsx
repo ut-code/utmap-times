@@ -41,15 +41,22 @@ export default function EventPage(
       </Hero>
       <Banners />
       <ArticleContentContainer>
-        <div className="pt-24 flex">
-          {props.event.isRecruiting ? (
-            <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
-          ) : (
-            <p className="bg-secondary-main py-1 px-6 text-white">募集締切</p>
-          )}
-          <p className="px-5 py-1">
-            {props.event.updatedAt.substr(0, 10).replace(/-/g, "/")}
-          </p>
+        <div className="mt-24 relative">
+          <img
+            src={props.event.company?.logo?.url}
+            alt="会社ロゴ"
+            className="absolute w-20 md:w-28 right-0 top-0"
+          />
+          <div className="flex">
+            {props.event.isRecruiting ? (
+              <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
+            ) : (
+              <p className="bg-secondary-main py-1 px-6 text-white">募集締切</p>
+            )}
+            <p className="px-5 py-1">
+              {props.event.updatedAt.substr(0, 10).replace(/-/g, "/")}
+            </p>
+          </div>
         </div>
         <h3 className="pt-8 text-xl font-bold">{props.event.company?.name}</h3>
         <h2 className="py-8 text-3xl font-bold">{props.event.title}</h2>
@@ -188,6 +195,9 @@ export async function getStaticProps({
             establishedAt
             location
             url
+            logo {
+              url
+            }
           }
           category {
             name
