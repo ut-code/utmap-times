@@ -29,15 +29,22 @@ export default function InternshipPage(
       </Hero>
       <Banners />
       <ArticleContentContainer>
-        <div className="pt-24 flex">
-          {props.internship.isRecruiting ? (
-            <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
-          ) : (
-            <p className="bg-secondary-main py-1 px-6 text-white">募集締切</p>
-          )}
-          <p className="px-5 py-1">
-            {props.internship.updatedAt.substr(0, 10).replace(/-/g, "/")}
-          </p>
+        <div className="mt-24 relative">
+          <img
+            src={props.internship.company?.logo?.url ?? "/images/utmap.png"}
+            alt="会社ロゴ"
+            className="absolute w-20 md:w-28 right-0 top-0"
+          />
+          <div className="flex">
+            {props.internship.isRecruiting ? (
+              <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
+            ) : (
+              <p className="bg-secondary-main py-1 px-6 text-white">募集締切</p>
+            )}
+            <p className="px-5 py-1">
+              {props.internship.updatedAt.substr(0, 10).replace(/-/g, "/")}
+            </p>
+          </div>
         </div>
         <h3 className="pt-8 text-xl font-bold">
           {props.internship.company?.name}
@@ -184,6 +191,9 @@ export async function getStaticProps({
           updatedAt
           company {
             name
+            logo {
+              url
+            }
             leader
             industry {
               name
