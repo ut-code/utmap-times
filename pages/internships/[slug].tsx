@@ -51,7 +51,14 @@ export default function InternshipPage(
           ))}
         </div>
         <SnsShareLinks />
-        <div className="p-4 bg-gray-100 text-xl font-bold">イベントの内容</div>
+        <img
+          src={props.internship.images[0]?.url ?? "../../images/article.jpg"}
+          alt="インターン画像"
+          className="w-full max-w-3xl mx-auto mb-12"
+        />
+        <div className="p-4 bg-gray-100 text-xl font-bold">
+          インターンシップの内容
+        </div>
         <RichTextRenderer
           markdown={props.internship.description ?? ""}
           className="pt-4 pb-10"
