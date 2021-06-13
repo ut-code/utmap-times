@@ -8,9 +8,14 @@ import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
-import ImageOrLogo from "../../components/ImageOrLogo";
+import HighlightedArticleLink from "../../components/HighlightedArticleLink";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
+import { placeholderResponsiveImage } from "../../utils/constant";
+import {
+  normalizeResponsiveImage,
+  responsiveImageFragment,
+} from "../../utils/datocms";
 import { GraduateArticleModelFilter } from "../../__generated__/globalTypes";
 import { GraduateArticleIndexMetaQuery } from "../../__generated__/GraduateArticleIndexMetaQuery";
 import {
@@ -53,37 +58,18 @@ export default function GraduatArticleIndexPage(
           <h2 className="text-4xl font-bold">PICKUP</h2>
           <p className="text-secondary-main">注目の記事</p>
         </header>
-        <Link href={`graduates/${props.randomArticle.slug}`}>
-          <a className="block relative hover:bg-gray-100 p-8">
-            <ImageOrLogo
-              alt={props.randomArticle.title ?? ""}
-              src={props.randomArticle.image?.url}
-              className="w-full h-96"
-            />
-            <div className="inline-block relative z-10 -mt-6 lg:-mt-12 lg:p-14 lg:mr-32 lg:bg-white">
-              <div className="inline-block bg-secondary-main py-2 px-6 text-white">
-                {props.randomArticle?.category?.name}
-              </div>
-              <p className="my-6 text-3xl lg:text-4xl">
-                {props.randomArticle.title}
-              </p>
-              <ul>
-                {props.randomArticle.tags.map((tag) => (
-                  <li
-                    key={tag.id}
-                    className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                  >
-                    {`#${tag.name}`}
-                  </li>
-                ))}
-              </ul>
-              <div
-                aria-hidden
-                className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
-              />
-            </div>
-          </a>
-        </Link>
+        <HighlightedArticleLink
+          title={props.randomArticle.title ?? ""}
+          responsiveImage={
+            props.randomArticle.image?.responsiveImage
+              ? normalizeResponsiveImage(
+                  props.randomArticle.image.responsiveImage
+                )
+              : placeholderResponsiveImage
+          }
+          category={props.randomArticle.category?.name ?? ""}
+          url={`/graduates/${props.randomArticle.slug}`}
+        />
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
@@ -483,6 +469,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     GraduateArticleIndexQueryVariables
   >({
     query: gql`
+      ${responsiveImageFragment}
       query GraduateArticleIndexQuery(
         $filter: GraduateArticleModelFilter
         $randomArticleIndex: IntType!
@@ -494,7 +481,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           date
           image {
             id
-            url(imgixParams: { maxW: 600 })
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
           }
           category {
             name
