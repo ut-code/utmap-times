@@ -23,7 +23,13 @@ export default function InternshipPage(
 ) {
   return (
     <Layout title={props.internship.title}>
-      <Hero image="../../images/article.jpg">
+      <Hero
+        image={
+          props.internship.heroImage?.url ??
+          props.internship.images[0]?.url ??
+          "../../images/article.jpg"
+        }
+      >
         <div className="container mx-auto px-8 md:px-24 py-40">
           <h1 className="text-3xl">{props.internship.title}</h1>
         </div>
@@ -218,6 +224,9 @@ export async function getStaticProps({
             url
           }
           images {
+            url
+          }
+          heroImage {
             url
           }
           internshipSkill

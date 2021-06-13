@@ -19,6 +19,9 @@ export const articleLinkInternFragment = gql`
     images {
       url(imgixParams: { maxW: 600 })
     }
+    heroImage {
+      url
+    }
     jobType {
       id
       name
