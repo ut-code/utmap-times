@@ -10,6 +10,7 @@ import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
 import Layout from "../../components/Layout";
+import Paginator from "../../components/Paginator";
 import apolloClient from "../../utils/apollo";
 import { placeholderResponsiveImage } from "../../utils/constant";
 import {
@@ -23,10 +24,13 @@ import {
   GraduateArticleIndexQueryVariables,
 } from "../../__generated__/GraduateArticleIndexQuery";
 
+const ARTICLES_PER_PAGE = 20;
+
 const queryType = s.type({
   q: s.optional(s.string()),
   category: s.optional(s.string()),
   tag: s.optional(s.union([s.string(), s.array(s.string())])),
+  page: s.optional(s.string()),
 });
 export type Query = s.Infer<typeof queryType>;
 
@@ -101,13 +105,13 @@ export default function GraduatArticleIndexPage(
             <div className="md:pr-8 md:border-r md:border-gray-500">
               <h3 className="text-2xl mb-6">カテゴリで検索</h3>
               <ul className="space-y-2">
-                {props.GraduateArticleCategoryGroups.map(
-                  (GraduateArticleCategoryGroup) => {
+                {props.graduateArticleCategoryGroups.map(
+                  (graduateArticleCategoryGroup) => {
                     const isExpanded = expandedCategoryGroupIds.includes(
-                      GraduateArticleCategoryGroup.id
+                      graduateArticleCategoryGroup.id
                     );
                     return (
-                      <li key={GraduateArticleCategoryGroup.id}>
+                      <li key={graduateArticleCategoryGroup.id}>
                         <button
                           type="button"
                           className={clsx(
@@ -117,18 +121,18 @@ export default function GraduatArticleIndexPage(
                             setExpandedCategoryGroupIds(
                               expandedCategoryGroupIds
                                 .filter(
-                                  (id) => id !== GraduateArticleCategoryGroup.id
+                                  (id) => id !== graduateArticleCategoryGroup.id
                                 )
                                 .concat(
                                   isExpanded
                                     ? []
-                                    : [GraduateArticleCategoryGroup.id]
+                                    : [graduateArticleCategoryGroup.id]
                                 )
                             );
                           }}
                         >
                           <p className="flex-grow">
-                            {GraduateArticleCategoryGroup.name}
+                            {graduateArticleCategoryGroup.name}
                           </p>
                           {isExpanded ? <AiOutlineUp /> : <AiOutlineDown />}
                         </button>
@@ -138,7 +142,7 @@ export default function GraduatArticleIndexPage(
                               .filter(
                                 (category) =>
                                   category.group?.id ===
-                                  GraduateArticleCategoryGroup.id
+                                  graduateArticleCategoryGroup.id
                               )
                               .map((category) => {
                                 const newQuery: Query = {
@@ -231,9 +235,11 @@ export default function GraduatArticleIndexPage(
         </div>
       </section>
       <section className="container mx-auto my-12">
-        {!props.graduateArticles.length && (
-          <p>記事が見つかりませんでした。キーワードを変えてお試しください。</p>
-        )}
+        <p className="px-8">
+          {props.graduateArticleCount
+            ? `${props.graduateArticleCount}件の記事が見つかりました。`
+            : `記事が見つかりませんでした。キーワードを変えてお試しください。`}
+        </p>
         <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
           {props.graduateArticles.map((graduateArticle) => (
             <li key={graduateArticle.id}>
@@ -268,6 +274,18 @@ export default function GraduatArticleIndexPage(
             </li>
           ))}
         </ul>
+        <Paginator
+          className="py-4"
+          pageCount={Math.ceil(props.graduateArticleCount / ARTICLES_PER_PAGE)}
+          currentPage={(query.page && parseInt(query.page, 10)) || 0}
+          getLink={(page) => {
+            const newQuery: Query = {
+              ...query,
+              page: page.toString(),
+            };
+            return { query: newQuery };
+          }}
+        />
       </section>
       <section className="bg-gray-100">
         <div className="container mx-auto py-20 xl:px-24">
@@ -460,9 +478,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     : {};
   const variables: GraduateArticleIndexQueryVariables = {
     filter: { ...nameFilter, ...categoryFilter, ...tagFilter },
-    randomArticleIndex: Math.floor(
+    randomArticleIndex: Math.ceil(
       Math.random() * metaQueryResult.data._allGraduateArticlesMeta.count
     ),
+    first: ARTICLES_PER_PAGE,
+    skip:
+      (context.query.page &&
+        parseInt(context.query.page, 10) * ARTICLES_PER_PAGE) ||
+      0,
   };
   const queryResult = await apolloClient.query<
     GraduateArticleIndexQuery,
@@ -473,6 +496,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       query GraduateArticleIndexQuery(
         $filter: GraduateArticleModelFilter
         $randomArticleIndex: IntType!
+        $first: IntType!
+        $skip: IntType!
       ) {
         randomArticle: allGraduateArticles(skip: $randomArticleIndex) {
           id
@@ -494,7 +519,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             name
           }
         }
-        allGraduateArticles(filter: $filter) {
+        _allGraduateArticlesMeta(filter: $filter) {
+          count
+        }
+        allGraduateArticles(filter: $filter, first: $first, skip: $skip) {
           id
           slug
           title
@@ -520,9 +548,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!randomArticle) throw new Error("No articles found.");
   return {
     props: {
+      graduateArticleCount: queryResult.data._allGraduateArticlesMeta.count,
       graduateArticles: queryResult.data.allGraduateArticles,
       randomArticle,
-      GraduateArticleCategoryGroups:
+      graduateArticleCategoryGroups:
         metaQueryResult.data.allGraduateArticleCategoryGroups,
       graduateArticleCategories:
         metaQueryResult.data.allGraduateArticleCategories,
