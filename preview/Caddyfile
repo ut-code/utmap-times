@@ -1,0 +1,11 @@
+{
+	auto_https off
+}
+
+http://{$RENDER_EXTERNAL_HOSTNAME}
+
+basicauth {
+	{$BASIC_AUTH}
+}
+
+reverse_proxy {$SERVICE_HOST_PORT}

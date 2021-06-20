@@ -1,0 +1,19 @@
+# Render (https://render.com/) configuration file for preview environment
+# You must manually add appropriate environment variables for "preview" service
+services:
+  - type: pserv
+    name: utmap-times-preview
+    env: node
+    buildCommand: npm ci; npm run build
+    startCommand: npm start
+  - type: web
+    name: utmap-times-preview-reverse-proxy
+    env: docker
+    dockerContext: ./preview
+    dockerfilePath: ./preview/Dockerfile
+    envVars:
+      - key: SERVICE_HOST_PORT
+        fromService:
+          name: utmap-times-preview
+          type: pserv
+          property: hostport
