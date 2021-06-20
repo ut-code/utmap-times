@@ -75,14 +75,9 @@ export default function InternshipPage(
         <ul className="pb-10">
           {[
             { title: "社名", component: props.internship.company?.name },
-            { title: "代表者", component: props.internship.company?.leader },
             {
               title: "業界",
               component: props.internship.company?.industry?.name,
-            },
-            {
-              title: "設立",
-              component: props.internship.company?.establishedAt,
             },
             { title: "所在地", component: props.internship.company?.location },
             { title: "URL", component: props.internship.company?.url },
@@ -208,12 +203,10 @@ export async function getStaticProps({
             logo {
               url
             }
-            leader
             industry {
               name
               slug
             }
-            establishedAt
             location
             url
           }

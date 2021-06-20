@@ -108,9 +108,7 @@ export default function EventPage(
         <ul className="pb-10">
           {[
             { title: "社名", component: props.event.company?.name },
-            { title: "代表者", component: props.event.company?.leader },
             { title: "業界", component: props.event.company?.industry?.name },
-            { title: "設立", component: props.event.company?.establishedAt },
             { title: "所在地", component: props.event.company?.location },
             { title: "URL", component: props.event.company?.url },
           ].map((information) => (
@@ -252,12 +250,10 @@ export async function getStaticProps({
               }
               value
             }
-            leader
             industry {
               name
               slug
             }
-            establishedAt
             location
             url
             logo {
