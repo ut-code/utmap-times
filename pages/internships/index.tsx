@@ -297,7 +297,7 @@ export default function InternshipsIndexPage(
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2">
-            <button type="button" key="isLongTermInternship" className="mx-4">
+            <button type="button" className="mx-4">
               <span className="h-12">
                 {[{ title: "長期インターンシップで探す", boolean: "true" }].map(
                   (isLongTermInternship) => {
@@ -332,7 +332,7 @@ export default function InternshipsIndexPage(
                 )}
               </span>
             </button>
-            <button type="button" key="isLongTermInternship" className="mx-2">
+            <button type="button" className="mx-2">
               <span className="h-12">
                 {[
                   { title: "短期インターンシップで探す", boolean: "false" },
@@ -371,238 +371,225 @@ export default function InternshipsIndexPage(
           <p className="my-4 ">カテゴリで絞り込み</p>
           <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4">
             <div className="md:pr-8">
-              <li key="jobType" className="my-2 xl:my-0">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedInternshipGroup(
-                      expandedInternshipGroup === "jobType"
-                        ? ""
-                        : "jobType" ?? ""
-                    );
-                  }}
-                >
-                  <p className="flex-grow">職種</p>
-                  {expandedInternshipGroup === "jobType" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedInternshipGroup === "jobType" && (
-                  <ul className="border-t">
-                    {props.InternshipsJobType.map((jobType) => {
-                      const isSelected = selectedJobTypes.some(
-                        (selectedJobType) => selectedJobType.id === jobType.id
-                      );
-                      const newSelectedJobTypes = isSelected
-                        ? selectedJobTypes.filter(
-                            (selectedJobType) =>
-                              selectedJobType.id !== jobType.id
-                          )
-                        : [...selectedJobTypes, jobType];
-                      const newQuery: Query = {
-                        features: newSelectedJobTypes.map(
-                          (selectedJobType) => selectedJobType.slug ?? ""
-                        ),
-                      };
-                      return (
-                        <li key="features">
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-2",
-                                isSelected ? "bg-secondary-300" : "bg-white"
-                              )}
-                            >
-                              {jobType.name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+              <button
+                type="button"
+                className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                onClick={() => {
+                  setExpandedInternshipGroup(
+                    expandedInternshipGroup === "jobType" ? "" : "jobType" ?? ""
+                  );
+                }}
+              >
+                <p className="flex-grow">職種</p>
+                {expandedInternshipGroup === "jobType" ? (
+                  <AiOutlineUp />
+                ) : (
+                  <AiOutlineDown />
                 )}
-              </li>
+              </button>
+              {expandedInternshipGroup === "jobType" && (
+                <ul className="border-t">
+                  {props.InternshipsJobType.map((jobType) => {
+                    const isSelected = selectedJobTypes.some(
+                      (selectedJobType) => selectedJobType.id === jobType.id
+                    );
+                    const newSelectedJobTypes = isSelected
+                      ? selectedJobTypes.filter(
+                          (selectedJobType) => selectedJobType.id !== jobType.id
+                        )
+                      : [...selectedJobTypes, jobType];
+                    const newQuery: Query = {
+                      features: newSelectedJobTypes.map(
+                        (selectedJobType) => selectedJobType.slug ?? ""
+                      ),
+                    };
+                    return (
+                      <li key={jobType.id}>
+                        <Link
+                          href={{ query: { ...query, ...newQuery } }}
+                          scroll={false}
+                        >
+                          <a
+                            className={clsx(
+                              "block py-1 px-2",
+                              isSelected ? "bg-secondary-300" : "bg-white"
+                            )}
+                          >
+                            {jobType.name}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
             <div className="md:pr-4">
-              <li key="industries" className="my-2 xl:my-0">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedInternshipGroup(
-                      expandedInternshipGroup === "industries"
-                        ? ""
-                        : "industries" ?? ""
-                    );
-                  }}
-                >
-                  <p className="flex-grow">業界</p>
-                  {expandedInternshipGroup === "industries" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedInternshipGroup === "industries" && (
-                  <ul className="border-t border-gray-200">
-                    {props.InternshipsIndustry.map((industry) => {
-                      const isSelected = selectedIndustries.some(
-                        (selectedIndustry) =>
-                          selectedIndustry.id === industry.id
-                      );
-                      const newSelectedindustries = isSelected
-                        ? selectedIndustries.filter(
-                            (selectedIndustry) =>
-                              selectedIndustry.id !== industry.id
-                          )
-                        : [...selectedIndustries, industry];
-                      const newQuery: Query = {
-                        industry: newSelectedindustries.map(
-                          (selectedIndustry) => selectedIndustry.slug ?? ""
-                        ),
-                      };
-                      return (
-                        <li key="industry">
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-2",
-                                isSelected ? "bg-secondary-300" : "bg-white"
-                              )}
-                            >
-                              {industry.name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+              <button
+                type="button"
+                className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                onClick={() => {
+                  setExpandedInternshipGroup(
+                    expandedInternshipGroup === "industries"
+                      ? ""
+                      : "industries" ?? ""
+                  );
+                }}
+              >
+                <p className="flex-grow">業界</p>
+                {expandedInternshipGroup === "industries" ? (
+                  <AiOutlineUp />
+                ) : (
+                  <AiOutlineDown />
                 )}
-              </li>
+              </button>
+              {expandedInternshipGroup === "industries" && (
+                <ul className="border-t border-gray-200">
+                  {props.InternshipsIndustry.map((industry) => {
+                    const isSelected = selectedIndustries.some(
+                      (selectedIndustry) => selectedIndustry.id === industry.id
+                    );
+                    const newSelectedindustries = isSelected
+                      ? selectedIndustries.filter(
+                          (selectedIndustry) =>
+                            selectedIndustry.id !== industry.id
+                        )
+                      : [...selectedIndustries, industry];
+                    const newQuery: Query = {
+                      industry: newSelectedindustries.map(
+                        (selectedIndustry) => selectedIndustry.slug ?? ""
+                      ),
+                    };
+                    return (
+                      <li key={industry.id}>
+                        <Link
+                          href={{ query: { ...query, ...newQuery } }}
+                          scroll={false}
+                        >
+                          <a
+                            className={clsx(
+                              "block py-1 px-2",
+                              isSelected ? "bg-secondary-300" : "bg-white"
+                            )}
+                          >
+                            {industry.name}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
             <div className="md:pl-4">
-              <li key="features" className="my-2 xl:my-0">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedInternshipGroup(
-                      expandedInternshipGroup === "features"
-                        ? ""
-                        : "features" ?? ""
-                    );
-                  }}
-                >
-                  <p className="flex-grow">特徴</p>
-                  {expandedInternshipGroup === "features" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedInternshipGroup === "features" && (
-                  <ul className="border-t border-gray-200">
-                    {props.InternshipsFeatures.map((feature) => {
-                      const isSelected = selectedFeatures.some(
-                        (selectedFeature) => selectedFeature.id === feature.id
-                      );
-                      const newSelectedFeatures = isSelected
-                        ? selectedFeatures.filter(
-                            (selectedFeature) =>
-                              selectedFeature.id !== feature.id
-                          )
-                        : [...selectedFeatures, feature];
-                      const newQuery: Query = {
-                        features: newSelectedFeatures.map(
-                          (selectedFeature) => selectedFeature.slug ?? ""
-                        ),
-                      };
-                      return (
-                        <li key="features">
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-2",
-                                isSelected ? "bg-secondary-300" : "bg-white"
-                              )}
-                            >
-                              {feature.name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+              <button
+                type="button"
+                className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                onClick={() => {
+                  setExpandedInternshipGroup(
+                    expandedInternshipGroup === "features"
+                      ? ""
+                      : "features" ?? ""
+                  );
+                }}
+              >
+                <p className="flex-grow">特徴</p>
+                {expandedInternshipGroup === "features" ? (
+                  <AiOutlineUp />
+                ) : (
+                  <AiOutlineDown />
                 )}
-              </li>
+              </button>
+              {expandedInternshipGroup === "features" && (
+                <ul className="border-t border-gray-200">
+                  {props.InternshipsFeatures.map((feature) => {
+                    const isSelected = selectedFeatures.some(
+                      (selectedFeature) => selectedFeature.id === feature.id
+                    );
+                    const newSelectedFeatures = isSelected
+                      ? selectedFeatures.filter(
+                          (selectedFeature) => selectedFeature.id !== feature.id
+                        )
+                      : [...selectedFeatures, feature];
+                    const newQuery: Query = {
+                      features: newSelectedFeatures.map(
+                        (selectedFeature) => selectedFeature.slug ?? ""
+                      ),
+                    };
+                    return (
+                      <li key={feature.id}>
+                        <Link
+                          href={{ query: { ...query, ...newQuery } }}
+                          scroll={false}
+                        >
+                          <a
+                            className={clsx(
+                              "block py-1 px-2",
+                              isSelected ? "bg-secondary-300" : "bg-white"
+                            )}
+                          >
+                            {feature.name}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
             <div className="md:pl-8">
-              <li key="isRecruiting" className="my-2 md:my-0 xl:mr-2">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedInternshipGroup(
-                      expandedInternshipGroup === "isRecruiting"
-                        ? ""
-                        : "isRecruiting"
-                    );
-                  }}
-                >
-                  <p className="flex-grow">募集状況</p>
-                  {expandedInternshipGroup === "isRecruiting" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedInternshipGroup === "isRecruiting" && (
-                  <ul className="border-t border-gray-200">
-                    {[
-                      { title: "募集中", boolean: "true" },
-                      { title: "募集終了", boolean: "false" },
-                    ].map((isRecruiting) => {
-                      const newQuery: Query = {
-                        isRecruiting:
-                          query.isRecruiting === isRecruiting.boolean
-                            ? undefined
-                            : isRecruiting.boolean ?? undefined,
-                      };
-                      return (
-                        <li key={isRecruiting.title}>
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-6",
-                                query.isRecruiting === isRecruiting.boolean
-                                  ? "bg-secondary-300"
-                                  : "bg-white"
-                              )}
-                            >
-                              {isRecruiting.title}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+              <button
+                type="button"
+                className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                onClick={() => {
+                  setExpandedInternshipGroup(
+                    expandedInternshipGroup === "isRecruiting"
+                      ? ""
+                      : "isRecruiting"
+                  );
+                }}
+              >
+                <p className="flex-grow">募集状況</p>
+                {expandedInternshipGroup === "isRecruiting" ? (
+                  <AiOutlineUp />
+                ) : (
+                  <AiOutlineDown />
                 )}
-              </li>
+              </button>
+              {expandedInternshipGroup === "isRecruiting" && (
+                <ul className="border-t border-gray-200">
+                  {[
+                    { title: "募集中", boolean: "true" },
+                    { title: "募集終了", boolean: "false" },
+                  ].map((isRecruiting) => {
+                    const newQuery: Query = {
+                      isRecruiting:
+                        query.isRecruiting === isRecruiting.boolean
+                          ? undefined
+                          : isRecruiting.boolean ?? undefined,
+                    };
+                    return (
+                      <li key={isRecruiting.title}>
+                        <Link
+                          href={{ query: { ...query, ...newQuery } }}
+                          scroll={false}
+                        >
+                          <a
+                            className={clsx(
+                              "block py-1 px-6",
+                              query.isRecruiting === isRecruiting.boolean
+                                ? "bg-secondary-300"
+                                : "bg-white"
+                            )}
+                          >
+                            {isRecruiting.title}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
           </div>
           <form
@@ -637,11 +624,11 @@ export default function InternshipsIndexPage(
           <>
             {searchQueryData._allInternshipsMeta.count === 0 ? (
               <p className="px-8">
-                サークルが見つかりませんでした。キーワードを変えてお試しください。
+                インターンシップが見つかりませんでした。キーワードを変えてお試しください。
               </p>
             ) : (
               <>
-                <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のサークルが見つかりました。`}</p>
+                <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のインターンシップが見つかりました。`}</p>
                 <ul className="md:grid md:grid-cols-1 xl:grid-cols-1 mx-12">
                   {searchQueryData.allInternships.map((internship) => (
                     <li key={internship.id}>
@@ -670,7 +657,7 @@ export default function InternshipsIndexPage(
                     </button>
                   ) : (
                     <p className="bg-gray-100 py-6">
-                      すべてのサークルを検索しました。
+                      すべてのインターンシップを検索しました。
                     </p>
                   )}
                 </div>
