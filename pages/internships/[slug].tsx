@@ -4,7 +4,6 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import Link from "next/link";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -88,11 +87,11 @@ export default function InternshipPage(
             { title: "所在地", component: props.internship.company?.location },
             { title: "URL", component: props.internship.company?.url },
           ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              <p className="absolute left-44 inline-block">
-                {information.component}
+            <li key={information.title} className="flex p-4 border-b">
+              <p className="w-36 lg:w-48 flex-none font-bold">
+                {information.title}
               </p>
+              <p>{information.component}</p>
             </li>
           ))}
         </ul>
@@ -148,11 +147,11 @@ export default function InternshipPage(
               component: props.internship.contact,
             },
           ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              <p className="absolute left-44 inline-block">
-                {information.component}
+            <li key={information.title} className="flex p-4 border-b">
+              <p className="w-36 lg:w-48 flex-none font-bold">
+                {information.title}
               </p>
+              <p>{information.component}</p>
             </li>
           ))}
         </ul>
@@ -162,11 +161,11 @@ export default function InternshipPage(
             { title: "給与", component: props.internship.salary },
             { title: "その他の補助", component: props.internship.extraWelfare },
           ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              <p className="absolute left-44 inline-block">
-                {information.component}
+            <li key={information.title} className="flex p-4 border-b">
+              <p className="w-36 lg:w-48 flex-none font-bold">
+                {information.title}
               </p>
+              <p>{information.component}</p>
             </li>
           ))}
         </ul>
@@ -176,11 +175,14 @@ export default function InternshipPage(
           <p className="pb-8 bg-primary-main text-2xl text-white">
             このインターンに応募する
           </p>
-          <Link href={props.internship.applicationlink ?? ""}>
-            <a className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main">
-              応募する
-            </a>
-          </Link>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main"
+            href={props.internship.applicationlink ?? ""}
+          >
+            応募する
+          </a>
         </div>
       </div>
     </Layout>

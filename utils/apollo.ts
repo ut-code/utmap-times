@@ -22,6 +22,7 @@ const apolloClient = new ApolloClient({
       Query: {
         fields: {
           allClubs: datoCmsPagination,
+          allInternships: datoCmsPagination,
         },
       },
     },
