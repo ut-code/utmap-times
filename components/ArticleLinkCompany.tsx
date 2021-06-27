@@ -25,20 +25,20 @@ export default function AritcleLinkCompany(props: {
               alt={props.name}
               className="w-full h-64 object-cover"
             />
-            <img
-              src={props.LogoUrl}
-              alt="会社ロゴ"
-              className="absolute w-1/4 right-0 bottom-0"
-            />
             {props.industry && (
-              <div className="inline-block mb-6 py-2 px-6 bg-secondary-main text-white">
+              <div className="absolute left-0 bottom-0 inline-block py-2 px-6 bg-secondary-main text-white">
                 {props.industry}
               </div>
             )}
           </div>
-          <p className="my-4 pl-2 text-lg border-l-4 border-secondary-main">
-            {props.name}
-          </p>
+          <div className="relative">
+            <img
+              src={props.LogoUrl}
+              alt="会社ロゴ"
+              className="float-left w-1/6 left-0 bottom-0 rounded-full"
+            />
+            <span className="py-4 pl-2 text-lg">{props.name}</span>
+          </div>
         </div>
       </a>
     </Link>
