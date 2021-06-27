@@ -199,7 +199,7 @@ export default function InternshipsIndexPage(
                 >
                   {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
                 </div>
-                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                <p className={clsx("my-6 lg:text-xl")}>
                   {randomInternships?.title}
                 </p>
                 <div className="py-4 border-t border-secondary-main">
@@ -239,7 +239,7 @@ export default function InternshipsIndexPage(
                 >
                   {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
                 </p>
-                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                <p className={clsx("my-6 lg:text-xl")}>
                   {randomInternships?.title}
                 </p>
                 <div className="py-4 border-t border-secondary-main">
@@ -279,7 +279,7 @@ export default function InternshipsIndexPage(
                 >
                   {randomInternships?.isRecruiting ? "募集中" : "募集終了"}
                 </p>
-                <p className={clsx("my-6 text-2xl lg:text-3xl")}>
+                <p className={clsx("my-6 lg:text-xl")}>
                   {randomInternships?.title}
                 </p>
                 <div className="py-4 border-t border-secondary-main">
@@ -368,9 +368,9 @@ export default function InternshipsIndexPage(
               </span>
             </button>
           </div>
-          <p className="my-4 ">カテゴリで絞り込み</p>
-          <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-4">
-            <div className="md:pr-8">
+          <p className="my-4">カテゴリで絞り込み</p>
+          <div className="lg:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-4">
+            <div className="mb-8 md:mr-4">
               <button
                 type="button"
                 className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
@@ -424,7 +424,7 @@ export default function InternshipsIndexPage(
                 </ul>
               )}
             </div>
-            <div className="md:pr-4">
+            <div className="mb-8 md:ml-4 lg:mr-4 lg:ml-0">
               <button
                 type="button"
                 className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
@@ -481,7 +481,7 @@ export default function InternshipsIndexPage(
                 </ul>
               )}
             </div>
-            <div className="md:pl-4">
+            <div className="mb-8 md:mr-4">
               <button
                 type="button"
                 className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
@@ -537,7 +537,7 @@ export default function InternshipsIndexPage(
                 </ul>
               )}
             </div>
-            <div className="md:pl-8">
+            <div className="md:mr-0 md:ml-4 lg:mr-4 lg:ml-0">
               <button
                 type="button"
                 className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
