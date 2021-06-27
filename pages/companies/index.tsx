@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Link from "next/link";
 import Banners from "../../components/Banners";
@@ -56,7 +56,6 @@ export default function CompanyIndexPage(
 ) {
   const router = useRouter();
   const query = router.query as s.Infer<typeof queryType>;
-  const [search, setSearch] = useState(query.q ?? "");
   const [expandedCompanyGroup, setExpandedCompanyGroup] = useState("");
   const ARTICLES_PER_PAGE = 9;
 
@@ -191,30 +190,6 @@ export default function CompanyIndexPage(
               </li>
             </ul>
           </div>
-          <form
-            onSubmit={(e) => {
-              const newQuery: Query = { q: search };
-              router.push({ query: { ...query, ...newQuery } });
-              e.preventDefault();
-            }}
-          >
-            <div className="flex items-stretch">
-              <input
-                placeholder="キーワードで検索"
-                className="flex-grow p-4"
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-              />
-              <button
-                type="submit"
-                className="w-16 text-center bg-blue-900 hover:bg-blue-700 text-white"
-              >
-                <AiOutlineSearch className="inline text-xl" />
-              </button>
-            </div>
-          </form>
         </div>
       </section>
 
