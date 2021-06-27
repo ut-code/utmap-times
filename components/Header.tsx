@@ -9,7 +9,7 @@ const menu = [
   // { label: "学部", linkTo: "/" },
   { label: "就職/キャリア", linkTo: "/graduates" },
   { label: "インターンシップ", linkTo: "/internships" },
-  // { label: "イベント", linkTo: "/" },
+  { label: "イベント", linkTo: "/events" },
 ];
 
 export default function Header() {
