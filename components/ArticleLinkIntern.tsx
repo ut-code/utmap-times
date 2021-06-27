@@ -55,15 +55,15 @@ export default function ArticleLinkIntern(props: {
     <Link href={`/internships/${props.article.slug}`}>
       <a
         className={clsx(
-          "md:flex-grow lg:flex m-4 cursor-pointer bg-gray-100 hover:bg-gray-200",
+          "lg:flex-grow lg:flex m-4 cursor-pointer bg-gray-100 hover:bg-gray-200",
           props.className
         )}
       >
-        <span className="relative mr-6">
+        <div className="relative">
           <img
             src={props.article.images[0]?.url ?? "/images/utmap.png"}
             alt={title}
-            className="relative lg:w-96 md:w-full h-full object-cover"
+            className="w-full h-full object-cover"
           />
 
           <img
@@ -71,68 +71,61 @@ export default function ArticleLinkIntern(props: {
             src={props.article?.company?.logo?.url ?? "/images/utmap.png"}
             className="absolute top-0 right-0 w-32 h-32 "
           />
-        </span>
-        <span className="py-3 w-full">
-          <div className="py-3 border-solid border-black border-b">
-            <span>{props.article.company?.name}</span>
-            <span
+          <p
+            className={clsx(
+              "absolute -bottom-4 py-1 px-4 text-white text-sm  lg:hidden",
+              props.article?.isRecruiting ? "bg-secondary-main" : "bg-gray-500"
+            )}
+          >
+            {props.article?.isRecruiting ? "募集中" : "募集終了"}
+          </p>
+        </div>
+        <div className="pt-6 lg:pt-3 lg:px-10 w-full">
+          <div className="py-3 border-solid border-black border-b font-bold">
+            <p className="inline-block">{props.article.company?.name}</p>
+            <p
               className={clsx(
-                "py-1 px-4 mx-3 text-white text-sm float-right",
+                "py-1 px-4 mx-3 text-white text-sm float-right hidden lg:block",
                 props.article?.isRecruiting
                   ? "bg-secondary-main"
                   : "bg-gray-500"
               )}
             >
               {props.article?.isRecruiting ? "募集中" : "募集終了"}
-            </span>
+            </p>
           </div>
 
-          <p className="pt-6 font-bold text-center text-lg">
-            {props.article.title}
-          </p>
-          <div className="my-3 w-full grid md:grid-cols-4 lg:grid-cols-8 text-center">
-            <div className="mt-3 font-bold col-span-1 border-black border-b">
-              職種
-            </div>
-            <div className="mt-3 col-span-3 border-b border-gray-300">
-              {props.article.jobType?.name}
-            </div>
-            <div className="mt-3 font-bold col-span-1 border-black border-b">
-              給与
-            </div>
-            <div className="mt-3 col-span-3 border-b border-gray-300">
-              {props.article.salary}
-            </div>
-
-            <div className="mt-3 font-bold col-span-1 border-black border-b">
-              場所
-            </div>
-            <div className="mt-3 col-span-3 border-b border-gray-300">
-              {props.article.location}
-            </div>
-            <div className="mt-3 font-bold col-span-1 border-black border-b">
-              特徴
-            </div>
-            <div className="col-span-3 border-b border-gray-300">
-              {props.article.features && (
-                <ul>
-                  {props.article.features.map((feature) => (
-                    <li
-                      key={feature.id}
-                      className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                    >
-                      {`#${feature.name}`}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="my-3 font-bold text-white bg-black col-span-1">
-              業界
-            </div>
-            <div className="my-3 col-span-3">
-              {props.article.industry?.name}
-            </div>
+          <p className="pt-6 font-bold text-lg">{props.article.title}</p>
+          <div className="my-3 w-full grid lg:grid-cols-2">
+            {[
+              { title: "職種", content: props.article.jobType?.name },
+              { title: "給与", content: props.article.salary },
+              { title: "場所", content: props.article.location },
+              { title: "特徴", content: props.article.features },
+              { title: "業界", content: props.article.industry?.name },
+            ].map((component) => (
+              <div
+                key={component.title}
+                className="col-span-1 grid grid-cols-4"
+              >
+                <div
+                  className={clsx(
+                    "flex mt-3 py-1 col-span-1 border-gray-500 border-b font-bold justify-center items-end",
+                    component.title === "業界" &&
+                      "bg-black text-white border-none"
+                  )}
+                >
+                  {component.title}
+                </div>
+                <div className="mt-3 py-1 px-4 col-span-3 border-b border-gray-300">
+                  {component.content !== props.article.features
+                    ? component.content
+                    : component.content.map((feature) => (
+                        <p className="inline-block mr-2">{`#${feature.name}`}</p>
+                      ))}
+                </div>
+              </div>
+            ))}
           </div>
           {typeof props.isBookmarked === "boolean" && (
             <button
@@ -150,7 +143,7 @@ export default function ArticleLinkIntern(props: {
               )}
             </button>
           )}
-        </span>
+        </div>
       </a>
     </Link>
   );
