@@ -2,8 +2,6 @@ import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Link from "next/link";
 import Banners from "../../components/Banners";
@@ -56,7 +54,6 @@ export default function CompanyIndexPage(
 ) {
   const router = useRouter();
   const query = router.query as s.Infer<typeof queryType>;
-  const [expandedCompanyGroup, setExpandedCompanyGroup] = useState("");
   const ARTICLES_PER_PAGE = 9;
 
   const selectedIndustrySlug = query.industry;
@@ -134,62 +131,40 @@ export default function CompanyIndexPage(
           </p>
         </header>
       </section>
-      <section className="bg-gray-200">
+      <section className="bg-primary-400">
         <div className="container mx-auto py-16 px-8 md:px-24">
-          <h3 className="pb-6 text-2xl">カテゴリで絞り込み</h3>
-          <div className="w-full pb-4">
-            <ul className="md:grid md:grid-cols-2 xl:grid-cols-4">
-              <li key="industry" className="md:mr-2">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedCompanyGroup(
-                      expandedCompanyGroup === "industry" ? "" : "industry"
-                    );
-                  }}
-                >
-                  <p className="flex-grow">企業種類</p>
-                  {expandedCompanyGroup === "industry" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedCompanyGroup === "industry" && (
-                  <ul className="border-t border-gray-200">
-                    {props.companyIndustries.map((industry) => {
-                      const newQuery: Query = {
-                        industry:
-                          selectedIndustry?.id === industry.id
-                            ? undefined
-                            : industry.slug ?? undefined,
-                      };
-                      return (
-                        <li key={industry.id}>
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-6",
-                                query.industry === industry.slug
-                                  ? "bg-secondary-300"
-                                  : "bg-white"
-                              )}
-                            >
-                              {industry.name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </li>
-            </ul>
-          </div>
+          <h3 className="pb-6 text-2xl text-white">カテゴリで絞り込み</h3>
+          <ul className="md:grid md:grid-cols-2 xl:grid-cols-4">
+            <li key="industry" className="md:mr-2">
+              {props.companyIndustries.map((industry) => {
+                const newQuery: Query = {
+                  industry:
+                    selectedIndustry?.id === industry.id
+                      ? undefined
+                      : industry.slug ?? undefined,
+                };
+                return (
+                  <li key={industry.id}>
+                    <Link
+                      href={{ query: { ...query, ...newQuery } }}
+                      scroll={false}
+                    >
+                      <a
+                        className={clsx(
+                          "block py-1 px-6",
+                          query.industry === industry.slug
+                            ? "bg-secondary-300"
+                            : "bg-white"
+                        )}
+                      >
+                        {industry.name}
+                      </a>
+                    </Link>
+                  </li>
+                );
+              })}
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -203,66 +178,7 @@ export default function CompanyIndexPage(
             ) : (
               <>
                 <p className="px-8">{`${searchQueryData._allCompaniesMeta.count}件の企業が見つかりました。`}</p>
-                <div className="py-12 text-center items-center">
-                  {[
-                    { title: "新着", slug: "createdAt", default: undefined },
-                    { title: "開催日", slug: "startsAt", default: "false" },
-                    {
-                      title: "締め切り日",
-                      slug: "applicationDeadline",
-                      default: "false",
-                    },
-                  ].map((component) => {
-                    const createdAtSlug =
-                      component.slug === "createdAt" ? "createdAt" : undefined;
-                    const startsAtSlug =
-                      !createdAtSlug && component.slug === "startsAt"
-                        ? "startsAt"
-                        : undefined;
-                    const applicationDeadlineSlug =
-                      !startsAtSlug && component.slug === "applicationDeadline"
-                        ? "applicationDeadline"
-                        : undefined;
-                    const newQuery: Query = {
-                      orderBy:
-                        createdAtSlug ??
-                        startsAtSlug ??
-                        applicationDeadlineSlug,
-                    };
-                    return (
-                      <div
-                        key={component.slug}
-                        className="relative inline-block pl-1"
-                      >
-                        <Link
-                          href={{ query: { ...query, ...newQuery } }}
-                          scroll={false}
-                        >
-                          <a
-                            className={clsx(
-                              "inline-block px-2 md:px-4",
-                              query.orderBy === component.slug ||
-                                query.orderBy === component.default
-                                ? "text-black"
-                                : "text-gray-400"
-                            )}
-                          >
-                            {component.title}
-                          </a>
-                        </Link>
-                        <div
-                          className={clsx(
-                            "absolute left-1/2 -bottom-4 h-2 w-2 rounded-full",
-                            query.orderBy === component.slug ||
-                              query.orderBy === component.default
-                              ? "bg-primary-main"
-                              : "hidden"
-                          )}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+                ”
                 <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
                   {searchQueryData?.allCompanies.map((company) => (
                     <li key={company.id}>
