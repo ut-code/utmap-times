@@ -1,29 +1,33 @@
 import Link from "next/link";
-import { Fragment } from "react";
 import { staticData } from "../__generated_data__/static";
+import Carousel from "./Carousel";
 
 export default function Banners() {
+  if (staticData.allBanners.length === 0) return null;
+
   return (
-    <>
-      {staticData.allBanners.length > 0 && (
-        <div className="w-full overflow-x-auto bg-black">
-          <div className="flex mx-auto w-max p-4 space-x-6 md:p-6 md:space-x-10">
-            {staticData.allBanners.map((banner) => (
-              <Fragment key={banner.id}>
-                <Link href={banner.link ?? ""}>
-                  <a className="flex-none">
-                    <img
-                      src={banner.image?.url ?? ""}
-                      alt={banner.image.alt ?? ""}
-                      className="h-16 md:h-20"
-                    />
-                  </a>
-                </Link>
-              </Fragment>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
+    <div className="w-full py-4 bg-black">
+      <Carousel
+        cardMaxWidthClassName="max-w-xs lg:max-w-md"
+        disableArrowButton
+        disableIndicator
+        disableBrightnessControl
+        aspectRatio={1 / 5}
+        cards={staticData.allBanners.map((banner) => ({
+          key: banner.id,
+          content: (
+            <Link href={banner.link ?? ""}>
+              <a className="block w-full h-full">
+                <img
+                  className="w-full h-full object-cover"
+                  alt={banner.image.alt ?? ""}
+                  src={banner.image.url ?? ""}
+                />
+              </a>
+            </Link>
+          ),
+        }))}
+      />
+    </div>
   );
 }
