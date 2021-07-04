@@ -1,10 +1,51 @@
 :root {
   font-family: serif;
-  --screen-sm: theme('screens.sm');
-  --screen-md: theme('screens.md');
-  --screen-lg: theme('screens.lg');
-  --screen-xl: theme('screens.xl');
-  --screen-2xl: theme('screens.2xl');
-  --color-primary-main: theme('colors.primary.main');
-  --color-secondary-main: theme('colors.secondary.main');
+  --screen-sm: theme("screens.sm");
+  --screen-md: theme("screens.md");
+  --screen-lg: theme("screens.lg");
+  --screen-xl: theme("screens.xl");
+  --screen-2xl: theme("screens.2xl");
+  --screen-is-sm: 0;
+  --screen-is-md: 0;
+  --screen-is-lg: 0;
+  --screen-is-xl: 0;
+  --screen-is-2xl: 0;
+  --screen-is-not-sm: 1;
+  --screen-is-not-md: 1;
+  --screen-is-not-lg: 1;
+  --screen-is-not-xl: 1;
+  --screen-is-not-2xl: 1;
+  --color-primary-main: theme("colors.primary.main");
+  --color-secondary-main: theme("colors.secondary.main");
+}
+
+@media (min-width: theme("screens.sm")) {
+  :root {
+    --screen-is-sm: 1;
+    --screen-is-not-sm: 0;
+  }
+}
+@media (min-width: theme("screens.md")) {
+  :root {
+    --screen-is-md: 1;
+    --screen-is-not-md: 0;
+  }
+}
+@media (min-width: theme("screens.lg")) {
+  :root {
+    --screen-is-lg: 1;
+    --screen-is-not-lg: 0;
+  }
+}
+@media (min-width: theme("screens.xl")) {
+  :root {
+    --screen-is-xl: 1;
+    --screen-is-not-xl: 0;
+  }
+}
+@media (min-width: theme("screens.2xl")) {
+  :root {
+    --screen-is-2xl: 1;
+    --screen-is-not-2xl: 0;
+  }
 }
