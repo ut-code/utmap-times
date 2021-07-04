@@ -2,8 +2,6 @@ import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Link from "next/link";
 import Banners from "../../components/Banners";
@@ -56,7 +54,6 @@ export default function CompanyIndexPage(
 ) {
   const router = useRouter();
   const query = router.query as s.Infer<typeof queryType>;
-  const [expandedCompanyGroup, setExpandedCompanyGroup] = useState("");
   const ARTICLES_PER_PAGE = 9;
 
   const selectedIndustrySlug = query.industry;
@@ -136,60 +133,39 @@ export default function CompanyIndexPage(
       </section>
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
-          <h3 className="pb-6 text-2xl">カテゴリで絞り込み</h3>
-          <div className="w-full pb-4">
-            <ul className="md:grid md:grid-cols-2 xl:grid-cols-4">
-              <li key="industry" className="md:mr-2">
-                <button
-                  type="button"
-                  className="flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
-                  onClick={() => {
-                    setExpandedCompanyGroup(
-                      expandedCompanyGroup === "industry" ? "" : "industry"
-                    );
-                  }}
-                >
-                  <p className="flex-grow">企業種類</p>
-                  {expandedCompanyGroup === "industry" ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
-                  )}
-                </button>
-                {expandedCompanyGroup === "industry" && (
-                  <ul className="border-t border-gray-200">
-                    {props.companyIndustries.map((industry) => {
-                      const newQuery: Query = {
-                        industry:
-                          selectedIndustry?.id === industry.id
-                            ? undefined
-                            : industry.slug ?? undefined,
-                      };
-                      return (
-                        <li key={industry.id}>
-                          <Link
-                            href={{ query: { ...query, ...newQuery } }}
-                            scroll={false}
-                          >
-                            <a
-                              className={clsx(
-                                "block py-1 px-6",
-                                query.industry === industry.slug
-                                  ? "bg-secondary-300"
-                                  : "bg-white"
-                              )}
-                            >
-                              {industry.name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </li>
-            </ul>
-          </div>
+          <h3 className="pb-6 text-2xl text-white">カテゴリで絞り込み</h3>
+          <ul className="md:grid md:grid-cols-3 xl:grid-cols-6">
+            {props.companyIndustries.map((industry) => {
+              const newQuery: Query = {
+                industry:
+                  selectedIndustry?.id === industry.id
+                    ? undefined
+                    : industry.slug ?? undefined,
+              };
+              return (
+                <li key={industry.id}>
+                  <Link
+                    href={{ query: { ...query, ...newQuery } }}
+                    scroll={false}
+                  >
+                    <a className="flex items-center">
+                      <span
+                        className={clsx(
+                          "inline-block p-1 w-7 h-7 rounded-full bg-white",
+                          query.industry === industry.slug
+                            ? "border-white border-2 rounded-full bg-primary-400"
+                            : "bg-white"
+                        )}
+                      />
+                      <span className="inline p-2 text-white">
+                        {industry.name}
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
