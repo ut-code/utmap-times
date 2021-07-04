@@ -55,21 +55,21 @@ export default function ArticleLinkIntern(props: {
     <Link href={`/internships/${props.article.slug}`}>
       <a
         className={clsx(
-          "lg:flex-grow lg:flex m-4 cursor-pointer bg-gray-100 hover:bg-gray-200",
+          "block lg:flex p-4 cursor-pointer lg:bg-gray-100 hover:bg-gray-200",
           props.className
         )}
       >
-        <div className="relative">
+        <div className="relative lg:w-1/3">
           <img
             src={props.article.images[0]?.url ?? "/images/utmap.png"}
             alt={title}
-            className="w-full h-full object-cover"
+            className="lg:absolute w-full lg:h-full object-cover"
           />
 
           <img
             alt={props.article?.company?.name ?? ""}
             src={props.article?.company?.logo?.url ?? "/images/utmap.png"}
-            className="absolute top-0 right-0 w-32 h-32 "
+            className="absolute top-0 right-0 w-1/4 object-cover"
           />
           <p
             className={clsx(
@@ -80,8 +80,8 @@ export default function ArticleLinkIntern(props: {
             {props.article?.isRecruiting ? "募集中" : "募集終了"}
           </p>
         </div>
-        <div className="pt-6 lg:pt-3 lg:px-10 w-full">
-          <div className="py-3 border-solid border-black border-b font-bold">
+        <div className="pt-6 lg:pt-3 lg:px-10 lg:w-2/3">
+          <div className="py-3 border-solid border-black border-b font-bold text-sm lg:text-base">
             <p className="inline-block">{props.article.company?.name}</p>
             <p
               className={clsx(
@@ -95,8 +95,10 @@ export default function ArticleLinkIntern(props: {
             </p>
           </div>
 
-          <p className="pt-6 font-bold text-lg">{props.article.title}</p>
-          <div className="my-3 w-full grid lg:grid-cols-2">
+          <p className="pt-4 pb-2 font-bold lg:text-lg">
+            {props.article.title}
+          </p>
+          <div className="w-full grid lg:grid-cols-2">
             {[
               { title: "職種", content: props.article.jobType?.name },
               { title: "給与", content: props.article.salary },
@@ -110,14 +112,14 @@ export default function ArticleLinkIntern(props: {
               >
                 <div
                   className={clsx(
-                    "flex mt-3 py-1 col-span-1 border-gray-500 border-b font-bold justify-center items-end",
+                    "flex mt-1 lg:mt-3 py-1 col-span-1 border-gray-500 border-b font-bold justify-center items-end text-sm",
                     component.title === "業界" &&
                       "bg-black text-white border-none"
                   )}
                 >
                   {component.title}
                 </div>
-                <div className="mt-3 py-1 px-4 col-span-3 border-b border-gray-300">
+                <div className="flex mt-1 lg:mt-3 py-1 px-4 col-span-3 items-end border-b border-gray-300 text-sm">
                   {component.content !== props.article.features
                     ? component.content
                     : component.content.map((feature) => (
