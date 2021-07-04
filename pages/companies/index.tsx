@@ -134,36 +134,37 @@ export default function CompanyIndexPage(
       <section className="bg-primary-400">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <h3 className="pb-6 text-2xl text-white">カテゴリで絞り込み</h3>
-          <ul className="md:grid md:grid-cols-2 xl:grid-cols-4">
-            <li key="industry" className="md:mr-2">
-              {props.companyIndustries.map((industry) => {
-                const newQuery: Query = {
-                  industry:
-                    selectedIndustry?.id === industry.id
-                      ? undefined
-                      : industry.slug ?? undefined,
-                };
-                return (
-                  <li key={industry.id}>
-                    <Link
-                      href={{ query: { ...query, ...newQuery } }}
-                      scroll={false}
-                    >
-                      <a
+          <ul className="md:grid md:grid-cols-3 xl:grid-cols-6">
+            {props.companyIndustries.map((industry) => {
+              const newQuery: Query = {
+                industry:
+                  selectedIndustry?.id === industry.id
+                    ? undefined
+                    : industry.slug ?? undefined,
+              };
+              return (
+                <li key={industry.id}>
+                  <Link
+                    href={{ query: { ...query, ...newQuery } }}
+                    scroll={false}
+                  >
+                    <a className="flex items-center">
+                      <span
                         className={clsx(
-                          "block py-1 px-6",
+                          "inline-block p-1 w-7 h-7 rounded-full bg-white",
                           query.industry === industry.slug
-                            ? "bg-secondary-300"
+                            ? "border-white border-2 rounded-full bg-primary-400"
                             : "bg-white"
                         )}
-                      >
+                      />
+                      <span className="inline p-2 text-white">
                         {industry.name}
-                      </a>
-                    </Link>
-                  </li>
-                );
-              })}
-            </li>
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
