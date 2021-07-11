@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { gql } from "@apollo/client";
 import {
   GetStaticPathsResult,
@@ -7,8 +7,7 @@ import {
 } from "next";
 import { FaTwitter, FaLine, FaLink } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import clsx from "clsx";
+import { Image } from "react-datocms";
 import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -23,6 +22,12 @@ import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
 import EmbeddedVideoPlayer from "../../components/EmbeddedVideoPlayer";
 import Banners from "../../components/Banners";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
+import {
+  normalizeResponsiveImage,
+  responsiveImageFragment,
+} from "../../utils/datocms";
+import Carousel from "../../components/Carousel";
+import { placeholderResponsiveImage } from "../../utils/constant";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -42,16 +47,7 @@ export default function ClubsPage(
       answer: props.club.interviewMembersPersonality,
     },
   ].filter((questionAndAnswerPair) => questionAndAnswerPair.answer);
-  const [imageIndex, setImageIndex] = useState(0);
-  const imagesLength = props.club.images.length;
-  const addImageIndex = () => {
-    setImageIndex(
-      imageIndex !== imagesLength - 1 ? imageIndex + 1 : imageIndex
-    );
-  };
-  const subtractImageIndex = () => {
-    setImageIndex(imageIndex !== 0 ? imageIndex - 1 : imageIndex);
-  };
+
   return (
     <Layout title={props.club.name} seo={props.club.seo}>
       <Hero image={props.club.images[0]?.url ?? "/images/utmap.png"}>
@@ -82,67 +78,27 @@ export default function ClubsPage(
         </div>
 
         <SnsShareLinks />
-        <div className="relative lg:w-max mx-auto pt-14 px-6 -top-14">
-          {props.club.images[1] && (
-            <button
-              type="button"
-              onClick={() => {
-                subtractImageIndex();
-              }}
-              className="absolute top-1/2 left-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
-            >
-              <BsChevronLeft className="m-auto" />
-            </button>
-          )}
-          {props.club.images[1] && (
-            <button
-              type="button"
-              onClick={() => {
-                addImageIndex();
-              }}
-              className="absolute top-1/2 right-0 h-12 w-12 rounded-full bg-primary-400 text-white text-xs hover:bg-primary-50 focus:outline-none"
-            >
-              <BsChevronRight className="m-auto" />
-            </button>
-          )}
+      </ArticleContentContainer>
 
-          {props.club.images[0] ? (
-            props.club.images.map(
-              (image, index) =>
-                index === imageIndex && (
-                  <img
-                    className="mx-auto max-h-96 object-contain border-8 border-secondary-main"
-                    src={image.url}
-                    alt={`サークル画像${index}`}
-                  />
-                )
-            )
-          ) : (
-            <img
-              className="mx-auto max-h-96 object-contain border-8 border-secondary-main"
-              src="/images/utmap.png"
-              alt="画像"
+      <Carousel
+        aspectRatio={9 / 16}
+        cards={props.club.images.map((image) => ({
+          key: image.id,
+          content: (
+            <Image
+              lazyLoad={false}
+              className="w-full h-full"
+              data={
+                image.responsiveImage
+                  ? normalizeResponsiveImage(image.responsiveImage)
+                  : placeholderResponsiveImage
+              }
             />
-          )}
-          {props.club.images[1] && (
-            <div className="w-max ml-auto">
-              {props.club.images.map(
-                (image, index) =>
-                  image && (
-                    <div
-                      className={clsx(
-                        "inline-block h-2 w-2 ml-1 rounded-full",
-                        index === imageIndex
-                          ? "bg-primary-400"
-                          : "bg-primary-50"
-                      )}
-                    />
-                  )
-              )}
-            </div>
-          )}
-        </div>
+          ),
+        }))}
+      />
 
+      <ArticleContentContainer>
         <h1 className="mt-24 mb-6 px-6 py-3 bg-gray-200">基本情報</h1>
 
         <div className="border-l-4 pl-2 border-secondary-main font-bold">
@@ -404,6 +360,7 @@ export async function getStaticProps({
   >({
     query: gql`
       ${layoutSeoFragment}
+      ${responsiveImageFragment}
       query GetClubBySlugQuery($id: ItemId!) {
         club(filter: { id: { eq: $id } }) {
           id
@@ -452,7 +409,11 @@ export async function getStaticProps({
             answer
           }
           images {
+            id
             url
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
           }
           description
           relatedclubs {

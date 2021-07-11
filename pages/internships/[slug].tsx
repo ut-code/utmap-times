@@ -7,7 +7,6 @@ import {
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
-import ImageOrLogo from "../../components/ImageOrLogo";
 import Layout from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
@@ -106,17 +105,17 @@ export default function InternshipPage(
           )}
         </ul>
         <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2 xl:grid-cols-3">
-          <ImageOrLogo
+          <img
             alt={props.internship?.title ?? ""}
             src={props.internship?.images[0]?.url ?? "/images/utmap.png"}
             className="h-96 object-cover mx-4"
           />
-          <ImageOrLogo
+          <img
             alt={props.internship?.title ?? ""}
             src={props.internship?.images[1]?.url ?? "/images/utmap.png"}
             className="h-96 object-cover mx-4"
           />
-          <ImageOrLogo
+          <img
             alt={props.internship?.title ?? ""}
             src={props.internship?.images[2]?.url ?? "/images/utmap.png"}
             className="h-96 object-cover mx-4"

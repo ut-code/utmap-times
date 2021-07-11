@@ -13,7 +13,7 @@ import { PrebuiltStaticDataQuery } from "../../__generated__/PrebuiltStaticDataQ
           image {
             id
             alt
-            url
+            url(imgixParams: { ar: "5:1", fit: crop })
           }
           link
         }
