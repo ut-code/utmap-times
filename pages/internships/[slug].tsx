@@ -69,13 +69,17 @@ export default function InternshipPage(
           alt="インターン画像"
           className="w-full max-w-3xl mx-auto mb-12"
         />
-        <div className="p-4 bg-gray-100 text-xl font-bold">
-          インターンシップの内容
-        </div>
-        <RichTextRenderer
-          markdown={props.internship.description ?? ""}
-          className="pt-4 pb-10"
-        />
+        {props.internship.description && (
+          <div className="pb-10">
+            <div className="p-4 bg-gray-100 text-xl font-bold">
+              インターンシップの内容
+            </div>
+            <RichTextRenderer
+              markdown={props.internship.description ?? ""}
+              className="px-4"
+            />
+          </div>
+        )}
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[
@@ -86,14 +90,20 @@ export default function InternshipPage(
             },
             { title: "所在地", component: props.internship.company?.location },
             { title: "URL", component: props.internship.company?.url },
-          ].map((information) => (
-            <li key={information.title} className="flex p-4 border-b">
-              <p className="w-36 lg:w-48 flex-none font-bold">
-                {information.title}
-              </p>
-              <p>{information.component}</p>
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.component && (
+                <li
+                  key={information.title}
+                  className="flex px-4 border-b items-center"
+                >
+                  <p className="w-32 lg:w-44 flex-none font-bold">
+                    {information.title}
+                  </p>
+                  <RichTextRenderer markdown={information.component} />
+                </li>
+              )
+          )}
         </ul>
         <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2 xl:grid-cols-3">
           <ImageOrLogo
@@ -112,11 +122,17 @@ export default function InternshipPage(
             className="h-96 object-cover mx-4"
           />
         </div>
-        <div className="p-4 bg-gray-100 text-xl font-bold">得られるスキル</div>
-        <RichTextRenderer
-          markdown={props.internship.internshipSkill ?? ""}
-          className="pt-4 pb-10"
-        />
+        {props.internship.internshipSkill && (
+          <div className="pb-10">
+            <div className="p-4 bg-gray-100 text-xl font-bold">
+              得られるスキル
+            </div>
+            <RichTextRenderer
+              markdown={props.internship.internshipSkill}
+              className="px-4"
+            />
+          </div>
+        )}
         <div className="p-4 bg-gray-100 text-xl font-bold">募集要項</div>
         <ul className="pb-10">
           {[
@@ -146,28 +162,40 @@ export default function InternshipPage(
               title: "お問い合わせ",
               component: props.internship.contact,
             },
-          ].map((information) => (
-            <li key={information.title} className="flex p-4 border-b">
-              <p className="w-36 lg:w-48 flex-none font-bold">
-                {information.title}
-              </p>
-              <p>{information.component}</p>
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.component && (
+                <li
+                  key={information.title}
+                  className="flex px-4 border-b items-center"
+                >
+                  <p className="w-32 lg:w-44 flex-none font-bold">
+                    {information.title}
+                  </p>
+                  <RichTextRenderer markdown={information.component} />
+                </li>
+              )
+          )}
         </ul>
         <div className="p-4 bg-gray-100 text-xl font-bold">待遇</div>
         <ul className="pb-10">
           {[
             { title: "給与", component: props.internship.salary },
             { title: "その他の補助", component: props.internship.extraWelfare },
-          ].map((information) => (
-            <li key={information.title} className="flex p-4 border-b">
-              <p className="w-36 lg:w-48 flex-none font-bold">
-                {information.title}
-              </p>
-              <p>{information.component}</p>
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.component && (
+                <li
+                  key={information.title}
+                  className="flex px-4 border-b items-center"
+                >
+                  <p className="w-32 lg:w-44 flex-none font-bold">
+                    {information.title}
+                  </p>
+                  <RichTextRenderer markdown={information.component} />
+                </li>
+              )
+          )}
         </ul>
       </ArticleContentContainer>
       <div className="bg-primary-main">
