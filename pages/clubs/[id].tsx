@@ -86,6 +86,7 @@ export default function ClubsPage(
           key: image.id,
           content: (
             <Image
+              lazyLoad={false}
               className="w-full h-full"
               data={
                 image.responsiveImage

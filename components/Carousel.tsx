@@ -74,7 +74,7 @@ export default function Carousel(props: CarouselProps) {
     aspectRatio = 9 / 16,
     gap = "1rem",
     minimumVisibleCardCount = 5,
-    cardMaxWidthClassName,
+    cardMaxWidthClassName = "max-w-screen-lg",
     disableArrowButton = false,
     disableIndicator = false,
     disableBrightnessControl = false,
@@ -106,10 +106,7 @@ export default function Carousel(props: CarouselProps) {
     <div className="flex justify-center overflow-hidden">
       <CenterCardFrame
         aspectRatio={aspectRatio}
-        className={clsx(
-          "relative w-full",
-          cardMaxWidthClassName ?? "max-w-screen-lg"
-        )}
+        className={clsx("relative w-full", cardMaxWidthClassName)}
       >
         <ul>
           {positions.map((position, i) => {
@@ -125,10 +122,10 @@ export default function Carousel(props: CarouselProps) {
               >
                 <div
                   className={clsx(
-                    "w-full h-full",
+                    "w-full h-full transition-opacity duration-500",
                     disableBrightnessControl || position === centerPosition
                       ? "opacity-100"
-                      : "opacity-40"
+                      : "lg:opacity-40"
                   )}
                 >
                   {item.content}
