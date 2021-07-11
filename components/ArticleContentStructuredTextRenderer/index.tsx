@@ -1,5 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import { StructuredText, StructuredTextDocument } from "react-datocms";
+import {
+  renderRule,
+  StructuredText,
+  StructuredTextDocument,
+} from "react-datocms";
+import { isLink } from "datocms-structured-text-utils";
+import Link from "next/link";
 import { ArticleContentStructuredTextPersonAndStatementFragment } from "../../__generated__/ArticleContentStructuredTextPersonAndStatementFragment";
 import { ArticleContentStructuredTextCallToActionButtonFragment } from "../../__generated__/ArticleContentStructuredTextCallToActionButtonFragment";
 import { ArticleContentStructuredTextArticleGalleryFragment } from "../../__generated__/ArticleContentStructuredTextArticleGalleryFragment";
@@ -148,7 +154,34 @@ export default function ArticleContentStructuredTextRenderer(props: {
       {rootFragments.map((fragment, i) =>
         fragment.type === "TEXT" ? (
           <RichTextStyleProvider key={i}>
-            <StructuredText data={fragment.dastDocument} />
+            <StructuredText
+              data={fragment.dastDocument}
+              customRules={[
+                renderRule(isLink, ({ node, key, children }) => {
+                  if (
+                    // https://www.datocms.com/docs/structured-text/dast#link
+                    node.meta?.some(
+                      ({ id, value }) => id === "target" && value === "_blank"
+                    )
+                  )
+                    return (
+                      <a
+                        key={key}
+                        target="_blank"
+                        rel="noreferrer"
+                        href={node.url}
+                      >
+                        {children}
+                      </a>
+                    );
+                  return (
+                    <Link key={key} href={node.url}>
+                      <a>{children}</a>
+                    </Link>
+                  );
+                }),
+              ]}
+            />
           </RichTextStyleProvider>
         ) : (
           <div className="my-8" key={i}>

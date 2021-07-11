@@ -1,27 +1,37 @@
-import sanitize, { IOptions, defaults } from "sanitize-html";
-import marked from "marked";
+/* eslint-disable react/jsx-props-no-spreading */
+import { memo } from "react";
+import { compiler } from "markdown-to-jsx";
+import Link from "next/link";
 import RichTextStyleProvider from "./RichTextStyleProvider";
+import { isExternalUrl } from "../utils/string";
 
-const sanitizeOptions: IOptions = {
-  allowedTags: [...defaults.allowedTags, "img"],
-};
+function CustomAnchor(props: JSX.IntrinsicElements["a"]) {
+  const { children, href, ...rest } = props;
 
-export default function RichTextRenderer(props: {
-  html?: string;
-  markdown?: string;
-  className?: string;
-}) {
-  const sanitizedHtml = sanitize(
-    props.html ??
-      (props.markdown && marked(props.markdown, { breaks: true })) ??
-      "",
-    sanitizeOptions
-  );
-  // eslint-disable-next-line react/no-danger
+  if (href && !isExternalUrl(href)) {
+    return (
+      <Link href={href}>
+        <a {...rest}>{children}</a>
+      </Link>
+    );
+  }
+
   return (
-    <RichTextStyleProvider
-      className={props.className}
-      dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-    />
+    <a target="_blank" rel="noreferrer" href={href} {...rest}>
+      {children}
+    </a>
   );
 }
+
+function RichTextRenderer(props: { markdown: string; className?: string }) {
+  return (
+    <RichTextStyleProvider className={props.className}>
+      {compiler(props.markdown, {
+        disableParsingRawHTML: true,
+        overrides: { a: CustomAnchor },
+      })}
+    </RichTextStyleProvider>
+  );
+}
+
+export default memo(RichTextRenderer);

@@ -24,15 +24,20 @@ export default function ArticleContentStructuredTextArticleGallery({
   fragment: ArticleContentStructuredTextArticleGalleryFragment;
 }) {
   return (
-    <div className="md:grid md:grid-cols-2 xl:grid-cols-3">
-      {fragment.articles.map((article) => (
-        <ArticleLink
-          key={article.id}
-          imageUrl={article.image?.url ?? "/images/utmap.png"}
-          title={article.title ?? ""}
-          url={`/static/${article.slug}`}
-        />
-      ))}
-    </div>
+    <>
+      <p className="max-w-lg mx-auto mb-4 py-2 border-b-2 border-primary-main text-center text-xl text-primary-main">
+        {fragment.title}
+      </p>
+      <div className="md:grid md:grid-cols-2 xl:grid-cols-3">
+        {fragment.articles.map((article) => (
+          <ArticleLink
+            key={article.id}
+            imageUrl={article.image?.url ?? "/images/utmap.png"}
+            title={article.title ?? ""}
+            url={`/static/${article.slug}`}
+          />
+        ))}
+      </div>
+    </>
   );
 }
