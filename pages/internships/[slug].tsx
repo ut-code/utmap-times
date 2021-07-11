@@ -4,12 +4,19 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import { Image } from "react-datocms";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
+import {
+  normalizeResponsiveImage,
+  responsiveImageFragment,
+} from "../../utils/datocms";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
+import Carousel from "../../components/Carousel";
+import { placeholderResponsiveImage } from "../../utils/constant";
 import apolloClient from "../../utils/apollo";
 import {
   GetInternshipBySlugQuery,
@@ -64,7 +71,7 @@ export default function InternshipPage(
         </div>
         <SnsShareLinks />
         <img
-          src={props.internship.images[0]?.url ?? "../../images/article.jpg"}
+          src={props.internship.heroImage?.url ?? "../../images/article.jpg"}
           alt="インターン画像"
           className="w-full max-w-3xl mx-auto mb-12"
         />
@@ -75,7 +82,7 @@ export default function InternshipPage(
             </div>
             <RichTextRenderer
               markdown={props.internship.description ?? ""}
-              className="px-4"
+              className="px-4 my-4"
             />
           </div>
         )}
@@ -99,40 +106,47 @@ export default function InternshipPage(
                   <p className="w-32 lg:w-44 flex-none font-bold">
                     {information.title}
                   </p>
-                  <RichTextRenderer markdown={information.component} />
+                  <RichTextRenderer
+                    markdown={information.component}
+                    className="my-4"
+                  />
                 </li>
               )
           )}
         </ul>
-        <div className="py-8 space-y-8 md:space-y-0 md:grid md:grid-cols-2 xl:grid-cols-3">
-          <img
-            alt={props.internship?.title ?? ""}
-            src={props.internship?.images[0]?.url ?? "/images/utmap.png"}
-            className="h-96 object-cover mx-4"
-          />
-          <img
-            alt={props.internship?.title ?? ""}
-            src={props.internship?.images[1]?.url ?? "/images/utmap.png"}
-            className="h-96 object-cover mx-4"
-          />
-          <img
-            alt={props.internship?.title ?? ""}
-            src={props.internship?.images[2]?.url ?? "/images/utmap.png"}
-            className="h-96 object-cover mx-4"
-          />
-        </div>
+      </ArticleContentContainer>
+
+      <Carousel
+        aspectRatio={9 / 16}
+        cards={props.internship.images.map((image) => ({
+          key: image.id,
+          content: (
+            <Image
+              lazyLoad={false}
+              className="w-full h-full"
+              data={
+                image.responsiveImage
+                  ? normalizeResponsiveImage(image.responsiveImage)
+                  : placeholderResponsiveImage
+              }
+            />
+          ),
+        }))}
+      />
+
+      <ArticleContentContainer>
         {props.internship.internshipSkill && (
-          <div className="pb-10">
+          <div className="pt-10">
             <div className="p-4 bg-gray-100 text-xl font-bold">
               得られるスキル
             </div>
             <RichTextRenderer
               markdown={props.internship.internshipSkill}
-              className="px-4"
+              className="px-4 my-4"
             />
           </div>
         )}
-        <div className="p-4 bg-gray-100 text-xl font-bold">募集要項</div>
+        <div className="mt-10 p-4 bg-gray-100 text-xl font-bold">募集要項</div>
         <ul className="pb-10">
           {[
             { title: "実施期間", component: props.internship.workingPeriod },
@@ -171,7 +185,10 @@ export default function InternshipPage(
                   <p className="w-32 lg:w-44 flex-none font-bold">
                     {information.title}
                   </p>
-                  <RichTextRenderer markdown={information.component} />
+                  <RichTextRenderer
+                    markdown={information.component}
+                    className="my-4"
+                  />
                 </li>
               )
           )}
@@ -191,7 +208,10 @@ export default function InternshipPage(
                   <p className="w-32 lg:w-44 flex-none font-bold">
                     {information.title}
                   </p>
-                  <RichTextRenderer markdown={information.component} />
+                  <RichTextRenderer
+                    markdown={information.component}
+                    className="my-4"
+                  />
                 </li>
               )
           )}
@@ -227,6 +247,7 @@ export async function getStaticProps({
     GetInternshipBySlugQueryVariables
   >({
     query: gql`
+      ${responsiveImageFragment}
       query GetInternshipBySlugQuery($slug: String!) {
         internship(filter: { slug: { eq: $slug } }) {
           title
@@ -247,6 +268,10 @@ export async function getStaticProps({
           }
           images {
             url
+            id
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
           }
           heroImage {
             url
