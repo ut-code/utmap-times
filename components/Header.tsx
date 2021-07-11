@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineSearch, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import styled from "styled-components";
 import Logo from "./Logo";
 
 const menu = [
@@ -11,6 +12,14 @@ const menu = [
   { label: "インターンシップ", linkTo: "/internships" },
   { label: "イベント", linkTo: "/events" },
 ];
+
+const ClippableDiv = styled.div`
+  clip-path: ${(props: { isClipped: boolean }) =>
+    props.isClipped
+      ? `inset(0 0 0 calc(var(--screen-is-not-lg) * 100%))`
+      : "inset(0 0 0 0)"};
+  transition: 0.1s clip-path ease-out;
+`;
 
 export default function Header() {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
@@ -35,17 +44,17 @@ export default function Header() {
       </button>
       <div
         aria-hidden
+        onMouseUp={() => {
+          setIsMobileMenuVisible(false);
+        }}
         className={clsx(
-          "fixed top-0 left-0 w-full h-full hidden bg-black bg-opacity-40",
-          { "md:block": isMobileMenuVisible }
+          "fixed top-0 left-0 w-full h-full bg-black transition-opacity",
+          isMobileMenuVisible ? "opacity-40" : "opacity-0 pointer-events-none"
         )}
       />
-      <div
-        className={clsx(
-          "fixed top-0 right-0 w-64 bg-white h-full lg:static lg:w-auto",
-          { hidden: !isMobileMenuVisible },
-          "lg:block"
-        )}
+      <ClippableDiv
+        isClipped={!isMobileMenuVisible}
+        className="fixed top-0 right-0 w-64 bg-white h-full shadow-lg lg:static lg:w-auto lg:shadow-none"
       >
         <button
           type="button"
@@ -89,7 +98,7 @@ export default function Header() {
             <AiOutlineSearch className="inline-block w-4 h-4" />
           </button>
         </div>
-      </div>
+      </ClippableDiv>
     </header>
   );
 }
