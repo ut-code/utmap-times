@@ -159,7 +159,7 @@ export default function InternshipsIndexPage(
   return (
     <Layout title="インターン">
       <Hero image="/images/top-internships.jpg">
-        <div className="pt-40 pb-24 px-20 md:px-56 md:pt-56 md:pb-32">
+        <div className="pt-40 pb-24 px-12 md:px-56 md:pt-56 md:pb-32">
           <h1 className="text-6xl">Internships</h1>
           <h2>インターンシップ選択のサポート</h2>
         </div>

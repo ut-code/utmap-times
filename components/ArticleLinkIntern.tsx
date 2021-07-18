@@ -118,19 +118,21 @@ export default function ArticleLinkIntern(props: {
               >
                 <div
                   className={clsx(
-                    "flex mt-1 lg:mt-3 py-1 col-span-1 border-gray-500 border-b font-bold justify-center items-end text-sm",
+                    "flex mt-1 lg:mt-3 py-1 col-span-1 justify-center items-center border-gray-500 border-b font-bold text-sm",
                     component.title === "業界" &&
                       "bg-black text-white border-none"
                   )}
                 >
                   {component.title}
                 </div>
-                <div className="flex mt-1 lg:mt-3 py-1 px-4 col-span-3 items-end border-b border-gray-300 text-sm">
-                  {component.content !== props.article.features
-                    ? component.content
-                    : component.content.map((feature) => (
-                        <p className="inline-block mr-2">{`#${feature.name}`}</p>
-                      ))}
+                <div className="flex flex-wrap items-center mt-1 lg:mt-3 py-1 px-4 col-span-3 border-b border-gray-300 text-sm">
+                  {component.content !== props.article.features ? (
+                    <p className="inline-block">{component.content}</p>
+                  ) : (
+                    component.content.map((feature) => (
+                      <p className="inline-block mr-2">{`#${feature.name}`}</p>
+                    ))
+                  )}
                 </div>
               </div>
             ))}
