@@ -22,6 +22,13 @@ import {
   GetInternshipBySlugQuery,
   GetInternshipBySlugQueryVariables,
 } from "../../__generated__/GetInternshipBySlugQuery";
+import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
+import { articleContentStructuredTextArticleLinkFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleLink";
+import { articleContentStructuredTextCallToActionButtonFragment } from "../../components/ArticleContentStructuredTextRenderer/CallToActionButton";
+import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
+import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
+import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
+import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 
 export default function InternshipPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -64,7 +71,10 @@ export default function InternshipPage(
         <h2 className="py-8 text-3xl font-bold">{props.internship.title}</h2>
         <div className="pb-10 border-b-2">
           {props.internship.features.map((feature) => (
-            <p className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block">
+            <p
+              key={feature.id}
+              className="px-4 py-1 mr-2 mb-2 bg-gray-200 inline-block"
+            >
               # {feature.name}
             </p>
           ))}
@@ -86,6 +96,12 @@ export default function InternshipPage(
             />
           </div>
         )}
+        <div className="p-4 bg-gray-100 text-xl font-bold">
+          {props.internship.company?.name}の詳細
+        </div>
+        <ArticleContentStructuredTextRenderer
+          structuredText={props.internship.company?.description}
+        />
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[
@@ -248,6 +264,12 @@ export async function getStaticProps({
   >({
     query: gql`
       ${responsiveImageFragment}
+      ${articleContentStructuredTextArticleGalleryFragment}
+      ${articleContentStructuredTextArticleLinkFragment}
+      ${articleContentStructuredTextCallToActionButtonFragment}
+      ${articleContentStructuredTextEmbeddedVideoFragment}
+      ${articleContentStructuredTextEmbeddedImageFragment}
+      ${articleStructuredTextContentPersonAndStatementFragment}
       query GetInternshipBySlugQuery($slug: String!) {
         internship(filter: { slug: { eq: $slug } }) {
           title
@@ -256,6 +278,29 @@ export async function getStaticProps({
           applicationlink
           company {
             name
+            description {
+              blocks {
+                ... on ArticleGalleryRecord {
+                  ...ArticleContentStructuredTextArticleGalleryFragment
+                }
+                ... on ArticleLinkRecord {
+                  ...ArticleContentStructuredTextArticleLinkFragment
+                }
+                ... on CallToActionButtonRecord {
+                  ...ArticleContentStructuredTextCallToActionButtonFragment
+                }
+                ... on EmbeddedVideoRecord {
+                  ...ArticleContentStructuredTextEmbeddedVideoFragment
+                }
+                ... on EmbeddedImageRecord {
+                  ...ArticleContentStructuredTextEmbeddedImageFragment
+                }
+                ... on PersonAndStatementRecord {
+                  ...ArticleContentStructuredTextPersonAndStatementFragment
+                }
+              }
+              value
+            }
             logo {
               url
             }
@@ -290,6 +335,7 @@ export async function getStaticProps({
           isRecruiting
           isLongTermInternship
           features {
+            id
             name
           }
           jobType {
