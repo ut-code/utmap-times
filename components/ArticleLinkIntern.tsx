@@ -16,11 +16,17 @@ export const articleLinkInternFragment = gql`
         url
       }
     }
-    images {
-      url(imgixParams: { maxW: 600 })
+    thumbnailImage {
+      url
     }
     heroImage {
       url
+    }
+    topImage {
+      url
+    }
+    images {
+      url(imgixParams: { maxW: 600 })
     }
     jobType {
       id
@@ -61,7 +67,7 @@ export default function ArticleLinkIntern(props: {
       >
         <div className="relative lg:w-1/3">
           <img
-            src={props.article.images[0]?.url ?? "/images/utmap.png"}
+            src={props.article.thumbnailImage?.url ?? "/images/utmap.png"}
             alt={title}
             className="lg:absolute w-full lg:h-full object-cover"
           />
