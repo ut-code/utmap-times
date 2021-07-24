@@ -131,7 +131,7 @@ export default function CompanyIndexPage(
           </p>
         </header>
       </section>
-      <section className="bg-gray-200">
+      <section className="bg-primary-400">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <h3 className="pb-6 text-2xl text-white">カテゴリで絞り込み</h3>
           <ul className="md:grid md:grid-cols-3 xl:grid-cols-6">

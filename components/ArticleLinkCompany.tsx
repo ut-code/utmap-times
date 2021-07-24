@@ -31,11 +31,11 @@ export default function AritcleLinkCompany(props: {
               </div>
             )}
           </div>
-          <div className="relative">
+          <div className="relative p-4">
             <img
               src={props.LogoUrl}
               alt="会社ロゴ"
-              className="float-left w-1/6 left-0 bottom-0 rounded-full"
+              className="float-left w-1/6 h-1/6 left-0 bottom-0 rounded-full object-fill"
             />
             <span className="py-4 pl-2 text-lg">{props.name}</span>
           </div>
