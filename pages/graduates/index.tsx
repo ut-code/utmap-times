@@ -24,7 +24,7 @@ import {
   GraduateArticleIndexQueryVariables,
 } from "../../__generated__/GraduateArticleIndexQuery";
 
-const ARTICLES_PER_PAGE = 20;
+const ARTICLES_PER_PAGE = 12;
 
 const queryType = s.type({
   q: s.optional(s.string()),
