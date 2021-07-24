@@ -7,7 +7,6 @@ import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Link from "next/link";
 import Banners from "../../components/Banners";
-import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { EventIndexMetaQuery } from "../../__generated__/EventIndexMetaQuery";
@@ -25,6 +24,7 @@ import {
   RandomEventQueryVariables,
 } from "../../__generated__/RandomEventQuery";
 import ImageOrLogo from "../../components/ImageOrLogo";
+import IndexHeroContent from "../../components/IndexHeroContent";
 
 const queryOrderByType = s.union([
   s.literal("createdAt"),
@@ -206,12 +206,11 @@ export default function EventIndexPage(
   const pageIndex = totalPages && [...Array(totalPages)].map((_, i) => i);
   return (
     <Layout title="イベント">
-      <Hero image="/images/article.jpg">
-        <div className="pt-40 pb-24 px-20 md:px-56 md:pt-56 md:pb-32">
-          <h1 className="text-6xl">Event</h1>
-          <h2>イベント</h2>
-        </div>
-      </Hero>
+      <IndexHeroContent
+        imageUrl="/images/article.jpg"
+        title="Event"
+        subtitle="イベント"
+      />
       <Banners />
       <section className="container mx-auto pt-24 pb-80">
         <header className="text-center mb-12">
