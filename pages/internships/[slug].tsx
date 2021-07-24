@@ -96,12 +96,16 @@ export default function InternshipPage(
             />
           </div>
         )}
-        <div className="p-4 bg-gray-100 text-xl font-bold">
-          {props.internship.company?.name}の詳細
+        <div className="pb-10">
+          <div className="p-4 bg-gray-100 text-xl font-bold">
+            {props.internship.company?.name}の詳細
+          </div>
+          <div className="px-4 my-4">
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.internship.company?.description}
+            />
+          </div>
         </div>
-        <ArticleContentStructuredTextRenderer
-          structuredText={props.internship.company?.description}
-        />
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[

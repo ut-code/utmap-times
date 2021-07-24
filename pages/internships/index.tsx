@@ -176,8 +176,11 @@ export default function InternshipsIndexPage(
               <div className="relative">
                 <img
                   alt={randomInternships?.title ?? ""}
-                  src={randomInternships?.images[0]?.url ?? "/images/utmap.png"}
-                  className="w-full object-cover"
+                  src={
+                    randomInternships?.thumbnailImage?.url ??
+                    "/images/utmap.png"
+                  }
+                  className="w-full max-h-96 object-cover"
                 />
                 <img
                   alt={randomInternships?.company?.name ?? ""}
