@@ -104,7 +104,7 @@ export default function ArticleLinkIntern(props: {
           <p className="pt-4 pb-2 font-bold lg:text-lg">
             {props.article.title}
           </p>
-          <div className="w-full grid lg:grid-cols-2">
+          <div className="w-full grid lg:grid-cols-3">
             {[
               { title: "職種", content: props.article.jobType?.name },
               { title: "給与", content: props.article.salary },
@@ -114,18 +114,29 @@ export default function ArticleLinkIntern(props: {
             ].map((component) => (
               <div
                 key={component.title}
-                className="col-span-1 grid grid-cols-4"
+                className={clsx(
+                  "col-span-1 grid grid-cols-4",
+                  (component.title === "給与" || component.title === "特徴") &&
+                    "col-span-2 grid-cols-8"
+                )}
               >
                 <div
                   className={clsx(
-                    "flex mt-1 lg:mt-3 py-1 col-span-1 justify-center items-center border-gray-500 border-b font-bold text-sm",
+                    "flex mt-1 py-1 col-span-1 justify-center items-center border-gray-500 border-b font-bold text-sm",
                     component.title === "業界" &&
                       "bg-black text-white border-none"
                   )}
                 >
                   {component.title}
                 </div>
-                <div className="flex flex-wrap items-center mt-1 lg:mt-3 py-1 px-4 col-span-3 border-b border-gray-300 text-sm">
+                <div
+                  className={clsx(
+                    "flex flex-wrap items-center mt-1 py-1 px-4 col-span-3 border-b border-gray-300 text-sm",
+                    (component.title === "給与" ||
+                      component.title === "特徴") &&
+                      "col-span-7"
+                  )}
+                >
                   {component.content !== props.article.features ? (
                     <p className="inline-block">{component.content}</p>
                   ) : (
