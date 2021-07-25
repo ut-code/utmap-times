@@ -10,7 +10,6 @@ import ArticleLinkIntern, {
   articleLinkInternFragment,
 } from "../../components/ArticleLinkIntern";
 import Banners from "../../components/Banners";
-import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { InternshipsIndexMetaQuery } from "../../__generated__/InternshipsIndexMetaQuery";
@@ -23,6 +22,7 @@ import {
   RandomInternshipsQuery,
   RandomInternshipsQueryVariables,
 } from "../../__generated__/RandomInternshipsQuery";
+import IndexHeroContent from "../../components/IndexHeroContent";
 
 const queryType = s.type({
   q: s.optional(s.string()),
@@ -158,12 +158,11 @@ export default function InternshipsIndexPage(
 
   return (
     <Layout title="インターン">
-      <Hero image="/images/top-internships.jpg">
-        <div className="pt-40 pb-24 px-12 md:px-56 md:pt-56 md:pb-32">
-          <h1 className="text-6xl">Internships</h1>
-          <h2>インターンシップ選択のサポート</h2>
-        </div>
-      </Hero>
+      <IndexHeroContent
+        imageUrl="/images/top-internships.jpg"
+        title="Internships"
+        subtitle="インターンシップ選択のサポート"
+      />
       <Banners />
       <section className="container mx-auto py-12 lg:py-24">
         <header className="text-center mb-12">
