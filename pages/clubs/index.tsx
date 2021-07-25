@@ -29,6 +29,7 @@ import {
   responsiveImageFragment,
 } from "../../utils/datocms";
 import IndexHeroContent from "../../components/IndexHeroContent";
+import SectionHeader from "../../components/SectionHeader";
 
 const queryType = s.type({
   q: s.optional(s.string()),
@@ -162,10 +163,11 @@ export default function ClubIndexPage(
       />
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
-        <header className="text-center mb-12">
-          <h2 className="text-4xl font-bold">PICKUP</h2>
-          <p className="text-secondary-main">注目のサークル</p>
-        </header>
+        <SectionHeader
+          className="mb-12"
+          title="PICKUP"
+          subtitle="注目のサークル"
+        />
         <HighlightedArticleLink
           title={randomClub?.name ?? ""}
           url={`/clubs/${randomClub?.id}`}
@@ -392,10 +394,11 @@ export default function ClubIndexPage(
       </section>
       <section className="bg-gray-50">
         <div className="container mx-auto py-16 lg:py-32">
-          <header className="text-center mb-12">
-            <h2 className="text-4xl font-bold">FAVORITES</h2>
-            <p className="text-secondary-main">お気に入り</p>
-          </header>
+          <SectionHeader
+            className="mb-12"
+            title="FAVORITES"
+            subtitle="お気に入り"
+          />
           <BookmarkedClubs />
         </div>
       </section>
