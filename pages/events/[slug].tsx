@@ -107,16 +107,14 @@ export default function EventPage(
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[
-            { title: "社名", component: props.event.company?.name },
-            { title: "業界", component: props.event.company?.industry?.name },
-            { title: "所在地", component: props.event.company?.location },
-            { title: "URL", component: props.event.company?.url },
+            { title: "社名", content: props.event.company?.name },
+            { title: "業界", content: props.event.company?.industry?.name },
+            { title: "所在地", content: props.event.company?.location },
+            { title: "URL", content: props.event.company?.url },
           ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              <p className="absolute left-44 inline-block">
-                {information.component}
-              </p>
+            <li key={information.title} className="flex border-b">
+              <div className="w-48 p-4 font-bold">{information.title}</div>
+              <div className="flex-1 p-4">{information.content}</div>
             </li>
           ))}
         </ul>
@@ -125,18 +123,35 @@ export default function EventPage(
         </div>
         <ul className="pb-10">
           {[
-            { title: "日時", component: props.event.schedule },
-            { title: "場所", component: props.event.location },
+            {
+              title: "日時",
+              content: <p className="p-4">{props.event.schedule}</p>,
+            },
+            ...(props.event.timeSchedule
+              ? [
+                  {
+                    title: "タイムスケジュール",
+                    content: props.event.timeSchedule && (
+                      <RichTextRenderer
+                        className="px-4"
+                        markdown={props.event.timeSchedule}
+                      />
+                    ),
+                  },
+                ]
+              : []),
+            {
+              title: "場所",
+              content: <p className="p-4">{props.event.location}</p>,
+            },
             {
               title: "申し込み締切",
-              component: applicationDeadlineString,
+              content: <p className="p-4">{applicationDeadlineString}</p>,
             },
           ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              <p className="absolute left-44 inline-block">
-                {information.component}
-              </p>
+            <li key={information.title} className="flex border-b">
+              <div className="w-48 p-4 font-bold">{information.title}</div>
+              <div className="flex-1">{information.content}</div>
             </li>
           ))}
         </ul>
@@ -146,9 +161,9 @@ export default function EventPage(
         <ul className="pb-10">
           {[
             { title: "募集対象", list: props.event.targets },
-            { title: "定員", component: props.event.capacity },
-            { title: "参加費", component: props.event.participationFee },
-            { title: "持ち物", component: props.event.thingsToBring },
+            { title: "定員", content: props.event.capacity },
+            { title: "参加費", content: props.event.participationFee },
+            { title: "持ち物", content: props.event.thingsToBring },
           ].map((information) => (
             <li key={information.title} className="relative p-4 border-b">
               <p className="inline-block font-bold">{information.title}</p>
@@ -168,7 +183,7 @@ export default function EventPage(
                 </div>
               ) : (
                 <p className="absolute left-44 inline-block">
-                  {information.component}
+                  {information.content}
                 </p>
               )}
             </li>
@@ -275,6 +290,7 @@ export async function getStaticProps({
           description
           schedule
           startsAt
+          timeSchedule
           location
           applicationDeadline
           participationFee
