@@ -23,6 +23,7 @@ import {
   RandomInternshipsQuery,
   RandomInternshipsQueryVariables,
 } from "../../__generated__/RandomInternshipsQuery";
+import SectionHeader from "../../components/SectionHeader";
 
 const queryType = s.type({
   q: s.optional(s.string()),
@@ -166,10 +167,11 @@ export default function InternshipsIndexPage(
       </Hero>
       <Banners />
       <section className="container mx-auto py-12 lg:py-24">
-        <header className="text-center mb-12">
-          <h2 className="text-4xl font-bold">PICKUP</h2>
-          <p className="text-secondary-main">注目のインターン</p>
-        </header>
+        <SectionHeader
+          className="mb-12"
+          title="PICKUP"
+          subtitle="注目のインターン"
+        />
         <div className="px-4 lg:px-24">
           <Link href={`/internships/${randomInternships?.slug}`}>
             <a className="block relative p-4 md:p-8 hover:bg-gray-100">

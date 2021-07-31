@@ -23,6 +23,7 @@ import {
   GraduateArticleIndexQuery,
   GraduateArticleIndexQueryVariables,
 } from "../../__generated__/GraduateArticleIndexQuery";
+import SectionHeader from "../../components/SectionHeader";
 
 const ARTICLES_PER_PAGE = 12;
 
@@ -58,10 +59,11 @@ export default function GraduatArticleIndexPage(
       </Hero>
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
-        <header className="text-center mb-12">
-          <h2 className="text-4xl font-bold">PICKUP</h2>
-          <p className="text-secondary-main">注目の記事</p>
-        </header>
+        <SectionHeader
+          className="mb-12"
+          title="PICKUP"
+          subtitle="注目のサークル"
+        />
         <HighlightedArticleLink
           title={props.randomArticle.title ?? ""}
           responsiveImage={
@@ -289,8 +291,11 @@ export default function GraduatArticleIndexPage(
       </section>
       <section className="bg-gray-100">
         <div className="container mx-auto py-20 xl:px-24">
-          <p className="text-center text-4xl font-bold">RANKING</p>
-          <p className="pb-8 text-center text-secondary-main">ランキング</p>
+          <SectionHeader
+            className="mb-12"
+            title="RANKING"
+            subtitle="ランキング"
+          />
           <div className="md:grid md:grid-cols-2">
             <div key={props.topRatedGraduateArticles[0].graduateArticle?.id}>
               <Link

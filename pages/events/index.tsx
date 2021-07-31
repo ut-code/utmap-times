@@ -25,6 +25,7 @@ import {
   RandomEventQueryVariables,
 } from "../../__generated__/RandomEventQuery";
 import ImageOrLogo from "../../components/ImageOrLogo";
+import SectionHeader from "../../components/SectionHeader";
 
 const queryOrderByType = s.union([
   s.literal("createdAt"),
@@ -214,10 +215,11 @@ export default function EventIndexPage(
       </Hero>
       <Banners />
       <section className="container mx-auto pt-24 pb-80">
-        <header className="text-center mb-12">
-          <h2 className="text-4xl font-bold">PICKUP</h2>
-          <p className="text-secondary-main">注目のイベント</p>
-        </header>
+        <SectionHeader
+          className="mb-12"
+          title="PICKUP"
+          subtitle="注目のイベント"
+        />
         <Link href={`/events/${randomEvent?.slug}`}>
           <a className="hidden md:block relative hover:bg-gray-100 p-8">
             <div className="relative">
