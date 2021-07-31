@@ -7,6 +7,7 @@ import {
 import Link from "next/link";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
+import { Image } from "react-datocms";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -25,6 +26,9 @@ import { articleContentStructuredTextEmbeddedVideoFragment } from "../../compone
 import { articleContentStructuredTextEmbeddedImageFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedImage";
 import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
+import Carousel from "../../components/Carousel";
+import { normalizeResponsiveImage } from "../../utils/datocms";
+import { placeholderResponsiveImage } from "../../utils/constant";
 
 export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -35,19 +39,13 @@ export default function EventPage(
   ).format("YYYY/MM/DD(dd) HH:mm");
   return (
     <Layout title={props.event.title} seo={props.event.seo}>
-      <Hero
-        image={
-          props.event.heroImage?.url ??
-          props.event.image?.url ??
-          "../../images/article.jpg"
-        }
-      >
+      <Hero image={props.event.heroImage?.url ?? "../../images/article.jpg"}>
         <div className="container mx-auto px-8 md:px-24 py-40">
           <h1 className="text-3xl">{props.event.title}</h1>
         </div>
       </Hero>
       <Banners />
-      <ArticleContentContainer className="pb-16">
+      <ArticleContentContainer>
         <div className="mt-24 relative">
           <img
             src={props.event.company?.logo?.url}
@@ -86,11 +84,13 @@ export default function EventPage(
           ))}
         </div>
         <SnsShareLinks />
-        <img
-          src={props.event.image?.url ?? "../../images/article.jpg"}
-          alt="イベント画像"
-          className="w-full max-w-3xl mx-auto mb-12"
-        />
+        {props.event.topImage && (
+          <img
+            src={props.event.topImage.url}
+            alt="イベント画像"
+            className="w-full max-w-3xl mx-auto mb-12"
+          />
+        )}
         <div className="p-4 bg-gray-100 text-xl font-bold">イベント内容</div>
         <RichTextRenderer
           markdown={props.event.description ?? ""}
@@ -104,6 +104,27 @@ export default function EventPage(
             />
           )}
         </div>
+      </ArticleContentContainer>
+
+      <Carousel
+        aspectRatio={9 / 16}
+        cards={props.event.images.map((image) => ({
+          key: image.id,
+          content: (
+            <Image
+              lazyLoad={false}
+              className="w-full h-full"
+              data={
+                image.responsiveImage
+                  ? normalizeResponsiveImage(image.responsiveImage)
+                  : placeholderResponsiveImage
+              }
+            />
+          ),
+        }))}
+      />
+
+      <ArticleContentContainer className="pt-10 pb-16">
         <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
         <ul className="pb-10">
           {[
@@ -240,8 +261,15 @@ export async function getStaticProps({
           heroImage {
             url
           }
-          image {
+          topImage {
             url
+          }
+          images {
+            url
+            id
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
           }
           updatedAt
           company {
