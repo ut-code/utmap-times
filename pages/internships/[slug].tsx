@@ -80,11 +80,13 @@ export default function InternshipPage(
           ))}
         </div>
         <SnsShareLinks />
-        <img
-          src={props.internship.heroImage?.url ?? "../../images/article.jpg"}
-          alt="インターン画像"
-          className="w-full max-w-3xl mx-auto mb-12"
-        />
+        {props.internship.topImage && (
+          <img
+            src={props.internship.topImage?.url}
+            alt="インターン画像"
+            className="w-full max-w-3xl mx-auto mb-12"
+          />
+        )}
         {props.internship.description && (
           <div className="pb-10">
             <div className="p-4 bg-gray-100 text-xl font-bold">
@@ -317,6 +319,9 @@ export async function getStaticProps({
               slug
             }
             location
+            url
+          }
+          topImage {
             url
           }
           images {

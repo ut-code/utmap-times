@@ -56,7 +56,7 @@ const eventSearchFragment = gql`
     id
     slug
     title
-    image {
+    thumbnailImage {
       id
       url
     }
@@ -224,7 +224,7 @@ export default function EventIndexPage(
             <div className="relative">
               <ImageOrLogo
                 alt={randomEvent?.title ?? ""}
-                src={randomEvent?.image?.url}
+                src={randomEvent?.thumbnailImage?.url}
                 className="w-full h-96 bg-cover"
               />
               <img
@@ -272,7 +272,7 @@ export default function EventIndexPage(
         <AritcleLinkEvent
           title={randomEvent?.title ?? ""}
           url={`events/${randomEvent?.slug}`}
-          imageUrl={randomEvent?.image?.url ?? "/images/utmap.png"}
+          imageUrl={randomEvent?.thumbnailImage?.url ?? "/images/utmap.png"}
           companyLogoUrl={
             randomEvent?.company?.logo?.url ?? "/images/utmap.png"
           }
@@ -617,7 +617,9 @@ export default function EventIndexPage(
                       <AritcleLinkEvent
                         title={event.title ?? ""}
                         url={`events/${event.slug}`}
-                        imageUrl={event.image?.url ?? "/images/utmap.png"}
+                        imageUrl={
+                          event.thumbnailImage?.url ?? "/images/utmap.png"
+                        }
                         companyLogoUrl={
                           event.company?.logo?.url ?? "/images/utmap.png"
                         }
