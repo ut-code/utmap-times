@@ -10,7 +10,7 @@ import ja from "dayjs/locale/ja";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
-import Layout from "../../components/Layout";
+import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
@@ -34,7 +34,7 @@ export default function EventPage(
     props.event.applicationDeadline
   ).format("YYYY/MM/DD(dd) HH:mm");
   return (
-    <Layout title={props.event.title}>
+    <Layout title={props.event.title} seo={props.event.seo}>
       <Hero
         image={
           props.event.heroImage?.url ??
@@ -224,6 +224,7 @@ export async function getStaticProps({
     GetEventBySlugQueryVariables
   >({
     query: gql`
+      ${layoutSeoFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
       ${articleContentStructuredTextArticleLinkFragment}
       ${articleContentStructuredTextCallToActionButtonFragment}
@@ -233,6 +234,9 @@ export async function getStaticProps({
       query GetEventBySlugQuery($slug: String!) {
         event(filter: { slug: { eq: $slug } }) {
           title
+          seo {
+            ...LayoutSeoFragment
+          }
           heroImage {
             url
           }
