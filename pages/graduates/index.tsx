@@ -7,8 +7,8 @@ import { useState } from "react";
 import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import * as s from "superstruct";
 import Banners from "../../components/Banners";
-import Hero from "../../components/Hero";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
+import IndexHeroContent from "../../components/IndexHeroContent";
 import Layout from "../../components/Layout";
 import Paginator from "../../components/Paginator";
 import apolloClient from "../../utils/apollo";
@@ -51,12 +51,11 @@ export default function GraduatArticleIndexPage(
 
   return (
     <Layout title="卒業生">
-      <Hero image="/images/top-careers.jpg">
-        <div className="pt-40 pb-24 px-16 md:px-56 md:pt-56 md:pb-32">
-          <h1 className="text-6xl">Interview</h1>
-          <h2>就職 / キャリア選択のサポート</h2>
-        </div>
-      </Hero>
+      <IndexHeroContent
+        imageUrl="/images/top-careers.jpg"
+        title="Interview"
+        subtitle="就職 / キャリア選択のサポート"
+      />
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
         <SectionHeader

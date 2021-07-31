@@ -10,7 +10,6 @@ import ArticleLink from "../../components/ArticleLink";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
 import Banners from "../../components/Banners";
 import BookmarkedClubs from "../../components/BookmarkedClubs";
-import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { useClubBookmarks } from "../../utils/hooks/clubBookmarks";
@@ -29,6 +28,7 @@ import {
   normalizeResponsiveImage,
   responsiveImageFragment,
 } from "../../utils/datocms";
+import IndexHeroContent from "../../components/IndexHeroContent";
 import SectionHeader from "../../components/SectionHeader";
 
 const queryType = s.type({
@@ -156,12 +156,11 @@ export default function ClubIndexPage(
 
   return (
     <Layout title="サークル">
-      <Hero image="/images/top-clubs.jpg">
-        <div className="pt-40 pb-24 px-20 md:px-56 md:pt-56 md:pb-32">
-          <h1 className="text-6xl">Circle</h1>
-          <h2>サークル選択のサポート</h2>
-        </div>
-      </Hero>
+      <IndexHeroContent
+        imageUrl="/images/top-clubs.jpg"
+        title="Circle"
+        subtitle="サークル選択のサポート"
+      />
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
         <SectionHeader
