@@ -12,7 +12,7 @@ import {
 } from "../../utils/datocms";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
-import Layout from "../../components/Layout";
+import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import Carousel from "../../components/Carousel";
@@ -34,7 +34,7 @@ export default function InternshipPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Layout title={props.internship.title}>
+    <Layout title={props.internship.title} seo={props.internship.seo}>
       <Hero
         image={
           props.internship.heroImage?.url ??
@@ -267,6 +267,7 @@ export async function getStaticProps({
     GetInternshipBySlugQueryVariables
   >({
     query: gql`
+      ${layoutSeoFragment}
       ${responsiveImageFragment}
       ${articleContentStructuredTextArticleGalleryFragment}
       ${articleContentStructuredTextArticleLinkFragment}
@@ -277,6 +278,9 @@ export async function getStaticProps({
       query GetInternshipBySlugQuery($slug: String!) {
         internship(filter: { slug: { eq: $slug } }) {
           title
+          seo {
+            ...LayoutSeoFragment
+          }
           description
           updatedAt
           applicationlink
