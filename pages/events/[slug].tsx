@@ -98,9 +98,9 @@ export default function EventPage(
         />
         <div className="p-4 bg-gray-100 text-xl font-bold">会社概要</div>
         <div className="pt-4 pb-10">
-          {props.event.company?.description && (
+          {props.event.company?.companyDescription && (
             <ArticleContentStructuredTextRenderer
-              structuredText={props.event.company.description}
+              structuredText={props.event.company.companyDescription}
             />
           )}
         </div>
@@ -131,7 +131,7 @@ export default function EventPage(
             { title: "社名", content: props.event.company?.name },
             { title: "業界", content: props.event.company?.industry?.name },
             { title: "所在地", content: props.event.company?.location },
-            { title: "URL", content: props.event.company?.url },
+            { title: "URL", content: props.event.company?.companyHpUrl },
           ].map((information) => (
             <li key={information.title} className="flex border-b">
               <div className="w-48 p-4 font-bold">{information.title}</div>
@@ -274,7 +274,7 @@ export async function getStaticProps({
           updatedAt
           company {
             name
-            description {
+            companyDescription {
               blocks {
                 ... on ArticleGalleryRecord {
                   ...ArticleContentStructuredTextArticleGalleryFragment
@@ -302,7 +302,7 @@ export async function getStaticProps({
               slug
             }
             location
-            url
+            companyHpUrl
             logo {
               url
             }

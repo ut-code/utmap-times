@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import * as s from "superstruct";
 import Link from "next/link";
 import Banners from "../../components/Banners";
-import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { CompanyIndexMetaQuery } from "../../__generated__/CompanyIndexMetaQuery";
@@ -15,6 +14,7 @@ import {
 } from "../../__generated__/CompanySearchQuery";
 import { CompanyModelFilter } from "../../__generated__/globalTypes";
 import AritcleLinkCompany from "../../components/ArticleLinkCompany";
+import IndexHeroContent from "../../components/IndexHeroContent";
 
 const queryOrderByType = s.union([
   s.literal("createdAt"),
@@ -34,7 +34,7 @@ const companySearchFragment = gql`
     id
     slug
     name
-    image {
+    thumbnailImage {
       id
       url
     }
@@ -54,7 +54,7 @@ export default function CompanyIndexPage(
 ) {
   const router = useRouter();
   const query = router.query as s.Infer<typeof queryType>;
-  const ARTICLES_PER_PAGE = 9;
+  const ARTICLES_PER_PAGE = 12;
 
   const selectedIndustrySlug = query.industry;
   const selectedIndustry =
@@ -117,20 +117,12 @@ export default function CompanyIndexPage(
   const pageIndex = totalPages && [...Array(totalPages)].map((_, i) => i);
   return (
     <Layout title="企業分析">
-      <Hero image="/images/article.jpg">
-        <div className="pt-40 pb-24 px-20 md:px-56 md:pt-56 md:pb-32">
-          <h1 className="text-6xl">企業分析</h1>
-          <h2>Corporate Analysis</h2>
-        </div>
-      </Hero>
+      <IndexHeroContent
+        imageUrl="/images/article.jpg"
+        title="企業分析"
+        subtitle="Corporate Analysis"
+      />
       <Banners />
-      <section className="container mx-auto py-24">
-        <header className="text-center">
-          <p className="text-secondary-main">
-            このページは企業分析です。ぜひ使ってね。このページは企業分析です。ぜひ使ってね。このページは企業分析です。ぜひ使ってね。このページは企業分析です。ぜひ使ってね。このページは企業分析です。ぜひ使ってね。このページは企業分析です。ぜひ使ってね。
-          </p>
-        </header>
-      </section>
       <section className="bg-primary-400">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <h3 className="pb-6 text-2xl text-white">カテゴリで絞り込み</h3>
@@ -178,74 +170,16 @@ export default function CompanyIndexPage(
               </p>
             ) : (
               <>
-                <p className="px-8">{`${searchQueryData._allCompaniesMeta.count}件の企業が見つかりました。`}</p>
-                <div className="py-12 text-center items-center">
-                  {[
-                    { title: "新着", slug: "createdAt", default: undefined },
-                    { title: "開催日", slug: "startsAt", default: "false" },
-                    {
-                      title: "締め切り日",
-                      slug: "applicationDeadline",
-                      default: "false",
-                    },
-                  ].map((component) => {
-                    const createdAtSlug =
-                      component.slug === "createdAt" ? "createdAt" : undefined;
-                    const startsAtSlug =
-                      !createdAtSlug && component.slug === "startsAt"
-                        ? "startsAt"
-                        : undefined;
-                    const applicationDeadlineSlug =
-                      !startsAtSlug && component.slug === "applicationDeadline"
-                        ? "applicationDeadline"
-                        : undefined;
-                    const newQuery: Query = {
-                      orderBy:
-                        createdAtSlug ??
-                        startsAtSlug ??
-                        applicationDeadlineSlug,
-                    };
-                    return (
-                      <div
-                        key={component.slug}
-                        className="relative inline-block pl-1"
-                      >
-                        <Link
-                          href={{ query: { ...query, ...newQuery } }}
-                          scroll={false}
-                        >
-                          <a
-                            className={clsx(
-                              "inline-block px-2 md:px-4",
-                              query.orderBy === component.slug ||
-                                query.orderBy === component.default
-                                ? "text-black"
-                                : "text-gray-400"
-                            )}
-                          >
-                            {component.title}
-                          </a>
-                        </Link>
-                        <div
-                          className={clsx(
-                            "absolute left-1/2 -bottom-4 h-2 w-2 rounded-full",
-                            query.orderBy === component.slug ||
-                              query.orderBy === component.default
-                              ? "bg-primary-main"
-                              : "hidden"
-                          )}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+                <p className="px-8 pb-8">{`${searchQueryData._allCompaniesMeta.count}件の企業が見つかりました。`}</p>
                 <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
                   {searchQueryData?.allCompanies.map((company) => (
                     <li key={company.id}>
                       <AritcleLinkCompany
                         name={company.name ?? ""}
                         url={`companies/${company.slug}`}
-                        imageUrl={company.image?.url ?? "/images/utmap.png"}
+                        imageUrl={
+                          company.thumbnailImage?.url ?? "/images/utmap.png"
+                        }
                         LogoUrl={company?.logo?.url ?? "/images/utmap.png"}
                         industry={company?.industry?.name ?? ""}
                       />
