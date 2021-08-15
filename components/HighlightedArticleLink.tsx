@@ -7,10 +7,14 @@ export default function HighlightedArticleLink(props: {
   title: string;
   url: string | UrlObject;
   responsiveImage: ResponsiveImageType;
+  subImageUrl?: string;
   category?: string;
+  isCategoryActive?: boolean;
   tags?: { id: string; name: string }[];
+  information?: JSX.Element;
   className?: string;
 }) {
+  const { isCategoryActive = true } = props;
   return (
     <Link href={props.url}>
       <a
@@ -20,9 +24,21 @@ export default function HighlightedArticleLink(props: {
         )}
       >
         <Image data={props.responsiveImage} />
+        {props.subImageUrl && (
+          <img
+            src={props.subImageUrl}
+            alt="会社ロゴ"
+            className="absolute top-0 right-0 w-1/6"
+          />
+        )}
         <div className="block relative z-10 -mt-6 lg:-mt-12 lg:p-10 lg:mr-32 lg:bg-white">
           {props.category && (
-            <div className="inline-block mb-6 py-2 px-6 bg-secondary-main text-white">
+            <div
+              className={clsx(
+                "inline-block mb-6 py-2 px-6 text-white",
+                isCategoryActive ? "bg-secondary-main" : "bg-gray-500"
+              )}
+            >
               {props.category}
             </div>
           )}
@@ -39,6 +55,7 @@ export default function HighlightedArticleLink(props: {
               ))}
             </ul>
           )}
+          {props.information}
           <div
             aria-hidden
             className="hidden absolute bottom-0 left-0 w-1/2 border-b-2 border-primary-main lg:block"
