@@ -104,7 +104,7 @@ export default function InternshipPage(
           </div>
           <div className="px-4 my-4">
             <ArticleContentStructuredTextRenderer
-              structuredText={props.internship.company?.description}
+              structuredText={props.internship.company?.companyDescription}
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function InternshipPage(
               component: props.internship.company?.industry?.name,
             },
             { title: "所在地", component: props.internship.company?.location },
-            { title: "URL", component: props.internship.company?.url },
+            { title: "URL", component: props.internship.company?.companyHpUrl },
           ].map(
             (information) =>
               information.component && (
@@ -288,7 +288,7 @@ export async function getStaticProps({
           applicationlink
           company {
             name
-            description {
+            companyDescription {
               blocks {
                 ... on ArticleGalleryRecord {
                   ...ArticleContentStructuredTextArticleGalleryFragment
@@ -319,7 +319,7 @@ export async function getStaticProps({
               slug
             }
             location
-            url
+            companyHpUrl
           }
           topImage {
             url
