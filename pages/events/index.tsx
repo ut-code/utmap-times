@@ -26,6 +26,12 @@ import {
 import ImageOrLogo from "../../components/ImageOrLogo";
 import SectionHeader from "../../components/SectionHeader";
 import IndexHeroContent from "../../components/IndexHeroContent";
+import HighlightedArticleLink from "../../components/HighlightedArticleLink";
+import {
+  normalizeResponsiveImage,
+  responsiveImageFragment,
+} from "../../utils/datocms";
+import { placeholderResponsiveImage } from "../../utils/constant";
 
 const queryOrderByType = s.union([
   s.literal("createdAt"),
@@ -52,6 +58,7 @@ const queryType = s.type({
 export type Query = s.Infer<typeof queryType>;
 
 const eventSearchFragment = gql`
+  ${responsiveImageFragment}
   fragment EventSearchFragment on EventRecord {
     id
     slug
@@ -59,6 +66,9 @@ const eventSearchFragment = gql`
     thumbnailImage {
       id
       url
+      responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+        ...ResponsiveImageFragment
+      }
     }
     schedule
     location
@@ -269,6 +279,23 @@ export default function EventIndexPage(
             </div>
           </a>
         </Link>
+        <HighlightedArticleLink
+          title={randomEvent?.title ?? ""}
+          url={`/events/${randomEvent?.slug}`}
+          responsiveImage={
+            randomEvent?.thumbnailImage?.responsiveImage
+              ? normalizeResponsiveImage(
+                  randomEvent?.thumbnailImage?.responsiveImage
+                )
+              : placeholderResponsiveImage
+          }
+          subImageUrl={randomEvent?.company?.logo?.url}
+          category={randomEvent?.isRecruiting ? "募集中" : "募集終了"}
+          isCategoryActive={randomEvent?.isRecruiting}
+          information={
+            <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
+          }
+        />
         <AritcleLinkEvent
           title={randomEvent?.title ?? ""}
           url={`events/${randomEvent?.slug}`}
