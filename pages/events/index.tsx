@@ -23,7 +23,6 @@ import {
   RandomEventQuery,
   RandomEventQueryVariables,
 } from "../../__generated__/RandomEventQuery";
-import ImageOrLogo from "../../components/ImageOrLogo";
 import SectionHeader from "../../components/SectionHeader";
 import IndexHeroContent from "../../components/IndexHeroContent";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
@@ -223,62 +222,12 @@ export default function EventIndexPage(
         subtitle="イベント"
       />
       <Banners />
-      <section className="container mx-auto pt-24 pb-80">
+      <section className="container mx-auto py-12 md:py-24">
         <SectionHeader
-          className="mb-12"
+          className="mb-6 md:mb-12"
           title="PICKUP"
           subtitle="注目のイベント"
         />
-        <Link href={`/events/${randomEvent?.slug}`}>
-          <a className="hidden md:block relative hover:bg-gray-100 p-8">
-            <div className="relative">
-              <ImageOrLogo
-                alt={randomEvent?.title ?? ""}
-                src={randomEvent?.thumbnailImage?.url}
-                className="w-full h-96 bg-cover"
-              />
-              <img
-                src={randomEvent?.company?.logo?.url}
-                alt="会社ロゴ"
-                className="w-1/4 md:w-36 absolute right-0 top-0"
-              />
-            </div>
-            <div className="absolute -bottom-28 bg-white p-8">
-              <div className="flex py-4 items-center text-left">
-                <h3 className="flex-grow pl-2 pr-8 border-l-4 border-secondary-main text-2xl font-bold">
-                  {randomEvent?.title}
-                </h3>
-                <p
-                  className={clsx(
-                    "py-1 px-4 text-white text-sm",
-                    randomEvent?.isRecruiting
-                      ? "bg-secondary-main"
-                      : "bg-gray-500"
-                  )}
-                >
-                  {randomEvent?.isRecruiting ? "募集中" : "募集終了"}
-                </p>
-              </div>
-              <p>{randomEvent?.schedule}</p>
-              <p>{`開催場所：${randomEvent?.location}`}</p>
-              <p className="my-3 py-1 border-b border-gray-500 text-lg">
-                {`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}
-              </p>
-              {randomEvent?.targets.map((target) => (
-                <p
-                  key={target.id}
-                  className="inline-block mr-2 my-2 p-1 border bg-gray-200"
-                >{`#${target.name}`}</p>
-              ))}
-              {randomEvent?.features.map((feature) => (
-                <p
-                  key={feature.id}
-                  className="inline-block mr-2 my-2 p-1 border bg-gray-200"
-                >{`#${feature.name}`}</p>
-              ))}
-            </div>
-          </a>
-        </Link>
         <HighlightedArticleLink
           title={randomEvent?.title ?? ""}
           url={`/events/${randomEvent?.slug}`}
@@ -295,28 +244,6 @@ export default function EventIndexPage(
           information={
             <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
           }
-        />
-        <AritcleLinkEvent
-          title={randomEvent?.title ?? ""}
-          url={`events/${randomEvent?.slug}`}
-          imageUrl={randomEvent?.thumbnailImage?.url ?? "/images/utmap.png"}
-          companyLogoUrl={
-            randomEvent?.company?.logo?.url ?? "/images/utmap.png"
-          }
-          schedule={randomEvent?.schedule ?? ""}
-          location={randomEvent?.location ?? ""}
-          companyName={randomEvent?.company?.name ?? undefined}
-          industryName={randomEvent?.company?.industry?.name ?? undefined}
-          targets={randomEvent?.targets.map((target) => ({
-            id: target.id,
-            name: target.name ?? "",
-          }))}
-          features={randomEvent?.features.map((feature) => ({
-            id: feature.id,
-            name: feature.name ?? "",
-          }))}
-          isRecruiting={randomEvent?.isRecruiting}
-          className="block md:hidden"
         />
       </section>
       <section className="bg-gray-200">
