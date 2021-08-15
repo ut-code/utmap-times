@@ -7,8 +7,8 @@ import Logo from "./Logo";
 
 const menu = [
   { label: "サークル", linkTo: "/clubs" },
-  // { label: "学部", linkTo: "/" },
   { label: "就職/キャリア", linkTo: "/graduates" },
+  { label: "企業", linkTo: "/companies" },
   { label: "インターンシップ", linkTo: "/internships" },
   { label: "イベント", linkTo: "/events" },
 ];
