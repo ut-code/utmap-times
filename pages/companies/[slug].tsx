@@ -208,7 +208,7 @@ export async function getStaticProps({
       ${articleContentStructuredTextEmbeddedImageFragment}
       ${articleStructuredTextContentPersonAndStatementFragment}
       query GetCompanyBySlugQuery($slug: String!) {
-        company(filter: { slug: { eq: $slug } }) {
+        company(filter: { isDisplayed: { eq: true }, slug: { eq: $slug } }) {
           id
           name
           seo {
