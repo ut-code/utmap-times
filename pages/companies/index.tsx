@@ -68,6 +68,7 @@ export default function CompanyIndexPage(
   const industryFilter: CompanyModelFilter = selectedIndustry
     ? { industry: { eq: selectedIndustry.id } }
     : {};
+  const isDisplayedFilter: CompanyModelFilter = { isDisplayed: { eq: true } };
 
   const selectedPage = query.page ? parseInt(query.page, 10) : 0;
   const searchQuery = useQuery<CompanySearchQuery, CompanySearchQueryVariables>(
@@ -97,6 +98,7 @@ export default function CompanyIndexPage(
         filter: {
           ...nameFilter,
           ...industryFilter,
+          ...isDisplayedFilter,
         },
         first: ARTICLES_PER_PAGE,
         skip: ARTICLES_PER_PAGE * selectedPage ?? 0,
