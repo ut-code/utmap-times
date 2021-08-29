@@ -58,11 +58,7 @@ export default function GraduatArticleIndexPage(
       />
       <Banners />
       <section className="container mx-auto py-24 lg:py-32">
-        <SectionHeader
-          className="mb-12"
-          title="PICKUP"
-          subtitle="注目のサークル"
-        />
+        <SectionHeader className="mb-12" title="PICKUP" subtitle="注目の記事" />
         <HighlightedArticleLink
           title={props.randomArticle.title ?? ""}
           responsiveImage={
