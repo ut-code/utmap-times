@@ -41,22 +41,24 @@ export default function StaticPage(
       </Hero>
       <Banners />
       <ArticleContentContainer>
-        <h2 className="pt-24 pb-16 text-3xl font-bold border-b-2">
-          {props.staticPage.title}
-        </h2>
-        <SnsShareLinks />
-        {props.staticPage.content && (
-          <RichTextRenderer
-            markdown={props.staticPage.content}
-            className="pt-8 pb-20 border-b-2"
-          />
-        )}
-        {props.staticPage.structuredContent && (
-          <ArticleContentStructuredTextRenderer
-            structuredText={props.staticPage.structuredContent}
-          />
-        )}
-        <SnsShareLinks />
+        <div className="md:px-8 lg:px-28 xl:px-36">
+          <h2 className="pt-24 pb-16 text-3xl font-bold border-b-2">
+            {props.staticPage.title}
+          </h2>
+          <SnsShareLinks />
+          {props.staticPage.content && (
+            <RichTextRenderer
+              markdown={props.staticPage.content}
+              className="pt-8 pb-20 border-b-2"
+            />
+          )}
+          {props.staticPage.structuredContent && (
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.staticPage.structuredContent}
+            />
+          )}
+          <SnsShareLinks />
+        </div>
       </ArticleContentContainer>
     </Layout>
   );
