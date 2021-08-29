@@ -53,7 +53,7 @@ export default function GraduatArticleIndexPage(
     <Layout title="卒業生">
       <IndexHeroContent
         imageUrl="/images/top-careers.jpg"
-        title="Interview"
+        title="Career"
         subtitle="就職 / キャリア選択のサポート"
       />
       <Banners />
