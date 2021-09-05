@@ -1,18 +1,12 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { title } from "process";
 import { UrlObject } from "url";
 import { FaStar, FaRegStar } from "react-icons/fa";
-import styled from "styled-components";
-
-const ImageContainer = styled.div`
-  padding-top: 75%;
-`;
 
 export default function ArticleLink(props: {
   title: string;
   url: string | UrlObject;
-  imageUrl: string;
+  media: JSX.Element;
   category?: string;
   tags?: { id: string; name: string }[];
   className?: string;
@@ -29,13 +23,7 @@ export default function ArticleLink(props: {
       >
         <div className="relative mb-8">
           <div className="relative border-secondary-main border-solid border-8">
-            <ImageContainer className="relative">
-              <img
-                src={props.imageUrl}
-                alt={title}
-                className="absolute top-0 left-0s w-full h-full object-cover"
-              />
-            </ImageContainer>
+            {props.media}
             {typeof props.isBookmarked === "boolean" && (
               <button
                 type="button"

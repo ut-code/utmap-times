@@ -84,12 +84,11 @@ export default function Header() {
           >
             マイページ
           </button>
-          <button
-            type="button"
-            className="hidden lg:block bg-blue-900 hover:bg-blue-700 text-white w-16 h-full"
-          >
-            <AiOutlineSearch className="inline-block w-4 h-4" />
-          </button>
+          <Link href="/search">
+            <a className="hidden lg:flex justify-center items-center bg-blue-900 hover:bg-blue-700 text-white w-16 h-full">
+              <AiOutlineSearch className="inline-block w-4 h-4" />
+            </a>
+          </Link>
         </div>
       </ClippableDiv>
       <div className="hidden lg:block">

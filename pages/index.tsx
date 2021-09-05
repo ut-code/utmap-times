@@ -12,7 +12,9 @@ import HomePageSectionScrollButton from "../components/HomePageSectionScrollButt
 import HomePageTitleText from "../components/HomePageTitleText";
 import Layout from "../components/Layout";
 import Logo from "../components/Logo";
+import ResponsiveImageWithFallback from "../components/ResponsiveImageWithFallback";
 import apolloClient from "../utils/apollo";
+import { responsiveImageFragment } from "../utils/datocms";
 import { IndexQuery } from "../__generated__/IndexQuery";
 
 export default function IndexPage(
@@ -111,7 +113,12 @@ export default function IndexPage(
               <ArticleLink
                 title={highlightedClub.club?.name ?? ""}
                 url={`/clubs/${highlightedClub.club?.id}`}
-                imageUrl={highlightedClub.club?.images[0]?.url ?? ""}
+                media={
+                  <ResponsiveImageWithFallback
+                    aspectRatio={16 / 9}
+                    data={highlightedClub.club?.images[0]?.responsiveImage}
+                  />
+                }
                 category={highlightedClub.club?.category?.name ?? ""}
                 tags={highlightedClub.club?.tags.map((tag) => ({
                   id: tag.id,
@@ -194,13 +201,16 @@ export default function IndexPage(
 export async function getStaticProps() {
   const queryResult = await apolloClient.query<IndexQuery>({
     query: gql`
+      ${responsiveImageFragment}
       query IndexQuery {
         allHighlightedClubs {
           id
           club {
             name
             images {
-              url(imgixParams: { maxW: 300 })
+              responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                ...ResponsiveImageFragment
+              }
             }
             id
             tags {

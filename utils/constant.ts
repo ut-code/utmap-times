@@ -4,6 +4,6 @@ export const placeholderImageUrl = "/images/utmap.png";
 
 export const placeholderResponsiveImage: ResponsiveImageType = {
   src: placeholderImageUrl,
-  aspectRatio: 1.25,
+  aspectRatio: 1.5,
   width: 776,
 };
