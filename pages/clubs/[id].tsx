@@ -106,7 +106,7 @@ export default function ClubsPage(
           団体名
         </div>
         <h1 className="text-bold p-3 text-3xl">{props.club.name}</h1>
-        <div className="my-4 px-6 py-2 bg-yellow-50">
+        <div className="my-4 px-8 py-4 bg-yellow-50">
           <RichTextRenderer markdown={props.club.description ?? ""} />
         </div>
         <table className="my-3 w-full" cellPadding="10">
