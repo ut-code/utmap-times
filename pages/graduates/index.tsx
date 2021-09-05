@@ -4,7 +4,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import * as s from "superstruct";
 import Banners from "../../components/Banners";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
@@ -45,9 +45,6 @@ export default function GraduatArticleIndexPage(
     props.graduateArticleCategories.find(
       (category) => category.slug === query.category
     ) ?? null;
-  const [expandedCategoryGroupIds, setExpandedCategoryGroupIds] = useState<
-    string[]
-  >(selectedCategory?.group ? [selectedCategory?.group.id] : []);
 
   return (
     <Layout title="卒業生">
@@ -101,81 +98,37 @@ export default function GraduatArticleIndexPage(
           <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-2">
             <div className="md:pr-8 md:border-r md:border-gray-500">
               <h3 className="text-2xl mb-6">カテゴリで検索</h3>
-              <ul className="space-y-2">
-                {props.graduateArticleCategoryGroups.map(
-                  (graduateArticleCategoryGroup) => {
-                    const isExpanded = expandedCategoryGroupIds.includes(
-                      graduateArticleCategoryGroup.id
-                    );
-                    return (
-                      <li key={graduateArticleCategoryGroup.id}>
-                        <button
-                          type="button"
+              <ul className="border-t border-gray-200">
+                {props.graduateArticleCategories.map((category, i) => {
+                  const newQuery: Query = {
+                    category:
+                      selectedCategory?.id === category.id
+                        ? undefined
+                        : category.slug ?? undefined,
+                  };
+                  return (
+                    <li key={category.id}>
+                      <Link
+                        href={{
+                          query: { ...query, ...newQuery },
+                        }}
+                        scroll={false}
+                      >
+                        <a
                           className={clsx(
-                            "flex items-center w-full py-4 px-6 focus:outline-none bg-white text-left"
+                            "block py-4 px-6",
+                            i > 0 && "border-t",
+                            query.category === category.slug
+                              ? "bg-yellow-300"
+                              : "bg-white"
                           )}
-                          onClick={() => {
-                            setExpandedCategoryGroupIds(
-                              expandedCategoryGroupIds
-                                .filter(
-                                  (id) => id !== graduateArticleCategoryGroup.id
-                                )
-                                .concat(
-                                  isExpanded
-                                    ? []
-                                    : [graduateArticleCategoryGroup.id]
-                                )
-                            );
-                          }}
                         >
-                          <p className="flex-grow">
-                            {graduateArticleCategoryGroup.name}
-                          </p>
-                          {isExpanded ? <AiOutlineUp /> : <AiOutlineDown />}
-                        </button>
-                        {isExpanded && (
-                          <ul className="border-t border-gray-200">
-                            {props.graduateArticleCategories
-                              .filter(
-                                (category) =>
-                                  category.group?.id ===
-                                  graduateArticleCategoryGroup.id
-                              )
-                              .map((category) => {
-                                const newQuery: Query = {
-                                  category:
-                                    selectedCategory?.id === category.id
-                                      ? undefined
-                                      : category.slug ?? undefined,
-                                };
-                                return (
-                                  <li key={category.id}>
-                                    <Link
-                                      href={{
-                                        query: { ...query, ...newQuery },
-                                      }}
-                                      scroll={false}
-                                    >
-                                      <a
-                                        className={clsx(
-                                          "block py-1 px-6",
-                                          query.category === category.slug
-                                            ? "bg-yellow-300"
-                                            : "bg-white"
-                                        )}
-                                      >
-                                        {category.name}
-                                      </a>
-                                    </Link>
-                                  </li>
-                                );
-                              })}
-                          </ul>
-                        )}
-                      </li>
-                    );
-                  }
-                )}
+                          {category.name}
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="md:pl-8">
@@ -395,10 +348,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     await apolloClient.query<GraduateArticleIndexMetaQuery>({
       query: gql`
         query GraduateArticleIndexMetaQuery {
-          allGraduateArticleCategoryGroups {
-            id
-            name
-          }
           allGraduateArticleCategories {
             id
             name
@@ -551,8 +500,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       graduateArticleCount: queryResult.data._allGraduateArticlesMeta.count,
       graduateArticles: queryResult.data.allGraduateArticles,
       randomArticle,
-      graduateArticleCategoryGroups:
-        metaQueryResult.data.allGraduateArticleCategoryGroups,
       graduateArticleCategories:
         metaQueryResult.data.allGraduateArticleCategories,
       graduateArticleTags: metaQueryResult.data.allGraduateArticleTags,
