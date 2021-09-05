@@ -1,17 +1,20 @@
 import { gql, useQuery } from "@apollo/client";
 import { useInView } from "react-intersection-observer";
+import { responsiveImageFragment } from "../utils/datocms";
 import { useClubBookmarks } from "../utils/hooks/clubBookmarks";
 import {
   BookmarkedClubsQuery,
   BookmarkedClubsQueryVariables,
 } from "../__generated__/BookmarkedClubsQuery";
 import ArticleLink from "./ArticleLink";
+import ResponsiveImageWithFallback from "./ResponsiveImageWithFallback";
 
 export default function BookmarkedClubs(props: { className?: string }) {
   const { ref, inView } = useInView();
   const { bookmarkedClubIds, toggleClubBookmark } = useClubBookmarks();
   const query = useQuery<BookmarkedClubsQuery, BookmarkedClubsQueryVariables>(
     gql`
+      ${responsiveImageFragment}
       query BookmarkedClubsQuery($clubIds: [ItemId!]!) {
         allClubs(filter: { id: { in: $clubIds } }) {
           id
@@ -22,7 +25,9 @@ export default function BookmarkedClubs(props: { className?: string }) {
           }
           images {
             id
-            url(imgixParams: { w: 1200, h: 900, auto: format })
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
           }
           tags {
             id
@@ -51,7 +56,12 @@ export default function BookmarkedClubs(props: { className?: string }) {
               title={club.name ?? ""}
               category={club.category?.name ?? ""}
               url={`/clubs/${club.id}`}
-              imageUrl={club.images[0]?.url ?? "/images/utmap.png"}
+              media={
+                <ResponsiveImageWithFallback
+                  aspectRatio={16 / 9}
+                  data={club.images[0]?.responsiveImage}
+                />
+              }
               tags={club.tags.map((tag) => ({
                 id: tag.id,
                 name: tag.name ?? "",

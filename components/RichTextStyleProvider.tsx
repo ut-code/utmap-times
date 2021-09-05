@@ -1,24 +1,17 @@
 import styled from "styled-components";
+import { h1Css, h2Css, h3Css } from "./Heading";
 
 export default styled.div`
   h1 {
     margin: 2rem 0 1rem 0;
-    padding: 0.2rem 0.5rem;
-    border-bottom: 0.2rem solid var(--color-secondary-main);
-    font-size: 2rem;
-    font-weight: bold;
+    ${h1Css}
   }
   h2 {
     margin: 1rem 0;
-    padding: 0.6rem 1rem;
-    background-color: #eee;
-    font-size: 1.2rem;
-    font-weight: bold;
+    ${h2Css}
   }
   h3 {
-    border-left: 0.3rem solid var(--color-secondary-main);
-    padding: 0.2rem 0.6rem;
-    font-weight: bold;
+    ${h3Css}
   }
   ul,
   ol {
