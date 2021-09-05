@@ -30,6 +30,9 @@ import {
 } from "../../utils/datocms";
 import IndexHeroContent from "../../components/IndexHeroContent";
 import SectionHeader from "../../components/SectionHeader";
+import { SearchGrid, SearchGridItem } from "../../components/SearchGrid";
+import SearchResultContainer from "../../components/SearchResultContainer";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 const queryType = s.type({
   q: s.optional(s.string()),
@@ -332,7 +335,7 @@ export default function ClubIndexPage(
         </div>
       </section>
 
-      <section className="container mx-auto my-12">
+      <SearchResultContainer className="my-12">
         {searchQueryData ? (
           <>
             {searchQueryData._allClubsMeta.count === 0 ? (
@@ -342,14 +345,19 @@ export default function ClubIndexPage(
             ) : (
               <>
                 <p className="mb-8 px-8">{`${searchQueryData._allClubsMeta.count}件のサークルが見つかりました。`}</p>
-                <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
+                <SearchGrid>
                   {searchQueryData.allClubs.map((club) => (
-                    <li key={club.id}>
+                    <SearchGridItem key={club.id}>
                       <ArticleLink
                         title={club.name ?? ""}
                         category={club.category?.name ?? ""}
                         url={`/clubs/${club.id}`}
-                        imageUrl={club.images[0]?.url ?? "/images/utmap.png"}
+                        media={
+                          <ResponsiveImageWithFallback
+                            data={club.images[0]?.responsiveImage}
+                            aspectRatio={16 / 9}
+                          />
+                        }
                         tags={club.tags.map((tag) => ({
                           id: tag.id,
                           name: tag.name ?? "",
@@ -360,9 +368,9 @@ export default function ClubIndexPage(
                           toggleClubBookmark(club.id);
                         }}
                       />
-                    </li>
+                    </SearchGridItem>
                   ))}
-                </ul>
+                </SearchGrid>
                 <div className="text-center mt-8">
                   {searchQueryData.allClubs.length <
                   searchQueryData._allClubsMeta.count ? (
@@ -391,7 +399,7 @@ export default function ClubIndexPage(
         ) : (
           <p>読み込み中です...</p>
         )}
-      </section>
+      </SearchResultContainer>
       <section className="bg-gray-50">
         <div className="container mx-auto py-16 lg:py-32">
           <SectionHeader

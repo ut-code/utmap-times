@@ -1,8 +1,11 @@
 import { gql } from "@apollo/client";
+import { responsiveImageFragment } from "../../utils/datocms";
 import { ArticleContentStructuredTextArticleGalleryFragment } from "../../__generated__/ArticleContentStructuredTextArticleGalleryFragment";
 import ArticleLink from "../ArticleLink";
+import ResponsiveImageWithFallback from "../ResponsiveImageWithFallback";
 
 export const articleContentStructuredTextArticleGalleryFragment = gql`
+  ${responsiveImageFragment}
   fragment ArticleContentStructuredTextArticleGalleryFragment on ArticleGalleryRecord {
     id
     title
@@ -11,8 +14,9 @@ export const articleContentStructuredTextArticleGalleryFragment = gql`
       title
       slug
       image {
-        alt
-        url
+        responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+          ...ResponsiveImageFragment
+        }
       }
     }
   }
@@ -32,7 +36,12 @@ export default function ArticleContentStructuredTextArticleGallery({
         {fragment.articles.map((article) => (
           <ArticleLink
             key={article.id}
-            imageUrl={article.image?.url ?? "/images/utmap.png"}
+            media={
+              <ResponsiveImageWithFallback
+                aspectRatio={16 / 9}
+                data={article.image?.responsiveImage}
+              />
+            }
             title={article.title ?? ""}
             url={`/static/${article.slug}`}
           />

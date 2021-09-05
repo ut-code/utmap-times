@@ -28,6 +28,7 @@ import {
 } from "../../utils/datocms";
 import Carousel from "../../components/Carousel";
 import { placeholderResponsiveImage } from "../../utils/constant";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 export default function ClubsPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -329,7 +330,12 @@ export default function ClubsPage(
                   title={related.name ?? ""}
                   category={related.category?.name ?? ""}
                   url={`/clubs/${related.id}`}
-                  imageUrl={related.images[0]?.url ?? "/images/utmap.png"}
+                  media={
+                    <ResponsiveImageWithFallback
+                      data={related.images[0]?.responsiveImage}
+                      aspectRatio={16 / 9}
+                    />
+                  }
                   tags={related.tags.map((tag) => ({
                     id: tag.id,
                     name: tag.name ?? "",
@@ -419,31 +425,6 @@ export async function getStaticProps({
           relatedclubs {
             id
             name
-            leader
-            establishedYear
-            description
-            place
-            schedule
-            usualActivity
-            eventSchedule
-            welcomeEvent
-            genderRatio
-            membersUniversityComposition
-            numberOfMembers
-            utStudentRatio
-            requiresExamination
-            participationCost
-            annualCost
-            contact
-            remarks
-            line
-            twitter
-            instagram
-            facebook
-            website
-            interviewAttraction
-            interviewBestThing
-            interviewMembersPersonality
             category {
               id
               name
@@ -454,16 +435,11 @@ export async function getStaticProps({
               name
               slug
             }
-            activityWithCorona
-            qA {
-              id
-              question
-              answer
-            }
             images {
-              url
+              responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                ...ResponsiveImageFragment
+              }
             }
-            description
           }
           seo {
             ...LayoutSeoFragment
