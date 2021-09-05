@@ -10,12 +10,44 @@ export const articleContentStructuredTextArticleGalleryFragment = gql`
     id
     title
     articles {
-      id
-      title
-      slug
-      image {
-        responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
-          ...ResponsiveImageFragment
+      ... on StaticPageRecord {
+        id
+        title
+        slug
+        image {
+          responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            ...ResponsiveImageFragment
+          }
+        }
+      }
+      ... on EventRecord {
+        id
+        title
+        slug
+        thumbnailImage {
+          responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            ...ResponsiveImageFragment
+          }
+        }
+      }
+      ... on InternshipRecord {
+        id
+        title
+        slug
+        thumbnailImage {
+          responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            ...ResponsiveImageFragment
+          }
+        }
+      }
+      ... on GraduateArticleRecord {
+        id
+        title
+        slug
+        image {
+          responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            ...ResponsiveImageFragment
+          }
         }
       }
     }
@@ -39,7 +71,10 @@ export default function ArticleContentStructuredTextArticleGallery({
             media={
               <ResponsiveImageWithFallback
                 aspectRatio={16 / 9}
-                data={article.image?.responsiveImage}
+                data={
+                  ("image" in article ? article.image : article.thumbnailImage)
+                    ?.responsiveImage
+                }
               />
             }
             title={article.title ?? ""}

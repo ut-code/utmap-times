@@ -352,9 +352,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             id
             name
             slug
-            group {
-              id
-            }
           }
           allGraduateArticleTags {
             id
