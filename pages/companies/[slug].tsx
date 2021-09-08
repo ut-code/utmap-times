@@ -165,7 +165,7 @@ export default function CompanyPage(
               <li key={event.id}>
                 <AritcleLinkCompanyEvent
                   title={event.title ?? ""}
-                  url={`events/${event.slug}`}
+                  url={`/events/${event.slug}`}
                   imageUrl={event.thumbnailImage?.url ?? "/images/utmap.png"}
                 />
               </li>
@@ -174,7 +174,7 @@ export default function CompanyPage(
               <li key={internship.id}>
                 <AritcleLinkCompanyEvent
                   title={internship.title ?? ""}
-                  url={`internships/${internship.slug}`}
+                  url={`/internships/${internship.slug}`}
                   imageUrl={
                     internship.thumbnailImage?.url ?? "/images/utmap.png"
                   }
