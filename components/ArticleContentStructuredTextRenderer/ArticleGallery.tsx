@@ -65,22 +65,41 @@ export default function ArticleContentStructuredTextArticleGallery({
         {fragment.title}
       </p>
       <div className="md:grid md:grid-cols-2 xl:grid-cols-3">
-        {fragment.articles.map((article) => (
-          <ArticleLink
-            key={article.id}
-            media={
-              <ResponsiveImageWithFallback
-                aspectRatio={16 / 9}
-                data={
-                  ("image" in article ? article.image : article.thumbnailImage)
-                    ?.responsiveImage
-                }
-              />
+        {fragment.articles.map((article) => {
+          const url = (() => {
+            switch (article.__typename) {
+              case "EventRecord":
+                return `/events/${article.slug}`;
+              case "GraduateArticleRecord":
+                return `/graduates/${article.slug}`;
+              case "InternshipRecord":
+                return `/internships/${article.slug}`;
+              case "StaticPageRecord":
+                return `/static/${article.slug}`;
+              default:
+                // @ts-expect-error __typename is never
+                throw new Error(`Invalid type: ${article.__typename}`);
             }
-            title={article.title ?? ""}
-            url={`/static/${article.slug}`}
-          />
-        ))}
+          })();
+          return (
+            <ArticleLink
+              key={article.id}
+              media={
+                <ResponsiveImageWithFallback
+                  aspectRatio={16 / 9}
+                  data={
+                    ("image" in article
+                      ? article.image
+                      : article.thumbnailImage
+                    )?.responsiveImage
+                  }
+                />
+              }
+              title={article.title ?? ""}
+              url={url}
+            />
+          );
+        })}
       </div>
     </>
   );
