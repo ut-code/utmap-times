@@ -5,6 +5,8 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import { Image } from "react-datocms";
+import { FaTwitter } from "react-icons/fa";
+import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
@@ -49,7 +51,16 @@ export default function CompanyPage(
           {props.company.name}
         </h1>
         <SnsShareLinks />
-        <div className="mb-8">
+        <div className="mb-20">
+          {props.company.topImage && (
+            <img
+              src={props.company.topImage.url}
+              alt="イベント画像"
+              className="w-full max-w-2xl mx-auto mt-8"
+            />
+          )}
+        </div>
+        <div className="mb-24">
           <div className="p-4 bg-gray-100 text-xl font-bold">基礎情報</div>
           <ul>
             {[
@@ -77,12 +88,47 @@ export default function CompanyPage(
                     </p>
                     <RichTextRenderer
                       markdown={information.content}
-                      className="my-4"
+                      className="my-6"
                     />
                   </li>
                 )
             )}
           </ul>
+        </div>
+        <div className="mb-20">
+          <div className="p-4 bg-gray-100 text-xl font-bold">SNS</div>
+          <div className="pt-8 text-center">
+            {props.company.twitter && (
+              <a
+                href={props.company.twitter}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block p-4 mx-4 md:mx-8 bg-blue-400 hover:bg-blue-600 rounded-full"
+              >
+                <FaTwitter className="w-6 h-6 md:w-14 md:h-14 inline-block text-white" />
+              </a>
+            )}
+            {props.company.instagram && (
+              <a
+                href={props.company.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block p-3 mx-4 md:mx-8 bg-pink-500 hover:bg-pink-600 rounded-full"
+              >
+                <AiOutlineInstagram className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+              </a>
+            )}
+            {props.company.facebook && (
+              <a
+                href={props.company.facebook}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block p-3 mx-4 md:mx-8 bg-blue-500 hover:bg-blue-700 rounded-full"
+              >
+                <AiOutlineFacebook className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+              </a>
+            )}
+          </div>
         </div>
         <ul>
           {[
@@ -96,7 +142,7 @@ export default function CompanyPage(
           ].map(
             (description) =>
               description.content && (
-                <li key={description.title} className="pb-8">
+                <li key={description.title} className="pb-24">
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
                   </div>
@@ -130,7 +176,7 @@ export default function CompanyPage(
       />
 
       <ArticleContentContainer>
-        <ul className="pt-8">
+        <ul className="pt-24">
           {[
             {
               title: "学生へのメッセージ",
@@ -143,7 +189,7 @@ export default function CompanyPage(
           ].map(
             (description) =>
               description.content && (
-                <li key={description.title} className="pb-8">
+                <li key={description.title} className="pb-24">
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
                   </div>
@@ -239,6 +285,9 @@ export async function getStaticProps({
           foreignLocation
           employeesNumber
           leader
+          twitter
+          instagram
+          facebook
           industry {
             id
             name
