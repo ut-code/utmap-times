@@ -132,12 +132,15 @@ export default function EventPage(
             { title: "業界", content: props.event.company?.industry?.name },
             { title: "所在地", content: props.event.company?.location },
             { title: "URL", content: props.event.company?.companyHpUrl },
-          ].map((information) => (
-            <li key={information.title} className="flex border-b">
-              <div className="w-48 p-4 font-bold">{information.title}</div>
-              <div className="flex-1 p-4">{information.content}</div>
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.content && (
+                <li key={information.title} className="flex border-b">
+                  <div className="w-48 p-4 font-bold">{information.title}</div>
+                  <div className="flex-1 p-4">{information.content}</div>
+                </li>
+              )
+          )}
         </ul>
         <div className="p-2 mb-4 border-b-2 border-secondary-main text-2xl font-bold">
           開催要項
