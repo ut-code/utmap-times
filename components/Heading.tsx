@@ -29,5 +29,5 @@ export const h3Css = css`
 `;
 
 export const H3 = styled.h3`
-  ${h2Css}
+  ${h3Css}
 `;

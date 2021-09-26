@@ -28,6 +28,12 @@ module.exports = {
           800: "#2A2004",
         },
       },
+      ...Object.fromEntries(
+        ["minWidth", "maxWidth", "minHeight", "maxHeight"].map((property) => [
+          property,
+          (theme) => theme("spacing"),
+        ])
+      ),
     },
   },
   variants: {},
