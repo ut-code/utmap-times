@@ -95,41 +95,6 @@ export default function CompanyPage(
             )}
           </ul>
         </div>
-        <div className="mb-20">
-          <div className="p-4 bg-gray-100 text-xl font-bold">SNS</div>
-          <div className="pt-8 text-center">
-            {props.company.twitter && (
-              <a
-                href={props.company.twitter}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block p-4 mx-4 md:mx-8 bg-blue-400 hover:bg-blue-600 rounded-full"
-              >
-                <FaTwitter className="w-6 h-6 md:w-14 md:h-14 inline-block text-white" />
-              </a>
-            )}
-            {props.company.instagram && (
-              <a
-                href={props.company.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block p-3 mx-4 md:mx-8 bg-pink-500 hover:bg-pink-600 rounded-full"
-              >
-                <AiOutlineInstagram className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
-              </a>
-            )}
-            {props.company.facebook && (
-              <a
-                href={props.company.facebook}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block p-3 mx-4 md:mx-8 bg-blue-500 hover:bg-blue-700 rounded-full"
-              >
-                <AiOutlineFacebook className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
-              </a>
-            )}
-          </div>
-        </div>
         <ul>
           {[
             { title: "会社概要", content: props.company.companyDescription },
@@ -202,6 +167,39 @@ export default function CompanyPage(
               )
           )}
         </ul>
+        <div className="p-4 bg-gray-100 text-xl font-bold">SNS</div>
+        <div className="pt-8 text-center">
+          {props.company.twitter && (
+            <a
+              href={props.company.twitter}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block p-4 mx-4 md:mx-8 bg-blue-400 hover:bg-blue-600 rounded-full"
+            >
+              <FaTwitter className="w-6 h-6 md:w-14 md:h-14 inline-block text-white" />
+            </a>
+          )}
+          {props.company.instagram && (
+            <a
+              href={props.company.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block p-3 mx-4 md:mx-8 bg-pink-500 hover:bg-pink-600 rounded-full"
+            >
+              <AiOutlineInstagram className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+            </a>
+          )}
+          {props.company.facebook && (
+            <a
+              href={props.company.facebook}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block p-3 mx-4 md:mx-8 bg-blue-500 hover:bg-blue-700 rounded-full"
+            >
+              <AiOutlineFacebook className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+            </a>
+          )}
+        </div>
         <div className="w-full mt-4 pt-8 border-t-8 border-gray-100">
           <div className="mx-auto max-w-2xl pb-2 mb-4 text-center text-xl text-primary-main border-b-2 border-primary-main">
             募集中イベント
