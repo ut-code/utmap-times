@@ -183,7 +183,7 @@ export default function CompanyPage(
               content: props.company.toStudentsMessage,
             },
             {
-              title: "貴社に就職することで開けるキャリア展望",
+              title: "開けるキャリア展望",
               content: props.company.careerVision,
             },
           ].map(
