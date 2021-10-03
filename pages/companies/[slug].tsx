@@ -95,6 +95,18 @@ export default function CompanyPage(
             )}
           </ul>
         </div>
+        <div className="container mx-auto pb-16 text-center">
+          {props.company.entryUrl && (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block px-12 py-3 text-sm font-bold bg-primary-main text-white"
+              href={props.company.entryUrl ?? ""}
+            >
+              エントリーはこちら
+            </a>
+          )}
+        </div>
         <ul>
           {[
             {
@@ -313,6 +325,7 @@ export async function getStaticProps({
           foreignLocation
           employeesNumber
           leader
+          entryUrl
           twitter
           instagram
           facebook
