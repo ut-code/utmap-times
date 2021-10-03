@@ -204,7 +204,7 @@ export default function CompanyPage(
               hasContent: props.company.hasToStudentsMessage,
             },
             {
-              title: "貴社に就職することで開けるキャリア展望",
+              title: "開けるキャリア展望",
               content: props.company.careerVision,
               hasContent: props.company.hasCareerVision,
             },
