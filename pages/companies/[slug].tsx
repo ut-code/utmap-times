@@ -97,16 +97,30 @@ export default function CompanyPage(
         </div>
         <ul>
           {[
-            { title: "会社概要", content: props.company.companyDescription },
-            { title: "事業内容", content: props.company.businessDescription },
-            { title: "企業理念", content: props.company.corporateIdentity },
+            {
+              title: "会社概要",
+              content: props.company.companyDescription,
+              hasContent: props.company.hasCompanyDescription,
+            },
+            {
+              title: "事業内容",
+              content: props.company.businessDescription,
+              hasContent: props.company.hasBusinessDescription,
+            },
+            {
+              title: "企業理念",
+              content: props.company.corporateIdentity,
+              hasContent: props.company.hasCorporateIdentity,
+            },
             {
               title: "企業理念について",
               content: props.company.corporateIdentityDescription,
+              hasContent: props.company.hasCareerVision,
             },
           ].map(
             (description) =>
-              description.content && (
+              description.content &&
+              description.hasContent && (
                 <li key={description.title} className="pb-24">
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
@@ -146,14 +160,17 @@ export default function CompanyPage(
             {
               title: "学生へのメッセージ",
               content: props.company.toStudentsMessage,
+              hasContent: props.company.hasToStudentsMessage,
             },
             {
               title: "開けるキャリア展望",
               content: props.company.careerVision,
+              hasContent: props.company.hasCareerVision,
             },
           ].map(
             (description) =>
-              description.content && (
+              description.content &&
+              description.hasContent && (
                 <li key={description.title} className="pb-24">
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
@@ -167,66 +184,79 @@ export default function CompanyPage(
               )
           )}
         </ul>
-        <div className="p-4 bg-gray-100 text-xl font-bold">SNS</div>
-        <div className="pt-8 text-center">
-          {props.company.twitter && (
-            <a
-              href={props.company.twitter}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block p-4 mx-4 md:mx-8 bg-blue-400 hover:bg-blue-600 rounded-full"
-            >
-              <FaTwitter className="w-6 h-6 md:w-14 md:h-14 inline-block text-white" />
-            </a>
-          )}
-          {props.company.instagram && (
-            <a
-              href={props.company.instagram}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block p-3 mx-4 md:mx-8 bg-pink-500 hover:bg-pink-600 rounded-full"
-            >
-              <AiOutlineInstagram className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
-            </a>
-          )}
-          {props.company.facebook && (
-            <a
-              href={props.company.facebook}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block p-3 mx-4 md:mx-8 bg-blue-500 hover:bg-blue-700 rounded-full"
-            >
-              <AiOutlineFacebook className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
-            </a>
-          )}
-        </div>
-        <div className="w-full mt-4 pt-8 border-t-8 border-gray-100">
-          <div className="mx-auto max-w-2xl pb-2 mb-4 text-center text-xl text-primary-main border-b-2 border-primary-main">
-            募集中イベント
+        {!props.company.twitter &&
+        !props.company.instagram &&
+        !props.company.facebook ? (
+          <div />
+        ) : (
+          <div className="mb-20">
+            <div className="p-4 bg-gray-100 text-xl font-bold">SNS</div>
+            <div className="pt-8 text-center">
+              {props.company.twitter && (
+                <a
+                  href={props.company.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block p-4 mx-4 md:mx-8 bg-blue-400 hover:bg-blue-600 rounded-full"
+                >
+                  <FaTwitter className="w-6 h-6 md:w-14 md:h-14 inline-block text-white" />
+                </a>
+              )}
+              {props.company.instagram && (
+                <a
+                  href={props.company.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block p-3 mx-4 md:mx-8 bg-pink-500 hover:bg-pink-600 rounded-full"
+                >
+                  <AiOutlineInstagram className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+                </a>
+              )}
+              {props.company.facebook && (
+                <a
+                  href={props.company.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block p-3 mx-4 md:mx-8 bg-blue-500 hover:bg-blue-700 rounded-full"
+                >
+                  <AiOutlineFacebook className="w-8 h-8 md:w-16 md:h-16 inline-block text-white" />
+                </a>
+              )}
+            </div>
           </div>
-          <ul className="mb-4 md:grid md:grid-cols-2 xl:grid-cols-3">
-            {props.company.events.map((event) => (
-              <li key={event.id}>
-                <AritcleLinkCompanyEvent
-                  title={event.title ?? ""}
-                  url={`/events/${event.slug}`}
-                  imageUrl={event.thumbnailImage?.url ?? "/images/utmap.png"}
-                />
-              </li>
-            ))}
-            {props.company.internships.map((internship) => (
-              <li key={internship.id}>
-                <AritcleLinkCompanyEvent
-                  title={internship.title ?? ""}
-                  url={`/internships/${internship.slug}`}
-                  imageUrl={
-                    internship.thumbnailImage?.url ?? "/images/utmap.png"
-                  }
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
+        {props.company.events.length === 0 &&
+        props.company.internships.length === 0 ? (
+          <div />
+        ) : (
+          <div className="w-full mt-4 pt-8 border-t-8 border-gray-100">
+            <div className="mx-auto max-w-2xl pb-2 mb-4 text-center text-xl text-primary-main border-b-2 border-primary-main">
+              募集中イベント
+            </div>
+            <ul className="mb-4 md:grid md:grid-cols-2 xl:grid-cols-3">
+              {props.company.events.map((event) => (
+                <li key={event.id}>
+                  <AritcleLinkCompanyEvent
+                    title={event.title ?? ""}
+                    url={`/events/${event.slug}`}
+                    imageUrl={event.thumbnailImage?.url ?? "/images/utmap.png"}
+                  />
+                </li>
+              ))}
+              {props.company.internships.map((internship) => (
+                <li key={internship.id}>
+                  <AritcleLinkCompanyEvent
+                    title={internship.title ?? ""}
+                    url={`/internships/${internship.slug}`}
+                    imageUrl={
+                      internship.thumbnailImage?.url ?? "/images/utmap.png"
+                    }
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <SnsShareLinks />
       </ArticleContentContainer>
     </Layout>
@@ -290,6 +320,7 @@ export async function getStaticProps({
             id
             name
           }
+          hasCompanyDescription
           companyDescription {
             blocks {
               ... on ArticleGalleryRecord {
@@ -313,6 +344,7 @@ export async function getStaticProps({
             }
             value
           }
+          hasBusinessDescription
           businessDescription {
             blocks {
               ... on ArticleGalleryRecord {
@@ -336,6 +368,7 @@ export async function getStaticProps({
             }
             value
           }
+          hasCorporateIdentity
           corporateIdentity {
             blocks {
               ... on ArticleGalleryRecord {
@@ -359,6 +392,7 @@ export async function getStaticProps({
             }
             value
           }
+          hasCorporateIdentityDescription
           corporateIdentityDescription {
             blocks {
               ... on ArticleGalleryRecord {
@@ -382,6 +416,7 @@ export async function getStaticProps({
             }
             value
           }
+          hasToStudentsMessage
           toStudentsMessage {
             blocks {
               ... on ArticleGalleryRecord {
@@ -405,6 +440,7 @@ export async function getStaticProps({
             }
             value
           }
+          hasCareerVision
           careerVision {
             blocks {
               ... on ArticleGalleryRecord {
