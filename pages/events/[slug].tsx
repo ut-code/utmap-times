@@ -92,10 +92,17 @@ export default function EventPage(
           />
         )}
         <div className="p-4 bg-gray-100 text-xl font-bold">イベント内容</div>
-        <RichTextRenderer
-          markdown={props.event.description ?? ""}
-          className="pt-4 pb-10"
-        />
+        {props.event.description && (
+          <RichTextRenderer
+            markdown={props.event.description ?? ""}
+            className="pt-4 pb-10"
+          />
+        )}
+        {props.event.structuredDescription && (
+          <ArticleContentStructuredTextRenderer
+            structuredText={props.event.structuredDescription}
+          />
+        )}
         <div className="p-4 bg-gray-100 text-xl font-bold">会社概要</div>
         <div className="pt-4 pb-10">
           {props.event.company?.companyDescription && (
@@ -321,6 +328,29 @@ export async function getStaticProps({
           features {
             id
             name
+          }
+          structuredDescription {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
+              }
+              ... on CallToActionButtonRecord {
+                ...ArticleContentStructuredTextCallToActionButtonFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentStructuredTextPersonAndStatementFragment
+              }
+            }
+            value
           }
           description
           schedule

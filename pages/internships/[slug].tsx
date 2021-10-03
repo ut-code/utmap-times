@@ -92,10 +92,17 @@ export default function InternshipPage(
             <div className="p-4 bg-gray-100 text-xl font-bold">
               インターンシップの内容
             </div>
-            <RichTextRenderer
-              markdown={props.internship.description ?? ""}
-              className="px-4 my-4"
-            />
+            {props.internship.description && (
+              <RichTextRenderer
+                markdown={props.internship.description ?? ""}
+                className="px-4 my-4"
+              />
+            )}
+            {props.internship.structuredDescription && (
+              <ArticleContentStructuredTextRenderer
+                structuredText={props.internship.structuredDescription}
+              />
+            )}
           </div>
         )}
         <div className="pb-10">
@@ -282,6 +289,29 @@ export async function getStaticProps({
           title
           seo {
             ...LayoutSeoFragment
+          }
+          structuredDescription {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
+              }
+              ... on CallToActionButtonRecord {
+                ...ArticleContentStructuredTextCallToActionButtonFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentStructuredTextPersonAndStatementFragment
+              }
+            }
+            value
           }
           description
           updatedAt
