@@ -51,15 +51,15 @@ export default function CompanyPage(
           {props.company.name}
         </h1>
         <SnsShareLinks />
-        <div className="mb-20">
-          {props.company.topImage && (
+        {props.company.topImage && (
+          <div className="mb-20">
             <img
               src={props.company.topImage.url}
               alt="イベント画像"
               className="w-full max-w-2xl mx-auto mt-8"
             />
-          )}
-        </div>
+          </div>
+        )}
         <div className="mb-24">
           <div className="p-4 bg-gray-100 text-xl font-bold">基礎情報</div>
           <ul>
@@ -95,12 +95,12 @@ export default function CompanyPage(
             )}
           </ul>
         </div>
-        <div className="container mx-auto pb-16 text-center">
+        <div className="container mx-auto text-center">
           {props.company.entryUrl && (
             <a
               target="_blank"
               rel="noreferrer"
-              className="inline-block px-12 py-3 text-sm font-bold bg-primary-main text-white"
+              className="inline-block px-12 py-3 mb-16 text-sm font-bold bg-primary-main text-white"
               href={props.company.entryUrl ?? ""}
             >
               エントリーはこちら
@@ -133,7 +133,7 @@ export default function CompanyPage(
             (description) =>
               description.content &&
               description.hasContent && (
-                <li key={description.title} className="pb-24">
+                <li key={description.title} className="mb-24">
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
                   </div>
@@ -167,7 +167,7 @@ export default function CompanyPage(
       />
 
       <ArticleContentContainer>
-        <ul className="pt-24">
+        <ul className="mt-24 mb-24 space-y-24">
           {[
             {
               title: "学生へのメッセージ",
@@ -183,7 +183,7 @@ export default function CompanyPage(
             (description) =>
               description.content &&
               description.hasContent && (
-                <li key={description.title} className="pb-24">
+                <li key={description.title}>
                   <div className="p-4 bg-gray-100 text-xl font-bold">
                     {description.title}
                   </div>
@@ -241,7 +241,7 @@ export default function CompanyPage(
         props.company.internships.length === 0 ? (
           <div />
         ) : (
-          <div className="w-full mt-4 pt-8 border-t-8 border-gray-100">
+          <div className="w-full mb-16 pt-8 border-t-8 border-gray-100">
             <div className="mx-auto max-w-2xl pb-2 mb-4 text-center text-xl text-primary-main border-b-2 border-primary-main">
               募集中イベント
             </div>
@@ -269,6 +269,25 @@ export default function CompanyPage(
             </ul>
           </div>
         )}
+        {!(props.company.relatedArticles.length === 0) && (
+          <div className="w-full mb-16 pt-8 border-t-8 border-gray-100">
+            <div className="mx-auto max-w-2xl pb-2 mb-4 text-center text-xl text-primary-main border-b-2 border-primary-main">
+              関連記事
+            </div>
+            <ul className="mb-4 md:grid md:grid-cols-2 xl:grid-cols-3">
+              {props.company.relatedArticles.map((article) => (
+                <li key={article.id}>
+                  <AritcleLinkCompanyEvent
+                    title={article.title ?? ""}
+                    url={`/graduates/${article.slug}`}
+                    imageUrl={article.image?.url ?? "/images/utmap.png"}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <SnsShareLinks />
       </ArticleContentContainer>
     </Layout>
@@ -500,6 +519,18 @@ export async function getStaticProps({
               }
             }
             title
+          }
+          relatedArticles {
+            id
+            slug
+            title
+            image {
+              id
+              url
+              responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                ...ResponsiveImageFragment
+              }
+            }
           }
         }
       }
