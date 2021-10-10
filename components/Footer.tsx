@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTwitter, FaLine } from "react-icons/fa";
+import { FaTwitter, FaLine, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import clsx from "clsx";
 import Logo from "./Logo";
@@ -34,10 +34,14 @@ export default function Footer() {
         {[
           { Component: FaTwitter, linkTo: "https://twitter.com/UTmap_todai" },
           { Component: FaLine, linkTo: "https://lin.ee/oYnl12K" },
+          {
+            Component: FaInstagram,
+            linkTo: "https://instagram.com/utmaptodai?utm_medium=copy_link",
+          },
         ].map((snsInfo) => (
           <a
             key={snsInfo.linkTo}
-            className="block w-9 h-full hover:bg-blue-700 text-white"
+            className="block h-full hover:bg-blue-700 text-white"
             href={snsInfo.linkTo}
           >
             <snsInfo.Component className="inline-block w-8 h-8" />
