@@ -134,7 +134,14 @@ export default function EventPage(
       />
 
       <ArticleContentContainer className="pt-10 pb-16">
-        <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
+        {!props.event.company?.name &&
+        !props.event.company?.industry?.name &&
+        !props.event.company?.location &&
+        !props.event.company?.companyHpUrl ? (
+          <div />
+        ) : (
+          <div className="p-4 bg-gray-100 text-xl font-bold">企業情報</div>
+        )}
         <ul className="pb-10">
           {[
             { title: "社名", content: props.event.company?.name },
@@ -158,7 +165,9 @@ export default function EventPage(
           {[
             {
               title: "日時",
-              content: <p className="p-4">{props.event.schedule}</p>,
+              content: props.event.schedule && (
+                <p className="p-4">{props.event.schedule}</p>
+              ),
             },
             ...(props.event.timeSchedule
               ? [
@@ -175,60 +184,70 @@ export default function EventPage(
               : []),
             {
               title: "場所",
-              content: <p className="p-4">{props.event.location}</p>,
+              content: props.event.location && (
+                <p className="p-4">{props.event.location}</p>
+              ),
             },
             {
               title: "申し込み締切",
-              content: <p className="p-4">{applicationDeadlineString}</p>,
+              content: applicationDeadlineString && (
+                <p className="p-4">{applicationDeadlineString}</p>
+              ),
             },
-          ].map((information) => (
-            <li key={information.title} className="flex border-b">
-              <div className="w-48 p-4 font-bold">{information.title}</div>
-              <div className="flex-1">{information.content}</div>
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.content && (
+                <li key={information.title} className="flex border-b">
+                  <div className="w-48 p-4 font-bold">{information.title}</div>
+                  <div className="flex-1">{information.content}</div>
+                </li>
+              )
+          )}
         </ul>
         <div className="p-2 mb-4 border-b-2 border-secondary-main text-2xl font-bold">
           参加要項
         </div>
         <ul className="pb-10">
           {[
-            { title: "募集対象", list: props.event.targets },
+            {
+              title: "募集対象",
+              content: (
+                <>
+                  {props.event.targets.map((target) => (
+                    <p key={target.name} className="inline-block">
+                      {target.name}
+                    </p>
+                  ))}
+                </>
+              ),
+            },
             { title: "定員", content: props.event.capacity },
             { title: "参加費", content: props.event.participationFee },
             { title: "持ち物", content: props.event.thingsToBring },
-          ].map((information) => (
-            <li key={information.title} className="relative p-4 border-b">
-              <p className="inline-block font-bold">{information.title}</p>
-              {information.title === "募集対象" ? (
-                <div className="absolute left-44 inline-block">
-                  {information.list?.map((target, index) =>
-                    index === 0 ? (
-                      <p key={target.name} className="inline-block">
-                        {target.name}
-                      </p>
-                    ) : (
-                      <p key={target.name} className="inline-block">
-                        、{target.name}
-                      </p>
-                    )
-                  )}
-                </div>
-              ) : (
-                <p className="absolute left-44 inline-block">
-                  {information.content}
-                </p>
-              )}
-            </li>
-          ))}
+          ].map(
+            (information) =>
+              information.content && (
+                <li key={information.title} className="relative p-4 border-b">
+                  <p className="inline-block font-bold">{information.title}</p>
+
+                  <p className="absolute left-44 inline-block">
+                    {information.content}
+                  </p>
+                </li>
+              )
+          )}
         </ul>
-        <div className="p-2 border-b-2 border-secondary-main text-2xl font-bold">
-          備考
-        </div>
-        <RichTextRenderer
-          markdown={props.event.remarks ?? ""}
-          className="p-4"
-        />
+        {props.event?.remarks && (
+          <div>
+            <div className="p-2 border-b-2 border-secondary-main text-2xl font-bold">
+              備考
+            </div>
+            <RichTextRenderer
+              markdown={props.event.remarks ?? ""}
+              className="p-4"
+            />
+          </div>
+        )}
       </ArticleContentContainer>
       <div className="bg-primary-main">
         <div className="container mx-auto py-16 text-center">
