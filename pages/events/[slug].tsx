@@ -47,11 +47,13 @@ export default function EventPage(
       <Banners />
       <ArticleContentContainer>
         <div className="mt-24 relative">
-          <img
-            src={props.event.company?.logo?.url}
-            alt="会社ロゴ"
-            className="absolute w-20 md:w-28 right-0 top-0"
-          />
+          {props.event.company?.logo && (
+            <img
+              src={props.event.company?.logo?.url ?? ""}
+              alt="会社ロゴ"
+              className="absolute w-20 md:w-28 right-0 top-0"
+            />
+          )}
           <div className="flex">
             {props.event.isRecruiting ? (
               <p className="bg-secondary-main py-1 px-6 text-white">募集中</p>
