@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import GradientImageOverlay from "./GradientImageOverlay";
 
 const RootAnchor = styled.a`
   &:hover img {
@@ -9,14 +10,14 @@ const RootAnchor = styled.a`
   }
 `;
 
-export default function FeatureLink(props: {
+export default function HomePageFeatureLink(props: {
   imageUrl: string;
   title: string;
   linkTo: string;
   className?: string;
 }) {
   return (
-    <Link href={props.linkTo}>
+    <Link href={props.linkTo} passHref>
       <RootAnchor
         className={clsx(
           "block relative h-80 overflow-hidden cursor-pointer text-white",
@@ -30,13 +31,10 @@ export default function FeatureLink(props: {
           objectFit="cover"
           src={props.imageUrl}
         />
-        <div
-          aria-hidden
-          className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black"
-        />
-        <div className="absolute bottom-6 left-0 w-full">
-          <p className="my-4 text-center text-3xl">{props.title}</p>
-          <p className="mx-auto w-max border-b-2 border-white leading-loose">
+        <GradientImageOverlay />
+        <div className="absolute bottom-12 left-0 w-full">
+          <p className="my-4 text-center text-2xl">{props.title}</p>
+          <p className="mx-auto w-max border-b-2 border-white text-sm">
             もっと見る
           </p>
         </div>
