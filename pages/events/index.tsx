@@ -109,8 +109,8 @@ export default function EventIndexPage(
   const ARTICLES_PER_PAGE = 9;
 
   const randomEventIndex = useMemo(
-    () => Math.floor(Math.random() * props.totalEventCount),
-    [props.totalEventCount]
+    () => Math.floor(Math.random() * props.totalRecruitingEventCount),
+    [props.totalRecruitingEventCount]
   );
   const randomEventQuery = useQuery<
     RandomEventQuery,
@@ -119,7 +119,11 @@ export default function EventIndexPage(
     gql`
       ${eventSearchFragment}
       query RandomEventQuery($randomEventIndex: IntType!) {
-        allEvents(skip: $randomEventIndex, first: 1) {
+        allEvents(
+          filter: { isRecruiting: { eq: true } }
+          skip: $randomEventIndex
+          first: 1
+        ) {
           ...EventSearchFragment
         }
       }
@@ -653,7 +657,7 @@ export async function getStaticProps() {
           name
           slug
         }
-        _allEventsMeta {
+        _allEventsMeta(filter: { isRecruiting: { eq: true } }) {
           count
         }
       }
@@ -664,7 +668,7 @@ export async function getStaticProps() {
       eventCategories: metaQueryResult.data.allEventCategories,
       eventTargets: metaQueryResult.data.allEventTargets,
       eventFeatures: metaQueryResult.data.allEventFeatures,
-      totalEventCount: metaQueryResult.data._allEventsMeta.count,
+      totalRecruitingEventCount: metaQueryResult.data._allEventsMeta.count,
     },
   };
 }
