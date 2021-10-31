@@ -50,6 +50,16 @@ export const articleContentStructuredTextArticleGalleryFragment = gql`
           }
         }
       }
+      ... on CompanyRecord {
+        id
+        name
+        slug
+        thumbnailImage {
+          responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            ...ResponsiveImageFragment
+          }
+        }
+      }
     }
   }
 `;
@@ -76,6 +86,8 @@ export default function ArticleContentStructuredTextArticleGallery({
                 return `/internships/${article.slug}`;
               case "StaticPageRecord":
                 return `/static/${article.slug}`;
+              case "CompanyRecord":
+                return `/companies/${article.slug}`;
               default:
                 // @ts-expect-error __typename is never
                 throw new Error(`Invalid type: ${article.__typename}`);
@@ -95,7 +107,7 @@ export default function ArticleContentStructuredTextArticleGallery({
                   }
                 />
               }
-              title={article.title ?? ""}
+              title={("title" in article ? article.title : article.name) ?? ""}
               url={url}
             />
           );
