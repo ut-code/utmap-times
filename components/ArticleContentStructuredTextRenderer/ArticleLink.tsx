@@ -42,6 +42,30 @@ export const articleContentStructuredTextArticleLinkFragment = gql`
           ...ArticleContentStructuredTextArticleLinkResponsiveImageFragment
         }
       }
+      ... on InternshipRecord {
+        id
+        slug
+        title
+        thumbnailImage {
+          ...ArticleContentStructuredTextArticleLinkResponsiveImageFragment
+        }
+      }
+      ... on EventRecord {
+        id
+        slug
+        title
+        thumbnailImage {
+          ...ArticleContentStructuredTextArticleLinkResponsiveImageFragment
+        }
+      }
+      ... on CompanyRecord {
+        id
+        slug
+        name
+        thumbnailImage {
+          ...ArticleContentStructuredTextArticleLinkResponsiveImageFragment
+        }
+      }
     }
   }
 `;
@@ -71,6 +95,24 @@ function normalizeArticleLink(
         title: article.title,
         imageField: article.image,
         link: `/static/${article.slug}`,
+      };
+    case "InternshipRecord":
+      return {
+        title: article.title,
+        imageField: article.thumbnailImage,
+        link: `/internships/${article.slug}`,
+      };
+    case "EventRecord":
+      return {
+        title: article.title,
+        imageField: article.thumbnailImage,
+        link: `/events/${article.slug}`,
+      };
+    case "CompanyRecord":
+      return {
+        title: article.name,
+        imageField: article.thumbnailImage,
+        link: `/companies/${article.slug}`,
       };
     default:
       // 実行されない
