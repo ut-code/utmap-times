@@ -5,7 +5,7 @@ import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import ArticleLink from "../components/ArticleLink";
 import Banners from "../components/Banners";
-import FeatureLink from "../components/FeatureLink";
+import HomePageFeatureLink from "../components/HomePageFeatureLink";
 import Hero from "../components/Hero";
 import HomePageSectionHeader from "../components/HomePageSectionHeader";
 import HomePageSectionScrollButton from "../components/HomePageSectionScrollButton";
@@ -16,6 +16,10 @@ import ResponsiveImageWithFallback from "../components/ResponsiveImageWithFallba
 import apolloClient from "../utils/apollo";
 import { responsiveImageFragment } from "../utils/datocms";
 import { IndexQuery } from "../__generated__/IndexQuery";
+import SectionHeader from "../components/SectionHeader";
+import Carousel from "../components/Carousel";
+import GradientImageOverlay from "../components/GradientImageOverlay";
+import CategoryChip from "../components/CategoryChip";
 
 export default function IndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -162,11 +166,51 @@ export default function IndexPage(
           "最初の一歩を踏み出そう。",
         ]}
       />
-      <section className="grid lg:grid-cols-1 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
-        <FeatureLink
+      <section className="grid lg:grid-cols-3 gap-8 container max-w-screen-lg mx-auto my-12 px-8">
+        <HomePageFeatureLink
+          title="キャリア戦略"
+          imageUrl="/images/top-button-career-strategies.jpg"
+          linkTo="/career-strategies"
+        />
+        <HomePageFeatureLink
           title="卒業生分析"
           imageUrl="/images/top-button-graduates.jpg"
           linkTo="/graduates"
+        />
+        <HomePageFeatureLink
+          title="企業分析"
+          imageUrl="/images/top-button-companies.jpg"
+          linkTo="/companies"
+        />
+      </section>
+      <section className="py-8">
+        <SectionHeader
+          className="mb-12"
+          title="INTERNSHIP"
+          subtitle="インターンシップ情報"
+        />
+        <Carousel
+          aspectRatio={9 / 16}
+          cards={props.allInternships.map((internship) => ({
+            key: internship.id,
+            content: (
+              <Link href={`/internships/${internship.slug}`}>
+                <a className="block relative w-full h-full">
+                  <ResponsiveImageWithFallback
+                    aspectRatio={16 / 9}
+                    data={internship.thumbnailImage?.responsiveImage}
+                  />
+                  <GradientImageOverlay />
+                  <div className="absolute bottom-0 left-0 w-full px-20 py-6 md:py-12 md:px-12 text-white">
+                    <CategoryChip type="secondary" className="mb-4 md:mb-6">
+                      {internship.isRecruiting ? "募集中" : "募集終了"}
+                    </CategoryChip>
+                    <p className="text-xl md:text-2xl">{internship.title}</p>
+                  </div>
+                </a>
+              </Link>
+            ),
+          }))}
         />
       </section>
       <section className="container max-w-screen-lg mx-auto my-12 px-8 md:grid md:grid-cols-3">
@@ -230,6 +274,22 @@ export async function getStaticProps() {
           title
           slug
           content
+        }
+        allInternships(filter: { isRecruiting: { eq: true } }, first: 5) {
+          id
+          slug
+          title
+          isLongTermInternship
+          isRecruiting
+          features {
+            id
+            name
+          }
+          thumbnailImage {
+            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
+            }
+          }
         }
       }
     `,
