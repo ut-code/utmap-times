@@ -48,8 +48,8 @@ export default function InternshipsIndexPage(
   const [expandedInternshipGroup, setExpandedInternshipGroup] = useState("");
 
   const randomInternshipsIndex = useMemo(
-    () => Math.floor(Math.random() * props.totalInternshipsCount),
-    [props.totalInternshipsCount]
+    () => Math.floor(Math.random() * props.totalRecruitingInternshipsCount),
+    [props.totalRecruitingInternshipsCount]
   );
   const randomInternshipsQuery = useQuery<
     RandomInternshipsQuery,
@@ -58,7 +58,11 @@ export default function InternshipsIndexPage(
     gql`
       ${articleLinkInternFragment}
       query RandomInternshipsQuery($randomInternshipsIndex: IntType!) {
-        allInternships(skip: $randomInternshipsIndex, first: 1) {
+        allInternships(
+          filter: { isRecruiting: { eq: true } }
+          skip: $randomInternshipsIndex
+          first: 1
+        ) {
           ...ArticleLinkInternFragment
         }
       }
@@ -574,7 +578,7 @@ export async function getStaticProps() {
           name
           slug
         }
-        _allInternshipsMeta {
+        _allInternshipsMeta(filter: { isRecruiting: { eq: true } }) {
           count
         }
       }
@@ -585,7 +589,8 @@ export async function getStaticProps() {
       InternshipsFeatures: metaQueryResult.data.allInternshipFeatures,
       InternshipsIndustry: metaQueryResult.data.allIndustries,
       InternshipsJobType: metaQueryResult.data.allInternshipJobTypes,
-      totalInternshipsCount: metaQueryResult.data._allInternshipsMeta.count,
+      totalRecruitingInternshipsCount:
+        metaQueryResult.data._allInternshipsMeta.count,
     },
   };
 }
