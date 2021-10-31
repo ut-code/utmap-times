@@ -78,12 +78,6 @@ export default function Header() {
           ))}
         </ul>
         <div className="border-t border-gray-500 lg:flex lg:absolute lg:top-0 lg:right-0 lg:border-none lg:h-full">
-          <button
-            type="button"
-            className="block w-full px-6 py-4 text-left lg:h-full lg:w-auto lg:py-0 lg:px-4 lg:bg-gray-200 lg:hover:bg-gray-100"
-          >
-            マイページ
-          </button>
           <Link href="/search">
             <a className="hidden lg:flex justify-center items-center bg-blue-900 hover:bg-blue-700 text-white w-16 h-full">
               <AiOutlineSearch className="inline-block w-4 h-4" />
