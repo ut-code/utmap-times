@@ -91,17 +91,9 @@ export default function InternshipPage(
           <div className="p-4 bg-gray-100 text-xl font-bold">
             インターンシップの内容
           </div>
-          {props.internship.description && (
-            <RichTextRenderer
-              markdown={props.internship.description ?? ""}
-              className="px-4 my-4"
-            />
-          )}
-          {props.internship.structuredDescription && (
-            <ArticleContentStructuredTextRenderer
-              structuredText={props.internship.structuredDescription}
-            />
-          )}
+          <ArticleContentStructuredTextRenderer
+            structuredText={props.internship.description}
+          />
         </div>
         <div className="pb-10">
           <div className="p-4 bg-gray-100 text-xl font-bold">
@@ -253,7 +245,7 @@ export default function InternshipPage(
             target="_blank"
             rel="noreferrer"
             className="inline-block px-12 py-3 text-sm font-bold bg-white text-primary-main"
-            href={props.internship.applicationlink ?? ""}
+            href={props.internship.applicationLink ?? ""}
           >
             応募する
           </a>
@@ -288,7 +280,7 @@ export async function getStaticProps({
           seo {
             ...LayoutSeoFragment
           }
-          structuredDescription {
+          description {
             blocks {
               ... on ArticleGalleryRecord {
                 ...ArticleContentStructuredTextArticleGalleryFragment
@@ -311,9 +303,8 @@ export async function getStaticProps({
             }
             value
           }
-          description
           updatedAt
-          applicationlink
+          applicationLink
           company {
             name
             companyDescription {
