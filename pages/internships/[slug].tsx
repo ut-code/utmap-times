@@ -87,24 +87,22 @@ export default function InternshipPage(
             className="w-full max-w-3xl mx-auto mb-12"
           />
         )}
-        {props.internship.description && (
-          <div className="pb-10">
-            <div className="p-4 bg-gray-100 text-xl font-bold">
-              インターンシップの内容
-            </div>
-            {props.internship.description && (
-              <RichTextRenderer
-                markdown={props.internship.description ?? ""}
-                className="px-4 my-4"
-              />
-            )}
-            {props.internship.structuredDescription && (
-              <ArticleContentStructuredTextRenderer
-                structuredText={props.internship.structuredDescription}
-              />
-            )}
+        <div className="pb-10">
+          <div className="p-4 bg-gray-100 text-xl font-bold">
+            インターンシップの内容
           </div>
-        )}
+          {props.internship.description && (
+            <RichTextRenderer
+              markdown={props.internship.description ?? ""}
+              className="px-4 my-4"
+            />
+          )}
+          {props.internship.structuredDescription && (
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.internship.structuredDescription}
+            />
+          )}
+        </div>
         <div className="pb-10">
           <div className="p-4 bg-gray-100 text-xl font-bold">
             {props.internship.company?.name}の詳細
