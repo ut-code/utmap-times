@@ -30,7 +30,7 @@ export default function CareerStrategiesIndexPage(
         </p>
         {props.allCareerStrategyArticles.map((article) => (
           <Link key={article.id} href={`/career-strategies/${article.slug}`}>
-            <a className="block bg-gray-100 hover:bg-gray-200 lg:flex lg:min-h-64">
+            <a className="block bg-gray-100 hover:bg-gray-200 lg:flex lg:min-h-64 mb-8">
               <img
                 className="object-cover w-full h-64 md:h-80 lg:w-80 lg:h-auto"
                 alt={article.thumbnailImage?.alt ?? undefined}
