@@ -22,6 +22,9 @@ export default function CareerStrategiesIndexPage(
       />
       <Banners />
       <ArticleContentContainer className="py-16">
+        <p className="leading-6 pt-2 pb-8 px-16">
+          「東大生のためのキャリア戦略」は、UTmap&nbsp;編集部が、日本No.1の実績をもつキャリアコンサルタント・渡辺秀和⽒（（株）コンコードエグゼクティブグループCEO）を迎えて制作した特集コンテンツです。東京⼤学で⼈気を博したキャリアデザインの授業「キャリア・マーケットデザイン」のコースディレクターを務めた渡辺秀和氏が、不透明な時代を生き抜くためのキャリア設計法を解説します。
+        </p>
         <p className="mb-8">
           {props.allCareerStrategyArticles.length}件の記事が見つかりました。
         </p>
