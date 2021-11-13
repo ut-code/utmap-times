@@ -16,6 +16,7 @@ import { PrebuiltStaticDataQuery } from "../../__generated__/PrebuiltStaticDataQ
             url(imgixParams: { ar: "5:1", fit: crop })
           }
           link
+          pathPattern
         }
       }
     `,
