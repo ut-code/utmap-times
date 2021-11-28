@@ -237,7 +237,11 @@ export default function EventIndexPage(
           category={randomEvent?.isRecruiting ? "募集中" : "募集終了"}
           isCategoryActive={randomEvent?.isRecruiting}
           information={
-            <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
+            randomEvent?.company ? (
+              <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
+            ) : (
+              <div />
+            )
           }
         />
       </section>
