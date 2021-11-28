@@ -22,19 +22,17 @@ export default function Layout(
     seo?: LayoutSeoFragment | null;
   }>
 ) {
-  const title = props.title ? `${props.title} | UTmap Times` : "UTmap Times";
+  const title = props.title ? `${props.title} | UTmap` : "UTmap";
   return (
     <>
       <Head>
         <link rel="icon" href="/images/favicon.ico" />
-        <title>{props.title && `${props.title} | `}UTmap Times</title>
+        <title>{props.title && `${props.title} | `}UTmap</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           property="og:title"
-          content={
-            props.seo?.title ? `${props.seo.title} | UTmap Times` : title
-          }
+          content={props.seo?.title ? `${props.seo.title} | UTmap` : title}
         />
         <meta
           property="og:image"
