@@ -32,11 +32,13 @@ export default function AritcleLinkCompany(props: {
             )}
           </div>
           <div className="flex pt-4 items-center">
-            <img
-              src={props.LogoUrl}
-              alt="会社ロゴ"
-              className="w-1/6 h-1/6 left-0 bottom-0 rounded-full object-fill"
-            />
+            <div className="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 bg-white rounded-full">
+              <img
+                src={props.LogoUrl}
+                alt="会社ロゴ"
+                className="w-full h-full object-contain rounded-full"
+              />
+            </div>
             <p className="py-4 pl-4 text-lg">{props.name}</p>
           </div>
         </div>
