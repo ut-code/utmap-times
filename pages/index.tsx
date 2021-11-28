@@ -190,7 +190,7 @@ export default function IndexPage(
           subtitle="インターンシップ情報"
         />
         <Carousel
-          aspectRatio={9 / 16}
+          aspectRatio={16 / 9}
           cards={props.allInternships.map((internship) => ({
             key: internship.id,
             content: (

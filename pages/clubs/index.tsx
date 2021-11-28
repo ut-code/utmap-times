@@ -23,11 +23,7 @@ import {
   RandomClubQuery,
   RandomClubQueryVariables,
 } from "../../__generated__/RandomClubQuery";
-import { placeholderResponsiveImage } from "../../utils/constant";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import IndexHeroContent from "../../components/IndexHeroContent";
 import SectionHeader from "../../components/SectionHeader";
 import { SearchGrid, SearchGridItem } from "../../components/SearchGrid";
@@ -49,8 +45,12 @@ const clubSearchFragment = gql`
     id
     name
     images {
-      url(imgixParams: { w: 1200, h: 900, auto: format })
-      responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+      highlightedResponsiveImage: responsiveImage(
+        imgixParams: { ar: "16:9", fit: crop, w: 1000 }
+      ) {
+        ...ResponsiveImageFragment
+      }
+      responsiveImage(imgixParams: { ar: "16:9", fit: crop, w: 300 }) {
         ...ResponsiveImageFragment
       }
     }
@@ -174,11 +174,8 @@ export default function ClubIndexPage(
         <HighlightedArticleLink
           title={randomClub?.name ?? ""}
           url={`/clubs/${randomClub?.id}`}
-          responsiveImage={
-            randomClub?.images[0]?.responsiveImage
-              ? normalizeResponsiveImage(randomClub.images[0].responsiveImage)
-              : placeholderResponsiveImage
-          }
+          aspectRatio={16 / 9}
+          responsiveImage={randomClub?.images[0]?.highlightedResponsiveImage}
           category={randomClub?.category?.name ?? ""}
           tags={
             randomClub?.tags.map((tag) => ({

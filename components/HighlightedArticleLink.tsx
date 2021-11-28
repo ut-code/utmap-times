@@ -1,12 +1,14 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { UrlObject } from "url";
-import { Image, ResponsiveImageType } from "react-datocms";
+import ResponsiveImageWithFallback from "./ResponsiveImageWithFallback";
+import { ResponsiveImageFragment } from "../__generated__/ResponsiveImageFragment";
 
 export default function HighlightedArticleLink(props: {
   title: string;
   url: string | UrlObject;
-  responsiveImage: ResponsiveImageType;
+  aspectRatio: number;
+  responsiveImage?: ResponsiveImageFragment | null;
   subImageUrl?: string;
   category?: string;
   isCategoryActive?: boolean;
@@ -23,7 +25,10 @@ export default function HighlightedArticleLink(props: {
           props.className
         )}
       >
-        <Image data={props.responsiveImage} />
+        <ResponsiveImageWithFallback
+          aspectRatio={props.aspectRatio}
+          data={props.responsiveImage}
+        />
         {props.subImageUrl && (
           <img
             src={props.subImageUrl}

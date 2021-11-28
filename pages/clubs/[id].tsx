@@ -7,7 +7,6 @@ import {
 } from "next";
 import { FaTwitter, FaLine, FaLink } from "react-icons/fa";
 import { AiOutlineFacebook, AiOutlineInstagram } from "react-icons/ai";
-import { Image } from "react-datocms";
 import ArticleLink from "../../components/ArticleLink";
 import Hero from "../../components/Hero";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -22,12 +21,8 @@ import ClubQuestionOrAnswer from "../../components/ClubQuestionOrAnswer";
 import EmbeddedVideoPlayer from "../../components/EmbeddedVideoPlayer";
 import Banners from "../../components/Banners";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import Carousel from "../../components/Carousel";
-import { placeholderResponsiveImage } from "../../utils/constant";
 import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 export default function ClubsPage(
@@ -82,18 +77,14 @@ export default function ClubsPage(
       </ArticleContentContainer>
 
       <Carousel
-        aspectRatio={9 / 16}
+        aspectRatio={16 / 9}
         cards={props.club.images.map((image) => ({
           key: image.id,
           content: (
-            <Image
+            <ResponsiveImageWithFallback
+              aspectRatio={16 / 9}
               lazyLoad={false}
-              className="w-full h-full"
-              data={
-                image.responsiveImage
-                  ? normalizeResponsiveImage(image.responsiveImage)
-                  : placeholderResponsiveImage
-              }
+              data={image.responsiveImage}
             />
           ),
         }))}

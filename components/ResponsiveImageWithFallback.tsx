@@ -1,3 +1,4 @@
+import React from "react";
 import { Image } from "react-datocms";
 import styled from "styled-components";
 import { normalizeResponsiveImage } from "../utils/datocms";
@@ -24,6 +25,7 @@ const ScaledLogo = styled(Logo)`
 
 export default function ResponsiveImageWithFallback(props: {
   aspectRatio: number;
+  lazyLoad?: boolean;
   data?: ResponsiveImageFragment | null;
 }) {
   if (!props.data)
@@ -32,5 +34,11 @@ export default function ResponsiveImageWithFallback(props: {
         <ScaledLogo />
       </LogoContainer>
     );
-  return <Image data={normalizeResponsiveImage(props.data)} />;
+  return (
+    <Image
+      fadeInDuration={100}
+      lazyLoad={props.lazyLoad}
+      data={normalizeResponsiveImage(props.data)}
+    />
+  );
 }

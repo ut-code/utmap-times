@@ -4,7 +4,6 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import { Image } from "react-datocms";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import { articleContentStructuredTextArticleGalleryFragment } from "../../components/ArticleContentStructuredTextRenderer/ArticleGallery";
@@ -21,13 +20,12 @@ import SnsShareLinks from "../../components/SnsShareLinks";
 import Carousel from "../../components/Carousel";
 import AritcleLinkCompanyEvent from "../../components/ArticleLinkCompanyEvent";
 import apolloClient from "../../utils/apollo";
-import { placeholderResponsiveImage } from "../../utils/constant";
-import { normalizeResponsiveImage } from "../../utils/datocms";
+import SnsShareRoundLinks from "../../components/SnsShareRoundLinks";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 import {
   GetCompanyBySlugQuery,
   GetCompanyBySlugQueryVariables,
 } from "../../__generated__/GetCompanyBySlugQuery";
-import SnsShareRoundLinks from "../../components/SnsShareRoundLinks";
 
 export default function CompanyPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -152,18 +150,14 @@ export default function CompanyPage(
       </ArticleContentContainer>
 
       <Carousel
-        aspectRatio={9 / 16}
+        aspectRatio={16 / 9}
         cards={props.company.images.map((image) => ({
           key: image.id,
           content: (
-            <Image
+            <ResponsiveImageWithFallback
+              aspectRatio={16 / 9}
               lazyLoad={false}
-              className="w-full h-full"
-              data={
-                image.responsiveImage
-                  ? normalizeResponsiveImage(image.responsiveImage)
-                  : placeholderResponsiveImage
-              }
+              data={image.responsiveImage}
             />
           ),
         }))}

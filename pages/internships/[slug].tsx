@@ -4,19 +4,14 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import { Image } from "react-datocms";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout, { layoutSeoFragment } from "../../components/Layout";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SnsShareLinks from "../../components/SnsShareLinks";
 import Carousel from "../../components/Carousel";
-import { placeholderResponsiveImage } from "../../utils/constant";
 import apolloClient from "../../utils/apollo";
 import {
   GetInternshipBySlugQuery,
@@ -29,6 +24,7 @@ import { articleContentStructuredTextEmbeddedImageFragment } from "../../compone
 import { articleContentStructuredTextEmbeddedVideoFragment } from "../../components/ArticleContentStructuredTextRenderer/EmbeddedVideo";
 import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 export default function InternshipPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -136,18 +132,14 @@ export default function InternshipPage(
       </ArticleContentContainer>
 
       <Carousel
-        aspectRatio={9 / 16}
+        aspectRatio={16 / 9}
         cards={props.internship.images.map((image) => ({
           key: image.id,
           content: (
-            <Image
+            <ResponsiveImageWithFallback
               lazyLoad={false}
-              className="w-full h-full"
-              data={
-                image.responsiveImage
-                  ? normalizeResponsiveImage(image.responsiveImage)
-                  : placeholderResponsiveImage
-              }
+              aspectRatio={16 / 9}
+              data={image.responsiveImage}
             />
           ),
         }))}
