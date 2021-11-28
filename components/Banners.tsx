@@ -14,7 +14,7 @@ export default function Banners() {
         disableArrowButton
         disableIndicator
         disableBrightnessControl
-        aspectRatio={1 / 5}
+        aspectRatio={5 / 1}
         cards={staticData.allBanners
           .filter((banner) => {
             const pattern = new RegExp(banner.pathPattern);

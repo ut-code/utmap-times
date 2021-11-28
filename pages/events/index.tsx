@@ -26,11 +26,7 @@ import {
 import SectionHeader from "../../components/SectionHeader";
 import IndexHeroContent from "../../components/IndexHeroContent";
 import HighlightedArticleLink from "../../components/HighlightedArticleLink";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
-import { placeholderResponsiveImage } from "../../utils/constant";
+import { responsiveImageFragment } from "../../utils/datocms";
 
 const queryOrderByType = s.union([
   s.literal("createdAt"),
@@ -235,13 +231,8 @@ export default function EventIndexPage(
         <HighlightedArticleLink
           title={randomEvent?.title ?? ""}
           url={`/events/${randomEvent?.slug}`}
-          responsiveImage={
-            randomEvent?.thumbnailImage?.responsiveImage
-              ? normalizeResponsiveImage(
-                  randomEvent?.thumbnailImage?.responsiveImage
-                )
-              : placeholderResponsiveImage
-          }
+          aspectRatio={16 / 9}
+          responsiveImage={randomEvent?.thumbnailImage?.responsiveImage}
           subImageUrl={randomEvent?.company?.logo?.url}
           category={randomEvent?.isRecruiting ? "募集中" : "募集終了"}
           isCategoryActive={randomEvent?.isRecruiting}

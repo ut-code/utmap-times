@@ -7,7 +7,7 @@ const CenterCardFrame = styled.div`
   ::before {
     display: block;
     padding-top: ${(props: { aspectRatio: number }) =>
-      props.aspectRatio * 100}%;
+      (1 / props.aspectRatio) * 100}%;
     content: "";
   }
 `;
@@ -71,7 +71,7 @@ export type CarouselProps = {
 export default function Carousel(props: CarouselProps) {
   const {
     interval = 5000,
-    aspectRatio = 9 / 16,
+    aspectRatio = 16 / 9,
     gap = "1rem",
     minimumVisibleCardCount = 5,
     cardMaxWidthClassName = "max-w-screen-lg",

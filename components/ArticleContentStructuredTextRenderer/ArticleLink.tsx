@@ -1,18 +1,14 @@
 import { gql } from "@apollo/client";
-import { Image } from "react-datocms";
 import Link from "next/link";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import { ArticleContentStructuredTextArticleLinkFragment } from "../../__generated__/ArticleContentStructuredTextArticleLinkFragment";
-import { placeholderResponsiveImage } from "../../utils/constant";
+import ResponsiveImageWithFallback from "../ResponsiveImageWithFallback";
 
 export const articleContentStructuredTextArticleLinkFragment = gql`
   ${responsiveImageFragment}
   fragment ArticleContentStructuredTextArticleLinkResponsiveImageFragment on FileField {
     id
-    responsiveImage(imgixParams: { w: 400, h: 300 }) {
+    responsiveImage(imgixParams: { w: 200, h: 150, ar: "4:3" }) {
       ...ResponsiveImageFragment
     }
   }
@@ -131,14 +127,9 @@ export default function ArticleContentStructuredTextArticleLink({
     <Link href={normalized?.link ?? ""}>
       <a className="block lg:flex lg:items-center max-w-screen-md mx-auto p-6 lg:p-0 hover:bg-gray-100">
         <div className="flex-shrink-0 w-72 mx-auto mb-6 lg:m-0 lg:mr-4 border-8 border-secondary-main">
-          <Image
-            data={
-              normalized?.imageField?.responsiveImage
-                ? normalizeResponsiveImage(
-                    normalized.imageField.responsiveImage
-                  )
-                : placeholderResponsiveImage
-            }
+          <ResponsiveImageWithFallback
+            aspectRatio={4 / 3}
+            data={normalized?.imageField?.responsiveImage}
           />
         </div>
         <div className="lg:p-6 text-lg lg:text-xl">{normalized?.title}</div>

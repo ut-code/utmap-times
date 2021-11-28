@@ -7,7 +7,6 @@ import {
 import Link from "next/link";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
-import { Image } from "react-datocms";
 import ArticleContentContainer from "../../components/ArticleContentContainer";
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
@@ -27,8 +26,7 @@ import { articleContentStructuredTextEmbeddedImageFragment } from "../../compone
 import { articleStructuredTextContentPersonAndStatementFragment } from "../../components/ArticleContentStructuredTextRenderer/PersonAndStatement";
 import ArticleContentStructuredTextRenderer from "../../components/ArticleContentStructuredTextRenderer";
 import Carousel from "../../components/Carousel";
-import { normalizeResponsiveImage } from "../../utils/datocms";
-import { placeholderResponsiveImage } from "../../utils/constant";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 export default function EventPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -116,18 +114,14 @@ export default function EventPage(
       </ArticleContentContainer>
 
       <Carousel
-        aspectRatio={9 / 16}
+        aspectRatio={16 / 9}
         cards={props.event.images.map((image) => ({
           key: image.id,
           content: (
-            <Image
+            <ResponsiveImageWithFallback
               lazyLoad={false}
-              className="w-full h-full"
-              data={
-                image.responsiveImage
-                  ? normalizeResponsiveImage(image.responsiveImage)
-                  : placeholderResponsiveImage
-              }
+              aspectRatio={16 / 9}
+              data={image.responsiveImage}
             />
           ),
         }))}

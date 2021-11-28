@@ -12,11 +12,7 @@ import IndexHeroContent from "../../components/IndexHeroContent";
 import Layout from "../../components/Layout";
 import Paginator from "../../components/Paginator";
 import apolloClient from "../../utils/apollo";
-import { placeholderResponsiveImage } from "../../utils/constant";
-import {
-  normalizeResponsiveImage,
-  responsiveImageFragment,
-} from "../../utils/datocms";
+import { responsiveImageFragment } from "../../utils/datocms";
 import { GraduateArticleModelFilter } from "../../__generated__/globalTypes";
 import { GraduateArticleIndexMetaQuery } from "../../__generated__/GraduateArticleIndexMetaQuery";
 import {
@@ -58,13 +54,8 @@ export default function GraduatArticleIndexPage(
         <SectionHeader className="mb-12" title="PICKUP" subtitle="注目の記事" />
         <HighlightedArticleLink
           title={props.randomArticle.title ?? ""}
-          responsiveImage={
-            props.randomArticle.image?.responsiveImage
-              ? normalizeResponsiveImage(
-                  props.randomArticle.image.responsiveImage
-                )
-              : placeholderResponsiveImage
-          }
+          aspectRatio={16 / 9}
+          responsiveImage={props.randomArticle.image?.responsiveImage}
           category={props.randomArticle.category?.name ?? ""}
           url={`/graduates/${props.randomArticle.slug}`}
         />
