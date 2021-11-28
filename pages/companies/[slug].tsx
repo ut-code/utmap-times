@@ -41,16 +41,18 @@ export default function CompanyPage(
       </Hero>
       <Banners />
       <ArticleContentContainer>
-        <img
-          className="w-24 h-24 lg:w-48 lg:h-48 mt-20 float-right object-cover"
-          alt={props.company.logo?.alt ?? ""}
-          src={props.company.logo?.url}
-        />
-        <h1 className="pl-2 pt-24 pb-16 text-2xl md:text-3xl font-bold">
-          {props.company.name}
-        </h1>
+        <div className="pt-24 pb-12">
+          <img
+            className="w-24 lg:w-48 ml-2 float-right object-contain"
+            alt={props.company.logo?.alt ?? ""}
+            src={props.company.logo?.url}
+          />
+          <h1 className="pl-2 text-2xl md:text-3xl font-bold">
+            {props.company.name}
+          </h1>
+        </div>
         <SnsShareLinks />
-        {props.company.topImage && (
+        {props.company.topImage ? (
           <div className="mb-20">
             <img
               src={props.company.topImage.url}
@@ -58,6 +60,8 @@ export default function CompanyPage(
               className="w-full max-w-2xl mx-auto mt-8"
             />
           </div>
+        ) : (
+          <div className="mb-20" />
         )}
         <div className="mb-24">
           <div className="p-4 bg-gray-100 text-xl font-bold">基礎情報</div>
