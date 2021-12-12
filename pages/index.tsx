@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import styled from "styled-components";
+import Head from "next/head";
 import ArticleLink from "../components/ArticleLink";
 import Banners from "../components/Banners";
 import HomePageFeatureLink from "../components/HomePageFeatureLink";
@@ -39,6 +40,9 @@ export default function IndexPage(
         ].join(""),
       }}
     >
+      <Head>
+        <title>UTmap - 東大生のキャリア設計プラットフォーム</title>
+      </Head>
       <IndexPageHero
         image="/images/top-hero.jpg"
         useNextImageOptimization
