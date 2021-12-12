@@ -30,7 +30,15 @@ export default function IndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Layout title="ホーム">
+    <Layout
+      title="ホーム"
+      seo={{
+        description: [
+          "東大生が、より良い人生を切り開き、より良い未来をつくるために、東大生活を歩む「地図」を描きたい。",
+          "UTmapは、東大生のキャリアに大きな影響をもたらす「サークル」「進学選択」「就活」という３つの意思決定をサポートします。",
+        ].join(""),
+      }}
+    >
       <IndexPageHero
         image="/images/top-hero.jpg"
         useNextImageOptimization
