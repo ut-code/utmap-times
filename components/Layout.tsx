@@ -16,10 +16,17 @@ export const layoutSeoFragment = gql`
   }
 `;
 
+export type LayoutSeo = {
+  description?: string | null;
+  image?: LayoutSeoFragment["image"];
+  title?: string | null;
+  twitterCard?: LayoutSeoFragment["twitterCard"] | null;
+};
+
 export default function Layout(
   props: PropsWithChildren<{
     title?: string | null;
-    seo?: LayoutSeoFragment | null;
+    seo?: LayoutSeo | null;
   }>
 ) {
   const title = props.title ? `${props.title} | UTmap` : "UTmap";
@@ -30,6 +37,9 @@ export default function Layout(
         <title>{props.title && `${props.title} | `}UTmap</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {props.seo?.description && (
+          <meta name="description" content={props.seo.description} />
+        )}
         <meta
           property="og:title"
           content={props.seo?.title ? `${props.seo.title} | UTmap` : title}
