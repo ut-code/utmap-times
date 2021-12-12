@@ -20,6 +20,9 @@ import {
   GraduateArticleIndexQueryVariables,
 } from "../../__generated__/GraduateArticleIndexQuery";
 import SectionHeader from "../../components/SectionHeader";
+import { SearchGrid, SearchGridItem } from "../../components/SearchGrid";
+import ArticleLink from "../../components/ArticleLink";
+import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFallback";
 
 const ARTICLES_PER_PAGE = 12;
 
@@ -54,7 +57,7 @@ export default function GraduatArticleIndexPage(
         <SectionHeader className="mb-12" title="PICKUP" subtitle="注目の記事" />
         <HighlightedArticleLink
           title={props.randomArticle.title ?? ""}
-          aspectRatio={16 / 9}
+          aspectRatio={4 / 3}
           responsiveImage={props.randomArticle.image?.responsiveImage}
           category={props.randomArticle.category?.name ?? ""}
           url={`/graduates/${props.randomArticle.slug}`}
@@ -181,40 +184,28 @@ export default function GraduatArticleIndexPage(
             ? `${props.graduateArticleCount}件の記事が見つかりました。`
             : `記事が見つかりませんでした。キーワードを変えてお試しください。`}
         </p>
-        <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
-          {props.graduateArticles.map((graduateArticle) => (
-            <li key={graduateArticle.id}>
-              <Link href={`/graduates/${graduateArticle.slug}`}>
-                <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-100">
-                  <div className="relative mb-8">
-                    <img
-                      src={graduateArticle.image?.url}
-                      alt={graduateArticle.title ?? ""}
-                      className="w-full h-64 object-cover"
-                    />
-                    <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
-                      {graduateArticle.category?.name}
-                    </div>
-                  </div>
-                  <p className="pb-4 text-sm">
-                    {graduateArticle.date.replace(/-/g, "/")}
-                  </p>
-                  <p className="pb-2 text-xl">{graduateArticle.title}</p>
-                  <ul>
-                    {graduateArticle.tags.map((tag) => (
-                      <li
-                        key={tag.id}
-                        className="inline-block mr-2 my-2 p-1 border bg-gray-200 text-sm"
-                      >
-                        {`#${tag.name}`}
-                      </li>
-                    ))}
-                  </ul>
-                </a>
-              </Link>
-            </li>
+        <SearchGrid>
+          {props.graduateArticles.map((article) => (
+            <SearchGridItem key={article.id}>
+              <ArticleLink
+                title={article.title ?? ""}
+                category={article.category?.name ?? undefined}
+                url={`/clubs/${article.slug}`}
+                media={
+                  <ResponsiveImageWithFallback
+                    data={article.image?.responsiveImage}
+                    aspectRatio={4 / 3}
+                  />
+                }
+                tags={article.tags.map((tag) => ({
+                  id: tag.id,
+                  name: tag.name ?? "",
+                }))}
+                className="h-full"
+              />
+            </SearchGridItem>
           ))}
-        </ul>
+        </SearchGrid>
         <Paginator
           className="py-4"
           pageCount={Math.ceil(props.graduateArticleCount / ARTICLES_PER_PAGE)}
@@ -235,25 +226,23 @@ export default function GraduatArticleIndexPage(
             title="RANKING"
             subtitle="ランキング"
           />
-          <div className="md:grid md:grid-cols-2">
+          <div className="lg:grid lg:grid-cols-2 items-start">
             <div key={props.topRatedGraduateArticles[0].graduateArticle?.id}>
               <Link
                 href={`/graduates/${props.topRatedGraduateArticles[0].graduateArticle?.slug}`}
               >
-                <a className="block w-full h-full py-2 px-8 cursor-pointer hover:bg-gray-200">
+                <a className="block w-full h-full p-8 cursor-pointer hover:bg-gray-200">
                   <div className="relative mb-8">
-                    <img
-                      src={
-                        props.topRatedGraduateArticles[0].graduateArticle?.image
-                          ?.url
-                      }
-                      alt={
-                        props.topRatedGraduateArticles[0].graduateArticle
-                          ?.title ?? ""
-                      }
-                      className="w-full h-64 object-cover"
-                    />
-                    <p className="absolute -top-0 px-6 py-4 bg-primary-400 text-white font-sans font-bold">
+                    <div>
+                      <ResponsiveImageWithFallback
+                        data={
+                          props.topRatedGraduateArticles[0].graduateArticle
+                            ?.image?.responsiveImage
+                        }
+                        aspectRatio={4 / 3}
+                      />
+                    </div>
+                    <p className="absolute top-0 left-0 w-16 h-16 flex justify-center items-center bg-primary-400 text-white font-sans font-bold">
                       1
                     </p>
                     <div className="absolute -bottom-4 py-2 px-6 bg-secondary-main text-white">
@@ -290,18 +279,19 @@ export default function GraduatArticleIndexPage(
                 {props.topRatedGraduateArticles.slice(1).map((rated, index) => (
                   <li key={rated.graduateArticle?.id}>
                     <Link href={`graduates/${rated.graduateArticle?.slug}`}>
-                      <a className="flex px-4 py-2 cursor-pointer hover:bg-gray-200 relative">
-                        <img
-                          src={rated.graduateArticle?.image?.url}
-                          alt={rated.graduateArticle?.title ?? ""}
-                          className="w-32 h-full inline-block mr-6"
-                        />
-                        <p className="absolute px-3 py-1 bg-primary-400 text-sm text-white font-sans">
+                      <a className="flex p-8 cursor-pointer hover:bg-gray-200 relative">
+                        <div className="w-32 h-full inline-block mr-6 flex-shrink-0">
+                          <ResponsiveImageWithFallback
+                            data={rated.graduateArticle?.image?.responsiveImage}
+                            aspectRatio={4 / 3}
+                          />
+                        </div>
+                        <p className="absolute w-8 h-8 flex justify-center items-center bg-primary-400 text-sm text-white font-sans">
                           {index + 2}
                         </p>
-                        <div>
-                          <div className="flex pb-4">
-                            <p className="py-1 pr-4 text-sm">
+                        <div className="flex-grow">
+                          <div className="flex items-center pb-4">
+                            <p className="pr-4 text-sm">
                               {rated.graduateArticle?.date.replace(/-/g, "/")}
                             </p>
                             <p className="bg-secondary-main py-1 px-2 text-white text-sm">
@@ -338,6 +328,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const metaQueryResult =
     await apolloClient.query<GraduateArticleIndexMetaQuery>({
       query: gql`
+        ${responsiveImageFragment}
         query GraduateArticleIndexMetaQuery {
           allGraduateArticleCategories {
             id
@@ -365,10 +356,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
               slug
               title
               date
-              content
               image {
                 id
-                url(imgixParams: { maxW: 300 })
+                largeResponsiveImage: responsiveImage(
+                  imgixParams: { ar: "4:3", fit: crop, w: 1000 }
+                ) {
+                  ...ResponsiveImageFragment
+                }
+                responsiveImage(imgixParams: { ar: "4:3", fit: crop, w: 300 }) {
+                  ...ResponsiveImageFragment
+                }
               }
               category {
                 name
@@ -443,7 +440,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           date
           image {
             id
-            responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+            responsiveImage(imgixParams: { ar: "4:3", fit: crop, w: 1000 }) {
               ...ResponsiveImageFragment
             }
           }
@@ -466,7 +463,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           date
           image {
             id
-            url(imgixParams: { maxW: 300 })
+            responsiveImage(imgixParams: { ar: "4:3", fit: crop, w: 300 }) {
+              ...ResponsiveImageFragment
+            }
           }
           category {
             name
