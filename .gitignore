@@ -33,5 +33,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-__generated__
-__generated_data__
+/__generated__
+/__generated_data__
+/tsconfig.tsbuildinfo
