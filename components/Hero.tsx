@@ -27,7 +27,7 @@ export default function Hero(
       )}
       <div
         aria-hidden
-        className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
+        className="absolute top-0 left-0 w-full h-full bg-black opacity-40"
       />
       <div className="relative z-10 w-full">{props.children}</div>
     </div>
