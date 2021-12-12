@@ -3,6 +3,7 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
+import styled from "styled-components";
 import ArticleLink from "../components/ArticleLink";
 import Banners from "../components/Banners";
 import HomePageFeatureLink from "../components/HomePageFeatureLink";
@@ -21,21 +22,25 @@ import Carousel from "../components/Carousel";
 import GradientImageOverlay from "../components/GradientImageOverlay";
 import CategoryChip from "../components/CategoryChip";
 
+const IndexPageHero = styled(Hero)`
+  min-height: calc(100vh - 14rem);
+`;
+
 export default function IndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
     <Layout title="ホーム">
-      <Hero
+      <IndexPageHero
         image="/images/top-hero.jpg"
         useNextImageOptimization
-        className="flex items-center min-h-screen p-4 md:p-20"
+        className="flex items-center p-4 md:p-20"
       >
-        <div className="py-32">
+        <div className="pb-15 pt-20">
           <HomePageTitleText className="w-full mb-12 max-w-2xl" />
           <p>東大生のキャリア設計プラットフォーム</p>
         </div>
-      </Hero>
+      </IndexPageHero>
       <Banners />
       <div className="relative">
         <div
