@@ -124,7 +124,11 @@ export default function EventIndexPage(
         }
       }
     `,
-    { variables: { randomEventIndex }, ssr: false }
+    {
+      variables: { randomEventIndex },
+      ssr: false,
+      skip: props.totalRecruitingEventCount === 0,
+    }
   );
   const selectedCategorySlug = query.category;
   const selectedCategory =
@@ -222,29 +226,31 @@ export default function EventIndexPage(
         subtitle="イベント"
       />
       <Banners />
-      <section className="container mx-auto py-12 md:py-24">
-        <SectionHeader
-          className="mb-6 md:mb-12"
-          title="PICKUP"
-          subtitle="注目のイベント"
-        />
-        <HighlightedArticleLink
-          title={randomEvent?.title ?? ""}
-          url={`/events/${randomEvent?.slug}`}
-          aspectRatio={16 / 9}
-          responsiveImage={randomEvent?.thumbnailImage?.responsiveImage}
-          subImageUrl={randomEvent?.company?.logo?.url}
-          category={randomEvent?.isRecruiting ? "募集中" : "募集終了"}
-          isCategoryActive={randomEvent?.isRecruiting}
-          information={
-            randomEvent?.company ? (
-              <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
-            ) : (
-              <div />
-            )
-          }
-        />
-      </section>
+      {props.totalRecruitingEventCount > 0 && (
+        <section className="container mx-auto py-12 md:py-24">
+          <SectionHeader
+            className="mb-6 md:mb-12"
+            title="PICKUP"
+            subtitle="注目のイベント"
+          />
+          <HighlightedArticleLink
+            title={randomEvent?.title ?? ""}
+            url={`/events/${randomEvent?.slug}`}
+            aspectRatio={16 / 9}
+            responsiveImage={randomEvent?.thumbnailImage?.responsiveImage}
+            subImageUrl={randomEvent?.company?.logo?.url}
+            category={randomEvent?.isRecruiting ? "募集中" : "募集終了"}
+            isCategoryActive={randomEvent?.isRecruiting}
+            information={
+              randomEvent?.company ? (
+                <p className="block mt-2">{`${randomEvent?.company?.name} / ${randomEvent?.company?.industry?.name}`}</p>
+              ) : (
+                <div />
+              )
+            }
+          />
+        </section>
+      )}
       <section className="bg-gray-200">
         <div className="container mx-auto py-16 px-8 md:px-24">
           <h3 className="pb-6 text-2xl">カテゴリで絞り込み</h3>
