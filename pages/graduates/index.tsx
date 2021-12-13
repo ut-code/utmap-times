@@ -190,7 +190,7 @@ export default function GraduatArticleIndexPage(
               <ArticleLink
                 title={article.title ?? ""}
                 category={article.category?.name ?? undefined}
-                url={`/clubs/${article.slug}`}
+                url={`/graduates/${article.slug}`}
                 media={
                   <ResponsiveImageWithFallback
                     data={article.image?.responsiveImage}
