@@ -158,7 +158,7 @@ export default function ClubIndexPage(
   const randomClub = randomClubQuery.data?.allClubs[0];
 
   return (
-    <Layout title="東大のサークル｜UTmap">
+    <Layout title="東大のサークル">
       <IndexHeroContent
         imageUrl="/images/top-clubs.jpg"
         title="Circle"
