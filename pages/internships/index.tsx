@@ -592,5 +592,6 @@ export async function getStaticProps() {
       totalRecruitingInternshipsCount:
         metaQueryResult.data._allInternshipsMeta.count,
     },
+    revalidate: 60,
   };
 }

@@ -671,5 +671,6 @@ export async function getStaticProps() {
       eventFeatures: metaQueryResult.data.allEventFeatures,
       totalRecruitingEventCount: metaQueryResult.data._allEventsMeta.count,
     },
+    revalidate: 60,
   };
 }

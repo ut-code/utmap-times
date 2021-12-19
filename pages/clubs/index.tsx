@@ -453,5 +453,6 @@ export async function getStaticProps() {
       clubTagCategories: metaQueryResult.data.allClubTagCategories,
       totalClubCount: metaQueryResult.data._allClubsMeta.count,
     },
+    revalidate: 60,
   };
 }
