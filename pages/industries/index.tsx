@@ -74,5 +74,6 @@ export async function getStaticProps() {
     props: {
       industries: queryResult.data.allIndustries,
     },
+    revalidate: 60,
   };
 }

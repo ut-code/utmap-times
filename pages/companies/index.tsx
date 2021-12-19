@@ -245,8 +245,8 @@ export async function getStaticProps() {
   return {
     props: {
       companyIndustries: metaQueryResult.data.allIndustries,
-
       totalCompanyCount: metaQueryResult.data._allCompaniesMeta.count,
     },
+    revalidate: 60,
   };
 }
