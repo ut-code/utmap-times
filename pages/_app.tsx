@@ -1,6 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
 import { AppProps } from "next/app";
-import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import apolloClient from "../utils/apollo";
 import { useGtag } from "../utils/gtag";

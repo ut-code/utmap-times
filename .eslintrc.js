@@ -1,6 +1,6 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["airbnb-typescript-prettier"],
+  extends: ["airbnb-typescript-prettier", "plugin:storybook/recommended"],
   rules: {
     // DatoCMSが要求
     "no-underscore-dangle": "off",
@@ -12,6 +12,8 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     // Next.jsで不便
     "react/require-default-props": "off",
+    // Storybookで使う
+    "react/jsx-props-no-spreading": "off",
     // next/linkでこの形式が必要
     "jsx-a11y/anchor-is-valid": "off",
   },

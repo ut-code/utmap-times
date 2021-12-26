@@ -36,3 +36,4 @@ yarn-error.log*
 /__generated__
 /__generated_data__
 /tsconfig.tsbuildinfo
+/storybook-static

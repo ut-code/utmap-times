@@ -12,7 +12,9 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@apollo/client": "^3.4.13",
@@ -38,6 +40,12 @@
     "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/react": "^6.4.9",
     "@types/gtag.js": "^0.0.8",
     "@types/marked": "^4.0.1",
     "@types/node": "^16.11.12",
@@ -47,10 +55,12 @@
     "@types/sanitize-html": "^2.6.0",
     "@types/styled-components": "^5.1.17",
     "apollo": "^2.33.4",
+    "babel-loader": "^8.2.3",
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
     "eslint-config-next": "^11.1.2",
+    "eslint-plugin-storybook": "^0.5.5",
     "husky": "^4.3.8",
     "lint-staged": "^12.1.2",
     "npm-run-all": "^4.1.5",
