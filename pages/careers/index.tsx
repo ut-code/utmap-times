@@ -54,12 +54,12 @@ export default function CareerIndexPage(
       <div className="container mx-auto grid grid-cols-2 lg:flex px-8 pb-24">
         {[
           { title: "キャリア戦略", linkTo: "#career-strategies" },
-          { title: "企業分析", linkTo: "#industries" },
-          { title: "業界分析", linkTo: "#industries" },
-          { title: "職種分析", linkTo: "#industries" },
-          { title: "キャリア特集", linkTo: "#industries" },
+          { title: "企業分析", linkTo: "#companies" },
+          { title: "業界分析", linkTo: "#companies" },
+          { title: "職種分析", linkTo: "#companies" },
+          { title: "キャリア特集", linkTo: "#graduates" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
-          { title: "就活用語", linkTo: "#graduates" },
+          { title: "就活用語", linkTo: "#careers" },
         ].map((component) =>
           component.title === "キャリア戦略" ? (
             <a
@@ -96,11 +96,14 @@ export default function CareerIndexPage(
         />
         <div className="-mt-12 lg:-mt-24 w-full bg-gray-50">
           <div className="relative w-5/6 mr-0 ml-auto lg:mx-auto bg-white">
-            <div className="py-16 lg:py-24 px-14 lg:grid lg:grid-cols-7">
+            <div
+              id="career-strategies"
+              className="py-16 lg:py-24 px-14 lg:grid lg:grid-cols-7"
+            >
               <div className="lg:col-span-3">
                 <p className="text-2xl lg:text-4xl pb-10">キャリア戦略</p>
                 <CareersPageLinkButton
-                  linkTo="/clubs"
+                  linkTo="/career-strategies"
                   className="hidden lg:block"
                 />
               </div>
@@ -114,7 +117,7 @@ export default function CareerIndexPage(
                 これはダミーテキストです。ここに説明が入ります。
               </p>
               <CareersPageLinkButton
-                linkTo="/clubs"
+                linkTo="/career-strategies"
                 className="mt-12 block lg:hidden"
               />
             </div>
@@ -130,11 +133,14 @@ export default function CareerIndexPage(
           <p className="text-secondary-main pb-16">
             Three points to support career planning
           </p>
-          <div className="px-20 pb-28 grid lg:grid-cols-3 w-full justify-center">
+          <div
+            id="companies"
+            className="px-20 pb-28 grid lg:grid-cols-3 w-full justify-center"
+          >
             <CareersPageFeatureLink
               title="企業分析"
               subTitle="Corporate Analysis"
-              imageUrl="/images/careers-corporate-analysis.jpg"
+              imageUrl="/images/companies.jpg"
               linkTo="/career-strategies"
               className="max-w-sm"
             />
@@ -149,7 +155,7 @@ export default function CareerIndexPage(
               title="業界分析"
               subTitle="Industry Analysis"
               imageUrl="/images/careers-industry-analysis.jpg"
-              linkTo="/companies"
+              linkTo="/industries"
               className="max-w-sm"
             />
           </div>
@@ -165,7 +171,10 @@ export default function CareerIndexPage(
             />
           </div>
           <div className="container mx-auto">
-            <div className="lg:w-1/2 mr-0 ml-auto py-16 px-8 lg:pr-10">
+            <div
+              id="graduates"
+              className="lg:w-1/2 mr-0 ml-auto py-16 px-8 lg:pr-10"
+            >
               <p className="py-12 border-t-2 border-secondary-main text-2xl lg:text-4xl">
                 卒業生インタビュー
               </p>
@@ -274,7 +283,7 @@ export default function CareerIndexPage(
             />
           </div>
           <div className="container mx-auto">
-            <div className="lg:w-1/2 py-16 px-8 lg:pr-12">
+            <div id="careers" className="lg:w-1/2 py-16 px-8 lg:pr-12">
               <p className="py-12 border-t-2 border-secondary-main text-2xl lg:text-4xl">
                 就活用語
               </p>
