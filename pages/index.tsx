@@ -141,6 +141,7 @@ export default function IndexPage(
                   />
                 }
                 category={highlightedClub.club?.category?.name ?? ""}
+                isFramed
                 tags={highlightedClub.club?.tags.map((tag) => ({
                   id: tag.id,
                   name: tag.name ?? "",

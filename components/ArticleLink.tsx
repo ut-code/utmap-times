@@ -11,6 +11,7 @@ export default function ArticleLink(props: {
   tags?: { id: string; name: string }[];
   className?: string;
   isBookmarked?: boolean;
+  isFramed?: boolean;
   onBookmarkToggled?(): void;
 }) {
   return (
@@ -22,7 +23,11 @@ export default function ArticleLink(props: {
         )}
       >
         <div className="relative mb-8">
-          <div className="relative">
+          <div
+            className={clsx("relative border-secondary-main border-8", {
+              "border-solid": props.isFramed,
+            })}
+          >
             {props.media}
             {typeof props.isBookmarked === "boolean" && (
               <button
