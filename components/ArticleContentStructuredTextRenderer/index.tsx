@@ -54,6 +54,7 @@ export default function ArticleContentStructuredTextRenderer(props: {
   structuredText: ArticleContentStructuredText | null | undefined;
 }) {
   const { structuredText } = props;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   if (!structuredText) return <></>;
 
   const rootFragments: StructuredTextRootFragment[] = [];
@@ -157,6 +158,7 @@ export default function ArticleContentStructuredTextRenderer(props: {
             <StructuredText
               data={fragment.dastDocument}
               customRules={[
+                // eslint-disable-next-line react/no-unstable-nested-components
                 renderRule(isLink, ({ node, key, children }) => {
                   if (
                     // https://www.datocms.com/docs/structured-text/dast#link

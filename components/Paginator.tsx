@@ -8,10 +8,12 @@ export default function Paginator(props: {
   pageCount: number;
   getLink(page: number): string | UrlObject;
 }) {
-  if (props.pageCount <= 1) return <></>;
-
   return (
-    <div className={clsx("flex gap-2 justify-center", props.className)}>
+    <div
+      className={clsx("flex gap-2 justify-center", props.className, {
+        hidden: props.pageCount <= 1,
+      })}
+    >
       {Array.from({ length: props.pageCount }, (_, i) => i).map((page) => {
         return (
           <Link key={page} href={props.getLink(page)}>

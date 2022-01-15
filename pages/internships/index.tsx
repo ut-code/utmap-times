@@ -507,52 +507,43 @@ export default function InternshipsIndexPage(
       </section>
 
       <section className="container mx-auto my-12">
-        {searchQueryData ? (
-          <>
-            {searchQueryData._allInternshipsMeta.count === 0 ? (
-              <p className="px-8 mx-4 md:mx-24">
-                インターンシップが見つかりませんでした。キーワードを変えてお試しください。
-              </p>
-            ) : (
-              <>
-                <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のインターンシップが見つかりました。`}</p>
-                <ul className="md:grid md:grid-cols-1 xl:grid-cols-1 px-4 md:px-24">
-                  {searchQueryData.allInternships.map((internship) => (
-                    <li key={internship.id} className="py-2">
-                      <ArticleLinkIntern
-                        article={internship}
-                        className="h-full"
-                      />
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-center mt-8">
-                  {searchQueryData.allInternships.length <
-                  searchQueryData._allInternshipsMeta.count ? (
-                    <button
-                      type="button"
-                      className={clsx(
-                        "h-12 w-64 text-white",
-                        !isLoading
-                          ? "bg-blue-900 hover:bg-blue-500"
-                          : "bg-gray-300"
-                      )}
-                      disabled={isLoading}
-                      onClick={fetchMore}
-                    >
-                      もっと見る
-                    </button>
-                  ) : (
-                    <p className="bg-gray-100 py-6  mx-4 md:mx-24">
-                      すべてのインターンシップを検索しました。
-                    </p>
-                  )}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
+        {!searchQueryData ? (
           <p>読み込み中です...</p>
+        ) : searchQueryData._allInternshipsMeta.count === 0 ? (
+          <p className="px-8 mx-4 md:mx-24">
+            インターンシップが見つかりませんでした。キーワードを変えてお試しください。
+          </p>
+        ) : (
+          <>
+            <p className="mb-8 px-8">{`${searchQueryData._allInternshipsMeta.count}件のインターンシップが見つかりました。`}</p>
+            <ul className="md:grid md:grid-cols-1 xl:grid-cols-1 px-4 md:px-24">
+              {searchQueryData.allInternships.map((internship) => (
+                <li key={internship.id} className="py-2">
+                  <ArticleLinkIntern article={internship} className="h-full" />
+                </li>
+              ))}
+            </ul>
+            <div className="text-center mt-8">
+              {searchQueryData.allInternships.length <
+              searchQueryData._allInternshipsMeta.count ? (
+                <button
+                  type="button"
+                  className={clsx(
+                    "h-12 w-64 text-white",
+                    !isLoading ? "bg-blue-900 hover:bg-blue-500" : "bg-gray-300"
+                  )}
+                  disabled={isLoading}
+                  onClick={fetchMore}
+                >
+                  もっと見る
+                </button>
+              ) : (
+                <p className="bg-gray-100 py-6  mx-4 md:mx-24">
+                  すべてのインターンシップを検索しました。
+                </p>
+              )}
+            </div>
+          </>
         )}
       </section>
     </Layout>

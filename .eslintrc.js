@@ -4,6 +4,8 @@ module.exports = {
   rules: {
     // DatoCMSが要求
     "no-underscore-dangle": "off",
+    // Reactと相性が悪い
+    "no-nested-ternary": "off",
     // JSXを記述する際に冗長になる
     "@typescript-eslint/explicit-module-boundary-types": "off",
     // TypeScriptとの相性が悪い
@@ -14,6 +16,8 @@ module.exports = {
     "react/require-default-props": "off",
     // Storybookで使う
     "react/jsx-props-no-spreading": "off",
+    // Storybookで使う
+    "react/function-component-definition": "off",
     // next/linkでこの形式が必要
     "jsx-a11y/anchor-is-valid": "off",
   },
