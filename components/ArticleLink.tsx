@@ -24,8 +24,8 @@ export default function ArticleLink(props: {
       >
         <div className="relative mb-8">
           <div
-            className={clsx("relative border-secondary-main border-8", {
-              "border-solid": props.isFramed,
+            className={clsx("relative", {
+              "border-solid border-secondary-main border-8": props.isFramed,
             })}
           >
             {props.media}
