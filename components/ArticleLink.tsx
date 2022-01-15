@@ -22,7 +22,7 @@ export default function ArticleLink(props: {
         )}
       >
         <div className="relative mb-8">
-          <div className="relative border-secondary-main border-solid border-8">
+          <div className="relative">
             {props.media}
             {typeof props.isBookmarked === "boolean" && (
               <button
