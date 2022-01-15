@@ -361,6 +361,7 @@ export default function ClubIndexPage(
                         }))}
                         className="h-full"
                         isBookmarked={bookmarkedClubIds.includes(club.id)}
+                        isFramed
                         onBookmarkToggled={() => {
                           toggleClubBookmark(club.id);
                         }}

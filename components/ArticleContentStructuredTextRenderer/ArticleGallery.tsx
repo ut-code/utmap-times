@@ -109,6 +109,7 @@ export default function ArticleContentStructuredTextArticleGallery({
               }
               title={("title" in article ? article.title : article.name) ?? ""}
               url={url}
+              isFramed
             />
           );
         })}

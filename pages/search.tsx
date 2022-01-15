@@ -131,6 +131,7 @@ export default function SearchPage(
                           key={result.id}
                           title={result.title ?? ""}
                           category={result.category ?? ""}
+                          isFramed
                           url={result.url}
                           media={
                             <ResponsiveImageWithFallback
