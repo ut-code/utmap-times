@@ -8,6 +8,7 @@ import {
 } from "../__generated__/SitemapQuery";
 
 function Sitemap() {
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <></>;
 }
 

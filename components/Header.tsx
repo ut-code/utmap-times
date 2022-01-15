@@ -87,7 +87,7 @@ export default function Header() {
       </ClippableDiv>
       <div className="hidden lg:block">
         <Link href="/">
-          <a rel="トップページ">
+          <a>
             <Logo className="absolute top-0 left-0 w-32 h-32 bg-white hover:bg-gray-200" />
           </a>
         </Link>

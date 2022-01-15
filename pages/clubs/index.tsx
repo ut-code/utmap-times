@@ -333,69 +333,63 @@ export default function ClubIndexPage(
       </section>
 
       <SearchResultContainer className="my-12">
-        {searchQueryData ? (
-          <>
-            {searchQueryData._allClubsMeta.count === 0 ? (
-              <p className="px-8">
-                サークルが見つかりませんでした。キーワードを変えてお試しください。
-              </p>
-            ) : (
-              <>
-                <p className="mb-8 px-8">{`${searchQueryData._allClubsMeta.count}件のサークルが見つかりました。`}</p>
-                <SearchGrid>
-                  {searchQueryData.allClubs.map((club) => (
-                    <SearchGridItem key={club.id}>
-                      <ArticleLink
-                        title={club.name ?? ""}
-                        category={club.category?.name ?? ""}
-                        url={`/clubs/${club.id}`}
-                        media={
-                          <ResponsiveImageWithFallback
-                            data={club.images[0]?.responsiveImage}
-                            aspectRatio={16 / 9}
-                          />
-                        }
-                        tags={club.tags.map((tag) => ({
-                          id: tag.id,
-                          name: tag.name ?? "",
-                        }))}
-                        className="h-full"
-                        isBookmarked={bookmarkedClubIds.includes(club.id)}
-                        isFramed
-                        onBookmarkToggled={() => {
-                          toggleClubBookmark(club.id);
-                        }}
-                      />
-                    </SearchGridItem>
-                  ))}
-                </SearchGrid>
-                <div className="text-center mt-8">
-                  {searchQueryData.allClubs.length <
-                  searchQueryData._allClubsMeta.count ? (
-                    <button
-                      type="button"
-                      className={clsx(
-                        "h-12 w-64 text-white",
-                        !isLoading
-                          ? "bg-blue-900 hover:bg-blue-500"
-                          : "bg-gray-300"
-                      )}
-                      disabled={isLoading}
-                      onClick={fetchMore}
-                    >
-                      もっと見る
-                    </button>
-                  ) : (
-                    <p className="bg-gray-100 py-6">
-                      すべてのサークルを検索しました。
-                    </p>
-                  )}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
+        {!searchQueryData ? (
           <p>読み込み中です...</p>
+        ) : searchQueryData._allClubsMeta.count === 0 ? (
+          <p className="px-8">
+            サークルが見つかりませんでした。キーワードを変えてお試しください。
+          </p>
+        ) : (
+          <>
+            <p className="mb-8 px-8">{`${searchQueryData._allClubsMeta.count}件のサークルが見つかりました。`}</p>
+            <SearchGrid>
+              {searchQueryData.allClubs.map((club) => (
+                <SearchGridItem key={club.id}>
+                  <ArticleLink
+                    title={club.name ?? ""}
+                    category={club.category?.name ?? ""}
+                    url={`/clubs/${club.id}`}
+                    media={
+                      <ResponsiveImageWithFallback
+                        data={club.images[0]?.responsiveImage}
+                        aspectRatio={16 / 9}
+                      />
+                    }
+                    tags={club.tags.map((tag) => ({
+                      id: tag.id,
+                      name: tag.name ?? "",
+                    }))}
+                    className="h-full"
+                    isFramed
+                    isBookmarked={bookmarkedClubIds.includes(club.id)}
+                    onBookmarkToggled={() => {
+                      toggleClubBookmark(club.id);
+                    }}
+                  />
+                </SearchGridItem>
+              ))}
+            </SearchGrid>
+            <div className="text-center mt-8">
+              {searchQueryData.allClubs.length <
+              searchQueryData._allClubsMeta.count ? (
+                <button
+                  type="button"
+                  className={clsx(
+                    "h-12 w-64 text-white",
+                    !isLoading ? "bg-blue-900 hover:bg-blue-500" : "bg-gray-300"
+                  )}
+                  disabled={isLoading}
+                  onClick={fetchMore}
+                >
+                  もっと見る
+                </button>
+              ) : (
+                <p className="bg-gray-100 py-6">
+                  すべてのサークルを検索しました。
+                </p>
+              )}
+            </div>
+          </>
         )}
       </SearchResultContainer>
       <section className="bg-gray-50">

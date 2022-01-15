@@ -36,6 +36,7 @@ export default function ResponsiveImageWithFallback(props: {
     );
   return (
     <Image
+      layout="responsive"
       fadeInDuration={100}
       lazyLoad={props.lazyLoad}
       data={normalizeResponsiveImage(props.data)}

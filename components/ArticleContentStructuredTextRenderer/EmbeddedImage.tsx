@@ -25,16 +25,13 @@ export default function ArticleContentStructuredTextEmbeddedImage({
   fragment: ArticleContentStructuredTextEmbeddedImageFragment;
 }) {
   return (
-    <>
+    <div className="text-center">
       {fragment.image?.responsiveImage && (
-        <div className="text-center">
-          <Image
-            fadeInDuration={100}
-            explicitWidth={fragment.image.responsiveImage.width}
-            data={normalizeResponsiveImage(fragment.image.responsiveImage)}
-          />
-        </div>
+        <Image
+          fadeInDuration={100}
+          data={normalizeResponsiveImage(fragment.image.responsiveImage)}
+        />
       )}
-    </>
+    </div>
   );
 }
