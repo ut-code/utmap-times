@@ -327,6 +327,7 @@ export default function ClubsPage(
                       aspectRatio={16 / 9}
                     />
                   }
+                  isFramed
                   tags={related.tags.map((tag) => ({
                     id: tag.id,
                     name: tag.name ?? "",

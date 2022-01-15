@@ -62,6 +62,7 @@ export default function BookmarkedClubs(props: { className?: string }) {
                   data={club.images[0]?.responsiveImage}
                 />
               }
+              isFramed
               tags={club.tags.map((tag) => ({
                 id: tag.id,
                 name: tag.name ?? "",
