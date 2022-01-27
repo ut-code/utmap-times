@@ -22,7 +22,7 @@ export default function ArticleLinkCareer(props: {
           <img
             src={props.imageUrl ?? "images/utmap.jpg"}
             alt={props.title ?? ""}
-            className="w-full h-64 object-cover"
+            className="w-full object-contain"
           />
           <div className="absolute -bottom-4 bg-secondary-main py-2 px-6 text-white">
             {props.categoryName ?? ""}
