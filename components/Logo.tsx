@@ -1,9 +1,11 @@
 import clsx from "clsx";
+import { CSSProperties } from "react";
 
 export default function Logo(props: {
   white?: boolean;
   disableText?: boolean;
   className?: string;
+  style?: CSSProperties;
 }) {
   return (
     <svg
@@ -11,6 +13,7 @@ export default function Logo(props: {
       width="800"
       height="800"
       viewBox="0 0 800 800"
+      style={props.style}
     >
       <g
         className={clsx(

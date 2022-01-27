@@ -18,6 +18,7 @@ import ResponsiveImageWithFallback from "../../components/ResponsiveImageWithFal
 import GradientImageOverlay from "../../components/GradientImageOverlay";
 import CategoryChip from "../../components/CategoryChip";
 import { responsiveImageFragment } from "../../utils/datocms";
+import Logo from "../../components/Logo";
 
 export default function CareerIndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -35,18 +36,18 @@ export default function CareerIndexPage(
           <Image
             height={680}
             width={1200}
-            objectFit="contain"
+            objectFit="cover"
             src="/images/careers-top.jpg"
           />
-          <div className="absolute -bottom-64 sm:-bottom-48 lg:-bottom-36 right-0 max-w-4xl px-8 md:px-24 py-12 ml-6 bg-gray-50">
+          <div className="absolute -bottom-56 sm:-bottom-40 lg:-bottom-28 right-0 max-w-4xl px-8 md:px-24 py-12 ml-6 bg-gray-100">
             <p className="leading-loose">
-              ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。これはダミーテキ
-              ストです。ここに説明が入ります。ここに説明が入ります。これはダミーテキストです。ここに
-              説明が入ります。
-              <br />
-              ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。これはダミーテキ
-              ストです。ここに説明が入ります。ここに説明が入ります。これはダミーテキストです。ここに
-              説明が入ります。
+              東大生の3つ目の選択である「キャリア選択」。
+            </p>
+            <p className="leading-loose">
+              就職、院進、起業と、多様なキャリアがある中で、私たちが輝けるキャリアは何でしょうか。
+            </p>
+            <p className="leading-loose">
+              社会に踏み出す最初の一歩を、UTmapがサポートします。
             </p>
           </div>
         </div>
@@ -65,7 +66,7 @@ export default function CareerIndexPage(
             <a
               key={component.linkTo}
               href={component.linkTo}
-              className="col-span-2 lg:flex-grow block py-4 border border-black bg-gray-50"
+              className="col-span-2 lg:flex-grow block py-4 border border-black bg-gray-100"
             >
               <div className="h-12 w-24 mx-auto flex flex-wrap items-center justify-center">
                 <p>{component.title}</p>
@@ -77,7 +78,7 @@ export default function CareerIndexPage(
             <a
               key={component.linkTo}
               href={component.linkTo}
-              className="lg:flex-grow block py-4 border border-black bg-gray-50"
+              className="lg:flex-grow block py-4 border border-black bg-gray-100"
             >
               <div className="h-12 w-24 mx-auto flex flex-wrap items-center justify-center">
                 <p>{component.title}</p>
@@ -89,13 +90,15 @@ export default function CareerIndexPage(
         )}
       </div>
       <div className="bg-gray-100 w-full">
-        <Image
-          height={640}
-          width={1440}
-          src="/images/careers-career-strategies.jpg"
-        />
-        <div className="-mt-12 lg:-mt-24 w-full bg-gray-50">
-          <div className="relative w-5/6 mr-0 ml-auto lg:mx-auto bg-white">
+        <div className="w-fit mx-auto">
+          <Image
+            height={640}
+            width={1440}
+            src="/images/careers-career-strategies.jpg"
+          />
+        </div>
+        <div className="-mt-12 lg:-mt-24 w-full bg-gray-100">
+          <div className="relative w-5/6 mr-0 ml-auto lg:mx-auto overflow-hidden bg-white">
             <div
               id="career-strategies"
               className="py-16 lg:py-24 px-14 lg:grid lg:grid-cols-7"
@@ -108,26 +111,28 @@ export default function CareerIndexPage(
                 />
               </div>
               <p className="lg:col-span-4 leading-loose">
-                ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。
-                <br />
-                ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。
+                ⽇本ヘッドハンター⼤賞MVP受賞実績を持つ（株）コンコードエグゼクティブグループCEO渡辺秀和⽒を迎えて制作した「東⼤⽣のためのキャリア戦略論」です。東京⼤学で⼈気を博したキャリアデザインの授業
+                「キャリア・マーケットデザイン」のコースディレクターを務めた渡辺秀和氏が、不透明な時代を生き抜くためのキャリア設計法を解説します。
               </p>
               <CareersPageLinkButton
                 linkTo="/career-strategies"
                 className="mt-12 block lg:hidden"
               />
             </div>
-            {/* <div className="absolute -top-24 -right-40 w-4/5 h-full overflow-hidden">
-              <Logo disableText className="hidden lg:block w-full opacity-10" />
-          </div> */}
+            <div className="absolute -bottom-72 -right-40">
+              <Logo
+                disableText
+                className="hidden lg:block opacity-10"
+                style={{ height: "720px" }}
+              />
+            </div>
+            <div className="absolute -top-36 -right-64">
+              <Logo disableText className="block lg:hidden opacity-10" />
+            </div>
           </div>
         </div>
       </div>
-      <div className="bg-gray-50">
+      <div className="bg-gray-100">
         <div className="container mx-auto text-center">
           <p className="text-3xl pt-20 pb-4">キャリア設計を支える3つの柱</p>
           <p className="text-secondary-main pb-16">
@@ -140,7 +145,7 @@ export default function CareerIndexPage(
             <CareersPageFeatureLink
               title="企業分析"
               subTitle="Corporate Analysis"
-              imageUrl="/images/companies.jpg"
+              imageUrl="/images/careers-corporate-analysis.jpg"
               linkTo="/career-strategies"
               className="max-w-sm"
             />
@@ -161,33 +166,36 @@ export default function CareerIndexPage(
           </div>
         </div>
       </div>
-      <div className="bg-gray-50 py-24">
+      <div className="py-24">
         <div className="lg:relative">
-          <div className="relative lg:absolute lg:top-0 lg:-left-20 w-11/12 lg:w-1/2 h-96 lg:h-full lg:pr-28">
+          <div className="relative lg:absolute lg:top-0 lg:-left-20 w-5/6 lg:w-1/2 h-96 lg:h-full lg:pr-28">
             <Image
               layout="fill"
               src="/images/careers-graduates.jpg"
               objectFit="cover"
             />
           </div>
-          <div className="container mx-auto">
-            <div
-              id="graduates"
-              className="lg:w-1/2 mr-0 ml-auto py-16 px-8 lg:pr-10"
-            >
-              <p className="py-12 border-t-2 border-secondary-main text-2xl lg:text-4xl">
-                卒業生インタビュー
-              </p>
-              <p className="leading-loose pb-20">
-                ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。
-                <br />
-                ここに説明が入ります。これはダミーテキストです。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。ここに説明が入ります。
-                これはダミーテキストです。ここに説明が入ります。
-              </p>
-              <CareersPageLinkButton linkTo="/graduates" />
+          <div className=" relative overflow-hidden">
+            <div className="container mx-auto">
+              <div
+                id="graduates"
+                className="lg:w-1/2 mr-0 ml-auto py-16 px-8 lg:pr-10"
+              >
+                <p className="py-12 border-t-2 border-secondary-main text-2xl lg:text-4xl">
+                  卒業生インタビュー
+                </p>
+                <p className="leading-loose pb-20">
+                  東大生のキャリアに大きな影響をもたらす3つの意思決定、「サークル」「進学選択」「就活」。
+                  <br />
+                  東大の先輩は、どのように選択し、どのようなキャリア歩んでいるのか。
+                  <br />
+                  卒業生のインタビューを通して、多様なキャリアを紹介します。
+                </p>
+                <CareersPageLinkButton linkTo="/graduates" />
+              </div>
+            </div>
+            <div className="absolute  -top-36 -right-64">
+              <Logo disableText className="block lg:hidden opacity-10" />
             </div>
           </div>
         </div>
@@ -212,14 +220,19 @@ export default function CareerIndexPage(
           </ul>
         </div>
       </div>
-      <div className="bg-white py-24">
+      <div className="bg-gray-100 py-24">
         <SectionHeader
           className="mb-12"
           title="INTERNSHIP"
           subtitle="インターンシップ情報"
         />
+        {props.allInternships.length === 0 && (
+          <p className="text-center">
+            現在、募集中のインターンシップはございません。
+          </p>
+        )}
         <Carousel
-          aspectRatio={9 / 16}
+          aspectRatio={16 / 9}
           cards={props.allInternships.map((internship) => ({
             key: internship.id,
             content: (
@@ -242,18 +255,21 @@ export default function CareerIndexPage(
           }))}
         />
       </div>
-      <div className="bg-gray-50 py-24">
+      <div className="pt-24 pb-48">
         <SectionHeader
           className="mb-12"
           title="RECRUIT EVENT"
           subtitle="就活イベント情報"
         />
+        {props.allEvents.length === 0 && (
+          <p className="text-center">現在、募集中のイベントはございません。</p>
+        )}
         <Carousel
-          aspectRatio={9 / 16}
+          aspectRatio={16 / 9}
           cards={props.allEvents.map((event) => ({
             key: event.id,
             content: (
-              <Link href={`/events/${event.slug}`}>
+              <Link href={`/internships/${event.slug}`}>
                 <a className="block relative w-full h-full">
                   <ResponsiveImageWithFallback
                     aspectRatio={16 / 9}
@@ -272,7 +288,7 @@ export default function CareerIndexPage(
           }))}
         />
       </div>
-      <div className="py-24">
+      {/* <div className="py-24">
         <div className="lg:relative">
           <div className="relative lg:absolute lg:top-0 lg:right-0 w-11/12 lg:w-1/2 h-96 lg:h-full lg:pl-28">
             <Image
@@ -300,7 +316,7 @@ export default function CareerIndexPage(
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </Layout>
   );
 }
