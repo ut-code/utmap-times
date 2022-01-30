@@ -175,7 +175,7 @@ export default function IndexPage(
         image="/images/top-careers.jpg"
         title="Careers"
         subtitle="就職・キャリア選択のサポート"
-        linkTo="/graduates"
+        linkTo="/careers"
         descriptionParagraphs={[
           "東大生の3つ目の選択。",
           "就職？院進？起業？",
