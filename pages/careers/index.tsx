@@ -19,6 +19,7 @@ import GradientImageOverlay from "../../components/GradientImageOverlay";
 import CategoryChip from "../../components/CategoryChip";
 import { responsiveImageFragment } from "../../utils/datocms";
 import Logo from "../../components/Logo";
+import CareerPickUpLink from "../../components/CareerPickUpLink";
 
 export default function CareerIndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -167,6 +168,20 @@ export default function CareerIndexPage(
         </div>
       </div>
       <div className="py-24">
+        <SectionHeader className="mb-12" title="PICK UP" subtitle="注目記事" />
+        <Carousel
+          aspectRatio={16 / 9}
+          cards={props.allCareerPickUpArticles.map((article) => ({
+            key: article.article?.id,
+            content: article.article ? (
+              <CareerPickUpLink article={article.article} />
+            ) : (
+              <div />
+            ),
+          }))}
+        />
+      </div>
+      <div className="bg-gray-100 py-24">
         <div className="lg:relative">
           <div className="relative lg:absolute lg:top-0 lg:-left-20 w-5/6 lg:w-1/2 h-96 lg:h-full lg:pr-28">
             <Image
@@ -220,7 +235,7 @@ export default function CareerIndexPage(
           </ul>
         </div>
       </div>
-      <div className="bg-gray-100 py-24">
+      <div className="py-24">
         <SectionHeader
           className="mb-12"
           title="INTERNSHIP"
@@ -255,7 +270,7 @@ export default function CareerIndexPage(
           }))}
         />
       </div>
-      <div className="pt-24 pb-48">
+      <div className="bg-gray-100 pt-24 pb-48">
         <SectionHeader
           className="mb-12"
           title="RECRUIT EVENT"
@@ -326,6 +341,46 @@ export async function getStaticProps() {
     query: gql`
       ${responsiveImageFragment}
       query CareerIndexQuery {
+        allCareerPickUpArticles {
+          article {
+            ... on CompanyRecord {
+              id
+              slug
+              name
+              industry {
+                name
+              }
+              thumbnailImage {
+                responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                  ...ResponsiveImageFragment
+                }
+              }
+            }
+            ... on GraduateArticleRecord {
+              id
+              slug
+              title
+              category {
+                name
+              }
+              image {
+                responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                  ...ResponsiveImageFragment
+                }
+              }
+            }
+            ... on IndustryRecord {
+              id
+              slug
+              name
+              image {
+                responsiveImage(imgixParams: { ar: "16:9", fit: crop }) {
+                  ...ResponsiveImageFragment
+                }
+              }
+            }
+          }
+        }
         allGraduateArticles(first: 3) {
           id
           slug
