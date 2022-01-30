@@ -55,9 +55,9 @@ export default function CareerIndexPage(
       <div className="container mx-auto grid grid-cols-2 lg:flex px-8 pb-24">
         {[
           { title: "キャリア戦略", linkTo: "#career-strategies" },
-          { title: "企業分析", linkTo: "#companies" },
-          { title: "業界分析", linkTo: "#companies" },
-          { title: "職種分析", linkTo: "#companies" },
+          { title: "企業分析", linkTo: "/companies" },
+          { title: "業界分析", linkTo: "/career-strategies" },
+          { title: "職種分析", linkTo: "/career-strategies" },
           { title: "キャリア特集", linkTo: "#graduates" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
           { title: "就活用語", linkTo: "#careers" },
