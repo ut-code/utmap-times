@@ -61,9 +61,10 @@ export default function CareerIndexPage(
           { title: "職種分析", linkTo: "/career-strategies" },
           { title: "キャリア特集", linkTo: "#graduates" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
-          { title: "就活用語", linkTo: "#careers" },
-        ].map((component) =>
-          component.title === "キャリア戦略" ? (
+          // { title: "就活用語", linkTo: "#careers" },
+        ].map(
+          (component) => (
+            /* component.title === "キャリア戦略" ? (
             <a
               key={component.linkTo}
               href={component.linkTo}
@@ -75,7 +76,7 @@ export default function CareerIndexPage(
               </div>
               <AiOutlineDown className="mx-auto text-center text-secondary-main" />
             </a>
-          ) : (
+          ) : ( */
             <a
               key={component.linkTo}
               href={component.linkTo}
@@ -88,6 +89,7 @@ export default function CareerIndexPage(
               <AiOutlineDown className="mx-auto text-center text-secondary-main" />
             </a>
           )
+          // )
         )}
       </div>
       <div className="bg-gray-100 w-full">
