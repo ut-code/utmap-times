@@ -102,7 +102,7 @@ export default function CareerIndexPage(
           <div className="relative w-5/6 mr-0 ml-auto lg:mx-auto overflow-hidden bg-white">
             <div
               id="career-strategies"
-              className="py-16 lg:py-24 px-14 lg:grid lg:grid-cols-7"
+              className="z-10 relative py-16 lg:py-24 px-14 lg:grid lg:grid-cols-7"
             >
               <div className="lg:col-span-3">
                 <p className="text-2xl lg:text-4xl pb-10">キャリア戦略</p>
@@ -120,7 +120,7 @@ export default function CareerIndexPage(
                 className="mt-12 block lg:hidden"
               />
             </div>
-            <div className="absolute -bottom-72 -right-40">
+            <div className="z-0 absolute -bottom-72 -right-40">
               <Logo
                 disableText
                 className="hidden lg:block opacity-10"
@@ -190,8 +190,8 @@ export default function CareerIndexPage(
               objectFit="cover"
             />
           </div>
-          <div className=" relative overflow-hidden">
-            <div className="container mx-auto">
+          <div className="relative overflow-hidden">
+            <div className="z-10 relative container mx-auto">
               <div
                 id="graduates"
                 className="lg:w-1/2 mr-0 ml-auto py-16 px-8 lg:pr-10"
@@ -209,7 +209,7 @@ export default function CareerIndexPage(
                 <CareersPageLinkButton linkTo="/graduates" />
               </div>
             </div>
-            <div className="absolute  -top-36 -right-64">
+            <div className="z-0 absolute  -top-36 -right-64">
               <Logo disableText className="block lg:hidden opacity-10" />
             </div>
           </div>
