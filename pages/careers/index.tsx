@@ -216,15 +216,15 @@ export default function CareerIndexPage(
         </div>
         <div className="container mx-auto pt-16">
           <ul className="md:grid md:grid-cols-2 xl:grid-cols-3">
-            {props.allGraduateArticles.map((graduateArticle) => (
-              <li key={graduateArticle.id}>
+            {props.allCareerPickUpGraduateArticles.map((pickUp) => (
+              <li key={pickUp.graduateArticle?.id}>
                 <ArticleLinkCareer
-                  slug={graduateArticle.slug ?? ""}
-                  title={graduateArticle.title ?? ""}
-                  imageUrl={graduateArticle.image?.url}
-                  categoryName={graduateArticle.category?.name ?? ""}
-                  date={graduateArticle.date}
-                  tags={graduateArticle.tags.map((tag) => ({
+                  slug={pickUp.graduateArticle?.slug ?? ""}
+                  title={pickUp.graduateArticle?.title ?? ""}
+                  imageUrl={pickUp.graduateArticle?.image?.url}
+                  categoryName={pickUp.graduateArticle?.category?.name ?? ""}
+                  date={pickUp.graduateArticle?.date}
+                  tags={pickUp.graduateArticle?.tags.map((tag) => ({
                     id: tag.id,
                     name: tag.name ?? "",
                   }))}
@@ -387,21 +387,23 @@ export async function getStaticProps() {
             }
           }
         }
-        allGraduateArticles(first: 3) {
-          id
-          slug
-          title
-          date
-          image {
+        allCareerPickUpGraduateArticles(first: 3) {
+          graduateArticle {
             id
-            url(imgixParams: { maxW: 300 })
-          }
-          category {
-            name
-          }
-          tags {
-            id
-            name
+            slug
+            title
+            date
+            image {
+              id
+              url(imgixParams: { maxW: 300 })
+            }
+            category {
+              name
+            }
+            tags {
+              id
+              name
+            }
           }
         }
         allInternships(first: 5) {
