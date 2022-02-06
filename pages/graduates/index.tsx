@@ -56,11 +56,15 @@ export default function GraduatArticleIndexPage(
       <section className="container mx-auto py-24 lg:py-32">
         <SectionHeader className="mb-12" title="PICKUP" subtitle="注目の記事" />
         <HighlightedArticleLink
-          title={props.randomArticle.title ?? ""}
+          title={props.graduatePickUpArticle?.graduateArticle?.title ?? ""}
           aspectRatio={4 / 3}
-          responsiveImage={props.randomArticle.image?.responsiveImage}
-          category={props.randomArticle.category?.name ?? ""}
-          url={`/graduates/${props.randomArticle.slug}`}
+          responsiveImage={
+            props.graduatePickUpArticle?.graduateArticle?.image?.responsiveImage
+          }
+          category={
+            props.graduatePickUpArticle?.graduateArticle?.category?.name ?? ""
+          }
+          url={`/graduates/${props.graduatePickUpArticle?.graduateArticle?.slug}`}
         />
       </section>
       <section className="bg-gray-200">
@@ -330,6 +334,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       query: gql`
         ${responsiveImageFragment}
         query GraduateArticleIndexMetaQuery {
+          graduatePickUpArticle {
+            graduateArticle {
+              id
+              slug
+              title
+              date
+              image {
+                id
+                responsiveImage(
+                  imgixParams: { ar: "4:3", fit: crop, w: 1000 }
+                ) {
+                  ...ResponsiveImageFragment
+                }
+              }
+              category {
+                name
+              }
+              tags {
+                id
+                slug
+                name
+              }
+            }
+          }
           allGraduateArticleCategories {
             id
             name
@@ -412,9 +440,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     : {};
   const variables: GraduateArticleIndexQueryVariables = {
     filter: { ...nameFilter, ...categoryFilter, ...tagFilter },
-    randomArticleIndex: Math.ceil(
-      Math.random() * metaQueryResult.data._allGraduateArticlesMeta.count
-    ),
     first: ARTICLES_PER_PAGE,
     skip:
       (context.query.page &&
@@ -429,32 +454,33 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       ${responsiveImageFragment}
       query GraduateArticleIndexQuery(
         $filter: GraduateArticleModelFilter
-        $randomArticleIndex: IntType!
         $first: IntType!
         $skip: IntType!
       ) {
-        randomArticle: allGraduateArticles(skip: $randomArticleIndex) {
-          id
-          slug
-          title
-          date
-          image {
-            id
-            responsiveImage(imgixParams: { ar: "4:3", fit: crop, w: 1000 }) {
-              ...ResponsiveImageFragment
-            }
-          }
-          category {
-            name
-          }
-          tags {
-            id
-            slug
-            name
-          }
-        }
         _allGraduateArticlesMeta(filter: $filter) {
           count
+        }
+        graduatePickUpArticle {
+          graduateArticle {
+            id
+            slug
+            title
+            date
+            image {
+              id
+              responsiveImage(imgixParams: { ar: "4:3", fit: crop, w: 1000 }) {
+                ...ResponsiveImageFragment
+              }
+            }
+            category {
+              name
+            }
+            tags {
+              id
+              slug
+              name
+            }
+          }
         }
         allGraduateArticles(filter: $filter, first: $first, skip: $skip) {
           id
@@ -480,13 +506,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `,
     variables,
   });
-  const randomArticle = queryResult.data.randomArticle[0];
-  if (!randomArticle) throw new Error("No articles found.");
   return {
     props: {
       graduateArticleCount: queryResult.data._allGraduateArticlesMeta.count,
       graduateArticles: queryResult.data.allGraduateArticles,
-      randomArticle,
+      graduatePickUpArticle: queryResult.data.graduatePickUpArticle,
       graduateArticleCategories:
         metaQueryResult.data.allGraduateArticleCategories,
       graduateArticleTags: metaQueryResult.data.allGraduateArticleTags,
