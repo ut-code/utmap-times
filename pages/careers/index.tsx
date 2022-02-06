@@ -259,7 +259,10 @@ export default function CareerIndexPage(
                   />
                   <GradientImageOverlay />
                   <div className="absolute bottom-0 left-0 w-full px-20 py-6 md:py-12 md:px-12 text-white">
-                    <CategoryChip type="secondary" className="mb-4 md:mb-6">
+                    <CategoryChip
+                      type={internship.isRecruiting ? "secondary" : "disabled"}
+                      className="mb-4 md:mb-6"
+                    >
                       {internship.isRecruiting ? "募集中" : "募集終了"}
                     </CategoryChip>
                     <p className="text-xl md:text-2xl">{internship.title}</p>
@@ -292,7 +295,10 @@ export default function CareerIndexPage(
                   />
                   <GradientImageOverlay />
                   <div className="absolute bottom-0 left-0 w-full px-20 py-6 md:py-12 md:px-12 text-white">
-                    <CategoryChip type="secondary" className="mb-4 md:mb-6">
+                    <CategoryChip
+                      type={event.isRecruiting ? "secondary" : "disabled"}
+                      className="mb-4 md:mb-6"
+                    >
                       {event.isRecruiting ? "募集中" : "募集終了"}
                     </CategoryChip>
                     <p className="text-xl md:text-2xl">{event.title}</p>
@@ -398,7 +404,7 @@ export async function getStaticProps() {
             name
           }
         }
-        allInternships(filter: { isRecruiting: { eq: true } }, first: 5) {
+        allInternships(first: 5) {
           id
           slug
           title
@@ -414,7 +420,7 @@ export async function getStaticProps() {
             }
           }
         }
-        allEvents(filter: { isRecruiting: { eq: true } }, first: 5) {
+        allEvents(first: 5) {
           id
           slug
           title
