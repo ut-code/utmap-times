@@ -20,7 +20,7 @@ export default function AritcleLinkEvent(props: {
     <Link href={props.url}>
       <a
         className={clsx(
-          "block p-8 cursor-pointer hover:bg-gray-100",
+          "block p-8 cursor-pointer hover:bg-gray-100 h-full",
           props.className
         )}
       >
