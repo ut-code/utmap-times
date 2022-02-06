@@ -33,14 +33,9 @@ export default function CareerIndexPage(
       />
       <Banners />
       <div className="pt-24 py-72 sm:py-56">
-        <div className="relative">
-          <Image
-            height={680}
-            width={1200}
-            objectFit="cover"
-            src="/images/careers-top.jpg"
-          />
-          <div className="absolute -bottom-56 sm:-bottom-40 lg:-bottom-28 right-0 max-w-4xl px-8 md:px-24 py-12 ml-6 bg-gray-100">
+        <div className="relative md:pr-20 lg:pr-52">
+          <Image height={1020} width={1800} src="/images/careers-top.jpg" />
+          <div className="absolute -bottom-52 sm:-bottom-36 lg:-bottom-32 right-0 max-w-4xl px-8 md:px-28 py-12 lg:py-20 ml-6 bg-gray-100">
             <p className="leading-loose">
               東大生の3つ目の選択である「キャリア選択」。
             </p>
@@ -95,8 +90,8 @@ export default function CareerIndexPage(
       <div className="bg-gray-100 w-full">
         <div className="w-fit mx-auto">
           <Image
-            height={640}
-            width={1440}
+            height={960}
+            width={2160}
             src="/images/careers-career-strategies.jpg"
           />
         </div>
