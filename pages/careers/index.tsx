@@ -51,10 +51,10 @@ export default function CareerIndexPage(
       <div className="container mx-auto grid grid-cols-2 lg:flex px-8 pb-24">
         {[
           { title: "キャリア戦略", linkTo: "#career-strategies" },
-          { title: "企業分析", linkTo: "/companies" },
-          { title: "業界分析", linkTo: "/career-strategies" },
-          { title: "職種分析", linkTo: "/career-strategies" },
-          { title: "キャリア特集", linkTo: "#graduates" },
+          { title: "企業分析", linkTo: "#companies" },
+          { title: "業界分析", linkTo: "#companies" },
+          { title: "職種分析", linkTo: "#companies" },
+          { title: "キャリア特集", linkTo: "#career-strategies" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
           // { title: "就活用語", linkTo: "#careers" },
         ].map(
@@ -131,20 +131,17 @@ export default function CareerIndexPage(
         </div>
       </div>
       <div className="bg-gray-100">
-        <div className="container mx-auto text-center">
+        <div id="companies" className="container mx-auto text-center">
           <p className="text-3xl pt-20 pb-4">キャリア設計を支える3つの柱</p>
           <p className="text-secondary-main pb-16">
             Three points to support career planning
           </p>
-          <div
-            id="companies"
-            className="px-20 pb-28 grid lg:grid-cols-3 w-full justify-center"
-          >
+          <div className="px-20 pb-28 grid lg:grid-cols-3 w-full justify-center">
             <CareersPageFeatureLink
               title="企業分析"
               subTitle="Corporate Analysis"
               imageUrl="/images/careers-corporate-analysis.jpg"
-              linkTo="/career-strategies"
+              linkTo="/companies"
               className="max-w-sm"
             />
             <CareersPageFeatureLink
