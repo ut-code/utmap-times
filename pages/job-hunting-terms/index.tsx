@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
+import { useState } from "react";
 import Layout from "../../components/Layout";
 import apolloClient from "../../utils/apollo";
 import { JobHuntingTermQuery } from "../../__generated__/JobHuntingTermQuery";
@@ -7,12 +8,41 @@ import { JobHuntingTermQuery } from "../../__generated__/JobHuntingTermQuery";
 export default function JobHuntingTermIndexPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  const [focusedJobHuntingTerm, setFocusedJobHuntingTerm] = useState(null);
   return (
-    <Layout title="就活用語">
-      {props.jobHuntingTerms.map((term) => (
-        <div key={term.id}>{term.name}</div>
-      ))}
-    </Layout>
+    <>
+      <Layout title="就活用語">
+        {props.jobHuntingTerms.map((term) => (
+          <div key={term.id}>
+            <button
+              type="button"
+              onClick={() => {
+                setFocusedJobHuntingTerm(term.id);
+              }}
+            >
+              {term.name}
+            </button>
+          </div>
+        ))}
+      </Layout>
+
+      {focusedJobHuntingTerm !== null && (
+        <div>
+          説明
+          <button
+            type="button"
+            onClick={() => {
+              setFocusedJobHuntingTerm(null);
+            }}
+          >
+            説明
+            {props.jobHuntingTerms.find(
+              (term) => focusedJobHuntingTerm === term.id
+            )?.description ?? ""}
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 
