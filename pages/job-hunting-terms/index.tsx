@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import clsx from "clsx";
 import { InferGetStaticPropsType } from "next";
 import { useState } from "react";
 import IndexHeroContent from "../../components/IndexHeroContent";
@@ -34,31 +35,63 @@ export default function JobHuntingTermIndexPage(
                   }
                 }}
               >
-                <h4 className="text-lg mr-2">{term.name}</h4>
+                <h4
+                  className={clsx(
+                    "text-lg mr-2",
+                    focusedJobHuntingTerm === term.id
+                      ? "bg-yellow-300"
+                      : "bg-white"
+                  )}
+                >
+                  {term.name}
+                </h4>
                 <div
                   aria-hidden
                   className="flex-grow border-b border-gray-400"
                 />
               </button>
             </header>
+            <ul>
+              {focusedJobHuntingTerm !== null &&
+                focusedJobHuntingTerm === term.id && (
+                  <div>
+                    説明
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFocusedJobHuntingTerm(null);
+                      }}
+                    >
+                      <div className={clsx("block py-1 px-2 text-sm")}>
+                        {props.jobHuntingTerms.find(
+                          (term) => focusedJobHuntingTerm === term.id
+                        )?.description ?? ""}
+                      </div>
+                    </button>
+                  </div>
+                )}
+            </ul>
           </div>
         ))}
-
-        {focusedJobHuntingTerm !== null && (
-          <div>
-            説明
-            <button
-              type="button"
-              onClick={() => {
-                setFocusedJobHuntingTerm(null);
-              }}
-            >
-              {props.jobHuntingTerms.find(
-                (term) => focusedJobHuntingTerm === term.id
-              )?.description ?? ""}
-            </button>
-          </div>
-        )}
+        {/* <ul>
+          {focusedJobHuntingTerm !== null && (
+            <div>
+              説明
+              <button
+                type="button"
+                onClick={() => {
+                  setFocusedJobHuntingTerm(null);
+                }}
+              >
+                <div className={clsx("block py-1 px-2 text-sm")}>
+                  {props.jobHuntingTerms.find(
+                    (term) => focusedJobHuntingTerm === term.id
+                  )?.description ?? ""}
+                </div>
+              </button>
+            </div>
+          )}
+        </ul> */}
       </div>
     </Layout>
   );
