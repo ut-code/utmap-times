@@ -162,18 +162,28 @@ export default function CareerIndexPage(
         </div>
       </div>
       <div className="py-24">
-        <SectionHeader className="mb-12" title="PICK UP" subtitle="注目記事" />
-        <Carousel
-          aspectRatio={16 / 9}
-          cards={props.allCareerPickUpArticles.map((article) => ({
-            key: article.article?.id,
-            content: article.article ? (
-              <CareerPickUpLink article={article.article} />
-            ) : (
-              <div />
-            ),
-          }))}
-        />
+        <div className="p-8 container mx-auto">
+          <SectionHeader
+            className="mb-12"
+            title="PICK UP"
+            subtitle="注目記事"
+            textleft
+          />
+        </div>
+        <ul className="overflow-x-auto whitespace-nowrap flex items-stretch">
+          {props.allCareerPickUpArticles.map((article) => (
+            <li
+              key={article.article?.id}
+              className="grow-0 shrink-0 basis-5/6 md:basis-7/12 lg:basis-5/12 flex"
+            >
+              {article.article ? (
+                <CareerPickUpLink article={article.article} />
+              ) : (
+                <div />
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="bg-gray-100 py-24">
         <div className="lg:relative">
