@@ -391,7 +391,7 @@ export async function getStaticProps() {
             }
           }
         }
-        allCareerPickUpGraduateArticles(first: 3) {
+        allCareerPickUpGraduateArticles(first: 6) {
           graduateArticle {
             id
             slug
