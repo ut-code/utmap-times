@@ -281,7 +281,7 @@ export default function CareerIndexPage(
           cards={props.allEvents.map((event) => ({
             key: event.id,
             content: (
-              <Link href={`/internships/${event.slug}`}>
+              <Link href={`/events/${event.slug}`}>
                 <a className="block relative w-full h-full">
                   <ResponsiveImageWithFallback
                     aspectRatio={16 / 9}
