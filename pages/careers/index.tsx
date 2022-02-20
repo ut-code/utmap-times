@@ -170,9 +170,12 @@ export default function CareerIndexPage(
             textleft
           />
         </div>
-        <ul className="overflow-x-auto whitespace-nowrap">
+        <ul className="overflow-x-auto whitespace-nowrap flex items-stretch">
           {props.allCareerPickUpArticles.map((article) => (
-            <li className="inline-block h-full w-5/6 md:w-7/12 lg:w-5/12 align-top">
+            <li
+              key={article.article?.id}
+              className="grow-0 shrink-0 basis-5/6 md:basis-7/12 lg:basis-5/12 flex"
+            >
               {article.article ? (
                 <CareerPickUpLink article={article.article} />
               ) : (
