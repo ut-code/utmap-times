@@ -61,7 +61,8 @@ export default function CareerIndexPage(
           { title: "職種分析", linkTo: "/career-strategies" },
           { title: "キャリア特集", linkTo: "#graduates" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
-          { title: "就活用語", linkTo: "#careers" },
+          // { title: "就活用語", linkTo: "#careers" },
+          { title: "就活用語", linkTo: "/job-hunting-terms" },
         ].map((component) =>
           component.title === "キャリア戦略" ? (
             <a
