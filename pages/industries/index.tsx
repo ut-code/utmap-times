@@ -28,7 +28,7 @@ export default function IndustryIndexPage(
           <ul className="md:grid md:grid-cols-2 xl:grid-cols-3 items-center">
             {props.industries.map((industry) => (
               <li key={industry.id}>
-                <Link href="https://utmap.jp/" scroll={false}>
+                <Link href={`industries/${industry.slug}`} scroll={false}>
                   <a className="block relative p-4 hover:bg-gray-300">
                     <img
                       src={industry.image?.url}
