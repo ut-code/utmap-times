@@ -399,7 +399,7 @@ export async function getStaticProps() {
             date
             image {
               id
-              url(imgixParams: { maxW: 300 })
+              url(imgixParams: { ar: "4:3", fit: crop, w: 300 })
             }
             category {
               name
