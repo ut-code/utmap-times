@@ -64,7 +64,7 @@ export default function JobHuntingTermIndexPage(
                     >
                       <div className={clsx("block py-1 px-2 text-sm")}>
                         {props.jobHuntingTerms.find(
-                          (term) => focusedJobHuntingTerm === term.id
+                          (_term) => focusedJobHuntingTerm === _term.id
                         )?.description ?? ""}
                       </div>
                     </button>
