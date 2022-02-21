@@ -60,9 +60,6 @@ export default function IndustryPage(
             (description) =>
               description.content && (
                 <li key={description.title} className="mb-24">
-                  <div className="p-4 bg-gray-100 text-xl font-bold">
-                    {description.title}
-                  </div>
                   <div className="px-2">
                     <ArticleContentStructuredTextRenderer
                       structuredText={description.content}
