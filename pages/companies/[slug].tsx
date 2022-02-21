@@ -176,6 +176,16 @@ export default function CompanyPage(
               content: props.company.careerVision,
               hasContent: props.company.hasCareerVision,
             },
+            {
+              title: "福利厚生",
+              content: props.company.welfare,
+              hasContent: props.company.hasWelfare,
+            },
+            {
+              title: "その他",
+              content: props.company.others,
+              hasContent: props.company.hasOthers,
+            },
           ].map(
             (description) =>
               description.content &&
@@ -445,6 +455,54 @@ export async function getStaticProps({
           }
           hasCareerVision
           careerVision {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
+              }
+              ... on CallToActionButtonRecord {
+                ...ArticleContentStructuredTextCallToActionButtonFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentStructuredTextPersonAndStatementFragment
+              }
+            }
+            value
+          }
+          hasWelfare
+          welfare {
+            blocks {
+              ... on ArticleGalleryRecord {
+                ...ArticleContentStructuredTextArticleGalleryFragment
+              }
+              ... on ArticleLinkRecord {
+                ...ArticleContentStructuredTextArticleLinkFragment
+              }
+              ... on CallToActionButtonRecord {
+                ...ArticleContentStructuredTextCallToActionButtonFragment
+              }
+              ... on EmbeddedVideoRecord {
+                ...ArticleContentStructuredTextEmbeddedVideoFragment
+              }
+              ... on EmbeddedImageRecord {
+                ...ArticleContentStructuredTextEmbeddedImageFragment
+              }
+              ... on PersonAndStatementRecord {
+                ...ArticleContentStructuredTextPersonAndStatementFragment
+              }
+            }
+            value
+          }
+          hasOthers
+          others {
             blocks {
               ... on ArticleGalleryRecord {
                 ...ArticleContentStructuredTextArticleGalleryFragment
