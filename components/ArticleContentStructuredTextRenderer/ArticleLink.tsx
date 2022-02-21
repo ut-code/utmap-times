@@ -126,7 +126,7 @@ export default function ArticleContentStructuredTextArticleLink({
   return (
     <Link href={normalized?.link ?? ""}>
       <a className="block lg:flex lg:items-center max-w-screen-md mx-auto p-6 lg:p-0 hover:bg-gray-100">
-        <div className="flex-shrink-0 w-72 mx-auto mb-6 lg:m-0 lg:mr-4 border-8 border-secondary-main">
+        <div className="flex-shrink-0 w-72 mx-auto mb-6 lg:m-0 lg:mr-4">
           <ResponsiveImageWithFallback
             aspectRatio={4 / 3}
             data={normalized?.imageField?.responsiveImage}
