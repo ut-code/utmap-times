@@ -15,6 +15,7 @@ import { articleStructuredTextContentPersonAndStatementFragment } from "../../co
 import Banners from "../../components/Banners";
 import Hero from "../../components/Hero";
 import Layout from "../../components/Layout";
+import SnsShareLinks from "../../components/SnsShareLinks";
 import apolloClient from "../../utils/apollo";
 import AritcleLinkCompanyEvent from "../../components/ArticleLinkCompanyEvent";
 import {
@@ -34,11 +35,12 @@ export default function IndustryPage(
       </Hero>
       <Banners />
       <ArticleContentContainer>
-        <div className="pt-24 pb-12">
+        <div className="pt-24 pb-12 border-b-2">
           <h1 className="pl-2 text-2xl md:text-3xl font-bold">
             {props.industry.title}
           </h1>
         </div>
+        <SnsShareLinks />
         {props.industry.image ? (
           <div className="mb-20">
             <img
