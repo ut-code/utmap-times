@@ -26,17 +26,17 @@ export default function IndustryPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   return (
-    <Layout title={props.industry.name}>
+    <Layout title={props.industry.title}>
       <Hero image={props.industry.image?.url ?? "/images/utmap.png"}>
         <div className="container mx-auto px-8 md:px-24 py-48">
-          <h1 className="text-3xl">{props.industry.name}</h1>
+          <h1 className="text-3xl">{props.industry.title}</h1>
         </div>
       </Hero>
       <Banners />
       <ArticleContentContainer>
         <div className="pt-24 pb-12">
           <h1 className="pl-2 text-2xl md:text-3xl font-bold">
-            {props.industry.name}
+            {props.industry.title}
           </h1>
         </div>
         {props.industry.image ? (
@@ -115,6 +115,7 @@ export async function getStaticProps({
         industry(filter: { slug: { eq: $slug } }) {
           id
           slug
+          title
           name
           image {
             url
