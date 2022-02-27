@@ -36,7 +36,7 @@ const companySearchFragment = gql`
     name
     thumbnailImage {
       id
-      url
+      url(imgixParams: { ar: "3:2", fit: crop, w: 300 })
     }
     logo {
       url

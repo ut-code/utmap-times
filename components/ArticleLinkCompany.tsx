@@ -23,7 +23,7 @@ export default function AritcleLinkCompany(props: {
             <img
               src={props.imageUrl}
               alt={props.name}
-              className="w-full h-64 object-cover"
+              className="w-full object-contain"
             />
             {props.industry && (
               <div className="absolute left-0 bottom-0 inline-block py-2 px-6 bg-secondary-main text-white">
