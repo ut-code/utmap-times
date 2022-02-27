@@ -132,31 +132,34 @@ export default function CareerIndexPage(
       </div>
       <div className="bg-gray-100">
         <div id="companies" className="container mx-auto text-center">
-          <p className="text-3xl pt-20 pb-4">キャリア設計を支える3つの柱</p>
+          <p className="text-3xl pt-20 pb-4 px-8">
+            <span className="inline-block">キャリア設計を支える</span>
+            <span className="inline-block">3つの柱</span>
+          </p>
           <p className="text-secondary-main pb-16">
             Three points to support career planning
           </p>
-          <div className="px-20 pb-28 grid lg:grid-cols-3 w-full justify-center">
+          <div className="px-8 pb-28 grid md:grid-cols-3 w-full justify-items-center">
             <CareersPageFeatureLink
               title="企業分析"
               subTitle="Corporate Analysis"
               imageUrl="/images/careers-corporate-analysis.jpg"
               linkTo="/companies"
-              className="max-w-sm"
+              className="lg:max-w-sm"
             />
             <CareersPageFeatureLink
               title="職歴分析"
               subTitle="Work History Analysis"
               imageUrl="/images/careers-work-history-analysis.jpg"
               linkTo="/graduates"
-              className="max-w-sm"
+              className="lg:max-w-sm"
             />
             <CareersPageFeatureLink
               title="業界分析"
               subTitle="Industry Analysis"
               imageUrl="/images/careers-industry-analysis.jpg"
               linkTo="/industries"
-              className="max-w-sm"
+              className="lg:max-w-sm"
             />
           </div>
         </div>

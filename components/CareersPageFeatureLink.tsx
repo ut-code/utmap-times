@@ -33,9 +33,9 @@ export default function CareersPageFeatureLink(props: {
           src={props.imageUrl}
         />
         <GradientImageOverlay />
-        <div className="absolute top-1/2 left-0 w-full">
-          <p className="mb-4 text-center text-4xl">{props.title}</p>
-          <p className="mx-auto w-max text-sm">{props.subTitle}</p>
+        <div className="absolute top-1/2 left-0 w-full -mt-10 text-center">
+          <p className="mb-4 text-4xl">{props.title}</p>
+          <p className="mx-auto w-max text-base">{props.subTitle}</p>
         </div>
       </RootAnchor>
     </Link>
