@@ -30,6 +30,7 @@ export default function ArticleContentStructuredTextEmbeddedImage({
         <Image
           fadeInDuration={100}
           data={normalizeResponsiveImage(fragment.image.responsiveImage)}
+          className="mx-auto"
         />
       )}
     </div>
