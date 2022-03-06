@@ -183,6 +183,10 @@ export default function InternshipPage(
               component: props.internship.selectionProcess,
             },
             {
+              title: "締切日程",
+              component: props.internship.deadline,
+            },
+            {
               title: "お問い合わせ",
               component: props.internship.contact,
             },
@@ -353,6 +357,7 @@ export async function getStaticProps({
           access
           maximumApplicationsAllowed
           selectionProcess
+          deadline
           contact
           salary
           extraWelfare
