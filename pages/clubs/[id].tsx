@@ -45,7 +45,15 @@ export default function ClubsPage(
   ].filter((questionAndAnswerPair) => questionAndAnswerPair.answer);
 
   return (
-    <Layout title={props.club.name} seo={props.club.seo}>
+    <Layout
+      title={props.club.name}
+      seo={{
+        title: `${props.club.name}[${props.club.category?.name}]`,
+        description: props.club.description?.slice(0, 100),
+        image: props.club.images[0],
+        twitterCard: "summary_large_image",
+      }}
+    >
       <Hero image={props.club.images[0]?.url ?? "/images/utmap.png"}>
         <div className="container mx-auto px-8 md:px-24 py-48">
           <p className="inline-block bg-secondary-main py-1 px-6 mb-6 text-white">
