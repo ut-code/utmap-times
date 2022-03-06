@@ -48,7 +48,7 @@ export default function ClubsPage(
     <Layout
       title={props.club.name}
       seo={{
-        title: `${props.club.name}[${props.club.category?.name}] | UTmap`,
+        title: `${props.club.name}[${props.club.category?.name}]`,
         description: props.club.description,
         image: props.club.images[0],
         twitterCard: "summary_large_image",
