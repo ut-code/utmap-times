@@ -49,7 +49,7 @@ export default function ClubsPage(
       title={props.club.name}
       seo={{
         title: `${props.club.name}[${props.club.category?.name}]`,
-        description: props.club.description,
+        description: props.club.description?.slice(0, 100),
         image: props.club.images[0],
         twitterCard: "summary_large_image",
       }}
