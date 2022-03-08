@@ -244,8 +244,8 @@ export default function EventPage(
           </div>
         )}
         <div className="bg-gray-100 px-2 md:px-12 grid xs:grid-cols-2 md:grid md:grid-cols-4 xl:grid-cols-4">
-          <Image height={1020} width={1800} src="/images/line-2.png" />
-          <Image height={1020} width={1800} src="/images/line-1.png" />
+          <Image height={400} width={100} src="/images/line-2.png" />
+          <Image height={400} width={100} src="/images/line-1.png" />
           <div className="col-span-2 pl-6 md:py-4">
             <p className="text-secondary-main font-bold pt-8 text-2xl">
               公式LINE登録で限定情報にアクセス
