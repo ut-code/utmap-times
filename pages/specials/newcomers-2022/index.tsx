@@ -394,7 +394,10 @@ export default function SpecialsNewcomers2022Page(
             nonPrimaryArticles={props.specialsNewcomers2022Config?.highlightedClubs.map(
               (club) => ({
                 id: club.id,
-                linkTo: `/clubs/${club.id}`,
+                linkTo:
+                  club.__typename === "ClubRecord"
+                    ? `/clubs/${club.id}`
+                    : `/static/${club.slug}`,
                 title: club.name,
                 responsiveImage:
                   club.__typename === "ClubRecord"
@@ -635,6 +638,7 @@ export async function getStaticProps() {
             ... on StaticPageRecord {
               id
               name: title
+              slug
               image {
                 responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
                   ...ResponsiveImageFragment
