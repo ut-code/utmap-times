@@ -396,7 +396,10 @@ export default function SpecialsNewcomers2022Page(
                 id: club.id,
                 linkTo: `/clubs/${club.id}`,
                 title: club.name,
-                responsiveImage: club.images[0].responsiveImage,
+                responsiveImage:
+                  club.__typename === "ClubRecord"
+                    ? club.images[0].responsiveImage
+                    : club.image?.responsiveImage,
               })
             )}
             align="left"
@@ -620,11 +623,22 @@ export async function getStaticProps() {
             ...LayoutSeoFragment
           }
           highlightedClubs {
-            id
-            name
-            images {
-              responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
-                ...ResponsiveImageFragment
+            ... on ClubRecord {
+              id
+              name
+              images {
+                responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
+                  ...ResponsiveImageFragment
+                }
+              }
+            }
+            ... on StaticPageRecord {
+              id
+              name: title
+              image {
+                responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
+                  ...ResponsiveImageFragment
+                }
               }
             }
           }
