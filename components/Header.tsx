@@ -11,6 +11,7 @@ const menu = [
   { label: "注目企業", linkTo: "/companies" },
   { label: "インターンシップ", linkTo: "/internships" },
   { label: "イベント", linkTo: "/events" },
+  { label: "新入生特設ページ", linkTo: "/specials/newcomers-2022" },
 ];
 
 const ClippableDiv = styled.div`
