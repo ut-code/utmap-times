@@ -18,6 +18,7 @@ import lineCouponImage from "./line-coupon.png";
 import foodCouponImage from "./food-coupon.png";
 import lineBannerPcImage from "./line-banner-pc.png";
 import lineBannerSpImage from "./line-banner-sp.png";
+import utmapCoverImage from "./utmap-cover.png";
 import Footer from "../../../components/Footer";
 import apolloClient from "../../../utils/apollo";
 import { responsiveImageFragment } from "../../../utils/datocms";
@@ -569,7 +570,9 @@ export default function SpecialsNewcomers2022Page(
         </div>
         <div id="specials-newcomers-2022-magazine-utmap" className="bg-red-200">
           <div className="flex flex-col md:flex-row md:items-center md:gap-8 py-12 px-8 max-w-screen-lg mx-auto">
-            <div className="flex-none w-56 h-80 mx-auto mb-8 md:mb-0 bg-gray-200" />
+            <div className="flex-none w-56 h-80 mx-auto mb-8 md:mb-0">
+              <Image layout="responsive" src={utmapCoverImage} />
+            </div>
             <div className="contents md:block">
               <p className="order-first mb-8 text-center text-xl md:text-3xl md:text-left">
                 新歓情報誌 “UTmap”
