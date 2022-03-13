@@ -392,7 +392,7 @@ export default function SpecialsNewcomers2022Page(
             description="UTmapでは、東大の300以上のサークル・団体情報を掲載しています。先輩には聞きづらい会費のことや、内部の人の本音情報など詳細に書かれています。自分にぴったりなサークルに出会えること間違いなし。"
             image={clubsImage}
             linkTo="/clubs"
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.highlightedClubs.map(
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.highlightedClubs.map(
               (club) => ({
                 id: club.id,
                 linkTo:
@@ -403,7 +403,7 @@ export default function SpecialsNewcomers2022Page(
                 responsiveImage:
                   club.__typename === "ClubRecord"
                     ? club.images[0].responsiveImage
-                    : club.image?.responsiveImage,
+                    : club.specialthumbnail?.responsiveImage,
               })
             )}
             align="left"
@@ -415,13 +415,15 @@ export default function SpecialsNewcomers2022Page(
             description="履修・留学・プログラミング入門・ゼミやサークル立ち上げなど、サークル以外の諸活動に関して経験者の先輩から実用的なアドバイスを受けることが可能です。最高の大学生活を送りたい方は是非！"
             image={seminarWeekImage}
             align="right"
-            linkTo={`/static/${props.specialsNewcomers2022Config?.seminarWeekStaticPage?.slug}`}
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.seminarWeekNonPrimaryStaticPages.map(
+            linkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.seminarWeekStaticPage?.slug}`}
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.seminarWeekNonPrimaryStaticPages.map(
               (article) => ({
                 id: article.id,
                 linkTo: `/static/${article.slug}`,
                 title: article.title,
-                responsiveImage: article.image?.responsiveImage,
+                responsiveImage:
+                  article.specialthumbnail?.responsiveImage ??
+                  article.image?.responsiveImage,
               })
             )}
           />
@@ -432,13 +434,15 @@ export default function SpecialsNewcomers2022Page(
             description="日本最高峰の東大の授業に関係する履修情報を詳細に掲載しています。科類ごとにまとめた履修の組み方やLINEでの時間割管理など、これを閲覧すれば皆さんは履修に関する情報戦は勝利出来ます。"
             image={coursesImage}
             align="left"
-            linkTo={`/static/${props.specialsNewcomers2022Config?.coursesStaticPage?.slug}`}
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.coursesNonPrimaryStaticPages.map(
+            linkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.coursesStaticPage?.slug}`}
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.coursesNonPrimaryStaticPages.map(
               (article) => ({
                 id: article.id,
                 linkTo: `/static/${article.slug}`,
                 title: article.title,
-                responsiveImage: article.image?.responsiveImage,
+                responsiveImage:
+                  article.specialthumbnail?.responsiveImage ??
+                  article.image?.responsiveImage,
               })
             )}
             afterTextBox={
@@ -460,13 +464,15 @@ export default function SpecialsNewcomers2022Page(
             description="大学生活の中で誰しも経験するであろうアルバイト。ここでは「東大生のバイト」という観点から、塾講師といったおすすめのアルバイト情報を掲載しています。"
             image={partTimeJobsImage}
             align="right"
-            linkTo={`/static/${props.specialsNewcomers2022Config?.parttimeJobsStaticPage?.slug}`}
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.parttimeJobsNonPrimaryStaticPages.map(
+            linkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.parttimeJobsStaticPage?.slug}`}
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.parttimeJobsNonPrimaryStaticPages.map(
               (article) => ({
                 id: article.id,
                 linkTo: `/static/${article.slug}`,
                 title: article.title,
-                responsiveImage: article.image?.responsiveImage,
+                responsiveImage:
+                  article.specialthumbnail?.responsiveImage ??
+                  article.image?.responsiveImage,
               })
             )}
             className="lg:mt-8"
@@ -478,13 +484,15 @@ export default function SpecialsNewcomers2022Page(
             description="司法試験や公認会計士など、難関資格取得を目指す東大生をサポートする資格塾に関する情報を掲載しています。こういった資格に興味がある、受ける予定の新入生におすすめしたい資格塾の記事です！"
             image={certificationsImage}
             align="left"
-            linkTo={`/static/${props.specialsNewcomers2022Config?.certificationsStaticPage?.slug}`}
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.certificationsNonPrimaryStaticPages.map(
+            linkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.certificationsStaticPage?.slug}`}
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.certificationsNonPrimaryStaticPages.map(
               (article) => ({
                 id: article.id,
                 linkTo: `/static/${article.slug}`,
                 title: article.title,
-                responsiveImage: article.image?.responsiveImage,
+                responsiveImage:
+                  article.specialthumbnail?.responsiveImage ??
+                  article.image?.responsiveImage,
               })
             )}
           />
@@ -495,13 +503,15 @@ export default function SpecialsNewcomers2022Page(
             description="主に駒場キャンパスの周辺の飲食店を特集した記事です。これで駒場近くの飲食店通になれること間違いなし！UTmap限定のクーポンや食べ放題も要チェックです！"
             image={restaurantsImage}
             align="right"
-            linkTo={`/static/${props.specialsNewcomers2022Config?.restaurantsStaticPage?.slug}`}
-            nonPrimaryArticles={props.specialsNewcomers2022Config?.restaurantsNonPrimaryStaticPages.map(
+            linkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.restaurantsStaticPage?.slug}`}
+            nonPrimaryArticles={props.specialsNewcomers2022ConfigPickUpArticle?.restaurantsNonPrimaryStaticPages.map(
               (article) => ({
                 id: article.id,
                 linkTo: `/static/${article.slug}`,
                 title: article.title,
-                responsiveImage: article.image?.responsiveImage,
+                responsiveImage:
+                  article.specialthumbnail?.responsiveImage ??
+                  article.image?.responsiveImage,
               })
             )}
           />
@@ -520,7 +530,7 @@ export default function SpecialsNewcomers2022Page(
               description="「100食限定で食べ放題」という非常にお得な企画をやっています。売り切れる前に、LINEクーポンと合わせて是非ご利用ください！"
               image={foodCouponImage}
               anchorText="→ 応募はこちら！"
-              anchorLinkTo={`/static/${props.specialsNewcomers2022Config?.allYouCanEatStaticPage?.slug}`}
+              anchorLinkTo={`/static/${props.specialsNewcomers2022ConfigPickUpArticle?.allYouCanEatStaticPage?.slug}`}
               align="left"
               className="mt-4 max-w-screen-md ml-auto lg:w-[28rem] lg:mt-12 lg:ml-8 lg:flex-none"
             />
@@ -617,6 +627,11 @@ export async function getStaticProps() {
         id
         slug
         title
+        specialthumbnail {
+          responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
+            ...ResponsiveImageFragment
+          }
+        }
         image {
           responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
             ...ResponsiveImageFragment
@@ -624,7 +639,7 @@ export async function getStaticProps() {
         }
       }
       query NewComers2022PageQuery {
-        specialsNewcomers2022Config {
+        specialsNewcomers2022ConfigPickUpArticle {
           seo {
             ...LayoutSeoFragment
           }
@@ -642,6 +657,11 @@ export async function getStaticProps() {
               id
               name: title
               slug
+              specialthumbnail {
+                responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
+                  ...ResponsiveImageFragment
+                }
+              }
               image {
                 responsiveImage(imgixParams: { fit: crop, w: 300, h: 200 }) {
                   ...ResponsiveImageFragment
