@@ -52,9 +52,8 @@ export default function CareerIndexPage(
         {[
           { title: "キャリア戦略", linkTo: "#career-strategies" },
           { title: "企業分析", linkTo: "#companies" },
+          { title: "職歴分析", linkTo: "#companies" },
           { title: "業界分析", linkTo: "#companies" },
-          { title: "職種分析", linkTo: "#companies" },
-          { title: "キャリア特集", linkTo: "#career-strategies" },
           { title: "卒業生", title2: "インタビュー", linkTo: "#graduates" },
           // { title: "就活用語", linkTo: "#careers" },
         ].map(
