@@ -88,9 +88,11 @@ export default function InternshipPage(
           <div className="p-4 bg-gray-100 text-xl font-bold">
             インターンシップの内容
           </div>
-          <ArticleContentStructuredTextRenderer
-            structuredText={props.internship.description}
-          />
+          <div className="px-4">
+            <ArticleContentStructuredTextRenderer
+              structuredText={props.internship.description}
+            />
+          </div>
         </div>
         <div className="pb-10">
           <div className="p-4 bg-gray-100 text-xl font-bold">

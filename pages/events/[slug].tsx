@@ -161,7 +161,10 @@ export default function EventPage(
             {
               title: "日時",
               content: props.event.schedule && (
-                <p className="p-4">{props.event.schedule}</p>
+                <RichTextRenderer
+                  className="px-4"
+                  markdown={props.event.schedule}
+                />
               ),
             },
             ...(props.event.timeSchedule
@@ -207,27 +210,37 @@ export default function EventPage(
             {
               title: "募集対象",
               content: (
-                <>
+                <div className="p-4">
                   {props.event.targets.map((target) => (
-                    <p key={target.name} className="inline-block">
-                      {target.name}
-                    </p>
+                    <p key={target.name}>・{target.name}</p>
                   ))}
-                </>
+                </div>
               ),
             },
-            { title: "定員", content: props.event.capacity },
-            { title: "参加費", content: props.event.participationFee },
-            { title: "持ち物", content: props.event.thingsToBring },
+            {
+              title: "定員",
+              content: props.event.capacity && (
+                <p className="p-4">{props.event.capacity}</p>
+              ),
+            },
+            {
+              title: "参加費",
+              content: props.event.participationFee && (
+                <p className="p-4">{props.event.participationFee}</p>
+              ),
+            },
+            {
+              title: "持ち物",
+              content: props.event.thingsToBring && (
+                <p className="p-4">{props.event.thingsToBring}</p>
+              ),
+            },
           ].map(
             (information) =>
               information.content && (
-                <li key={information.title} className="relative p-4 border-b">
-                  <p className="inline-block font-bold">{information.title}</p>
-
-                  <p className="absolute left-44 inline-block">
-                    {information.content}
-                  </p>
+                <li key={information.title} className="flex border-b">
+                  <div className="w-48 p-4 font-bold">{information.title}</div>
+                  <div className="flex-1">{information.content}</div>
                 </li>
               )
           )}
