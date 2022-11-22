@@ -58,7 +58,7 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
   const slug = params?.slug;
-  if (!slug) return { notFound: true } as never;
+  if (!slug) return { notFound: true, revalidate: 60 } as never;
 
   const queryResult = await apolloClient.query<
     GetCareerStrategyArticleBySlugQuery,
@@ -112,7 +112,8 @@ export async function getStaticProps({
   });
 
   const { careerStrategyArticle } = queryResult.data;
-  if (!careerStrategyArticle) return { notFound: true } as never;
+  if (!careerStrategyArticle)
+    return { notFound: true, revalidate: 60 } as never;
   return { props: { careerStrategyArticle }, revalidate: 60 };
 }
 
