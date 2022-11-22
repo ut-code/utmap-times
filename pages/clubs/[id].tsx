@@ -358,7 +358,7 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ id: string }>) {
   const id = params?.id;
-  if (!id) return { notFound: true } as never;
+  if (!id) return { notFound: true, revalidate: 60 } as never;
 
   const queryResult = await apolloClient.query<
     GetClubBySlugQuery,
@@ -451,7 +451,7 @@ export async function getStaticProps({
   });
 
   const { club } = queryResult.data;
-  if (!club) return { notFound: true } as never;
+  if (!club) return { notFound: true, revalidate: 60 } as never;
   return { props: { club }, revalidate: 60 };
 }
 

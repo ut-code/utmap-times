@@ -278,7 +278,7 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ slug: string }>) {
   const slug = params?.slug;
-  if (!slug) return { notFound: true } as never;
+  if (!slug) return { notFound: true, revalidate: 60 } as never;
 
   const queryResult = await apolloClient.query<
     GetEventBySlugQuery,
@@ -400,7 +400,7 @@ export async function getStaticProps({
   });
 
   const { event } = queryResult.data;
-  if (!event) return { notFound: true } as never;
+  if (!event) return { notFound: true, revalidate: 60 } as never;
   return { props: { event }, revalidate: 60 };
 }
 
